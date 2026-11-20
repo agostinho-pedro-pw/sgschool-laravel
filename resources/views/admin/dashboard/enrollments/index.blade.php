@@ -143,9 +143,12 @@
                                             <div class="col-md-6 px-2">
                                                 <div class="mb-4">
                                                     <label for="phone" class="form-label">Número de telefone</label>
-                                                    <input type="text" class="form-control" id="phone" name="phone"
+                                                    <input type="number" class="form-control" id="phone" name="phone"
                                                         value="{{ old('phone', $enrollment->phone ?? '') }}"
-                                                        placeholder="Introduza o número de telefone">
+                                                        placeholder="Introduza o número de telefone" min="100000000"
+                                                        max="999999999" {{--usado para não termos letras nem campo
+                                                        telefone--}}
+                                                        oninput="if (this.value.length > 9) this.value = this.value.slice(0, 9);">
                                                 </div>
                                             </div>
 
