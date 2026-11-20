@@ -133,8 +133,8 @@
                             </div>
                             <div class="col-12">
                                 <label for="courseDescription" class="form-label">Descrição do Curso</label>
-                                <textarea class="form-control" id="courseDescription" name="courseDescription"
-                                    rows="4">{{ old('courseDescription') }}</textarea>
+                                <textarea class="form-control" id="courseDescription" name="courseDescription" rows="4"
+                                    placceholder="Alguma descrição">{{ old('courseDescription') }}</textarea>
                             </div>
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary">Criar Curso</button>
