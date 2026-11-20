@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Enrollment;
+use Illuminate\Http\Request;
 
 class EnrollmentController extends Controller
 {
@@ -23,15 +24,16 @@ class EnrollmentController extends Controller
     }
 
     // Guarda uma inscrição
-    public function store()
+    public function store(Request $request)
     {
-        Enrollment::create([
-            'fullName' => request('fullName'),
-            'dateOfBirth' => request('dateOfBirth'),
-            'phone' => request('phone'),
-            'email' => request('email'),
-            'gender' => request('gender'),
-            'course' => request('course'),
+        Enrollment::create($request->only([
+            'fullName',
+            'dateOfBirth',
+            'phone',
+            'email',
+            'gender',
+            'course',
+        ]) + [
             'applicationDate' => today(),
         ]);
 
@@ -53,16 +55,16 @@ class EnrollmentController extends Controller
     }
 
     // Atualiza uma inscrição
-    public function update(Enrollment $enrollment)
+    public function update(Request $request, Enrollment $enrollment)
     {
-        $enrollment->update([
-            'fullName' => request('fullName'),
-            'dateOfBirth' => request('dateOfBirth'),
-            'phone' => request('phone'),
-            'email' => request('email'),
-            'gender' => request('gender'),
-            'course' => request('course'),
-        ]);
+        $enrollment->update($request->only([
+            'fullName',
+            'dateOfBirth',
+            'phone',
+            'email',
+            'gender',
+            'course',
+        ]));
 
         return redirect()
             ->route('enrollments.index')

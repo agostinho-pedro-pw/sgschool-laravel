@@ -125,8 +125,8 @@
                             <td>
                                 <div class="dropdown">
                                     <button class="btn btn-sm btn-light dropdown-toggle" type="button"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        Ações
+                                        data-bs-toggle="dropdown" aria-expanded="false" aria-label="Mais opções">
+                                        <i class="bi bi-three-dots-vertical"></i>
                                     </button>
 
                                     <ul class="dropdown-menu">

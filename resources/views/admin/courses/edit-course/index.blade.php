@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
-@section('title', 'Edit Course - sgSchool')
+@section('title', 'Editar Curso - sgSchool')
 @section('language', 'pt-PT')
 
 @section('head')
-<meta name="description" content="Edit a course">
+<meta name="description" content="Editar um curso">
 <link rel="icon" type="image/x-icon" href="{{ asset('dashboard/assets/dist/assets/favicon-9EIT7vLh.ico') }}">
 <script type="module" crossorigin src="{{ asset('dashboard/assets/dist/assets/main-ZZRh_wak.js') }}"></script>
 <link rel="stylesheet" crossorigin href="{{ asset('dashboard/assets/dist/assets/main-BV-wpnXD.css') }}">
@@ -58,7 +58,7 @@
 @endsection
 
 @section('content')
-<a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+<a href="#main-content" class="visually-hidden-focusable">Saltar para o conteúdo principal</a>
 <div class="search-backdrop" id="searchBackdrop"></div>
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
@@ -67,15 +67,15 @@
 <div class="main-wrapper" id="mainWrapper">
     <header class="navbar top-navbar">
         <div class="container-fluid d-flex align-items-center h-100">
-            <button type="button" class="hamburger-menu" id="sidebarToggle" aria-label="Toggle sidebar"
+            <button type="button" class="hamburger-menu" id="sidebarToggle" aria-label="Abrir ou fechar a barra lateral"
                 aria-controls="sidebar">
                 <i class="bi bi-list"></i>
             </button>
-            <nav aria-label="Breadcrumb" class="d-none d-lg-block ms-3">
+            <nav aria-label="Navegação estrutural" class="d-none d-lg-block ms-3">
                 <ol class="breadcrumb mb-0">
-                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('courses.index') }}">Courses</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Edit Course</li>
+                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Painel</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('courses.index') }}">Cursos</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Editar Curso</li>
                 </ol>
             </nav>
             <div class="navbar-brand d-lg-none fw-bold me-auto">sgSchool</div>
@@ -85,18 +85,18 @@
     <main class="dashboard-content" id="main-content">
         <div class="container-fluid">
             <div class="mb-4">
-                <h1 class="h3 fw-bold mb-1">Edit Course</h1>
-                <p class="text-muted mb-0">Update the course details.</p>
+                <h1 class="h3 fw-bold mb-1">Editar Curso</h1>
+                <p class="text-muted mb-0">Atualize os dados do curso.</p>
             </div>
 
             @if ($errors->any())
-                <div class="alert alert-danger" role="alert">
-                    <ul class="mb-0">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+            <div class="alert alert-danger" role="alert">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
             @endif
 
             <div class="dashboard-card">
@@ -106,27 +106,27 @@
                         @method('PUT')
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label for="courseCode" class="form-label">Course Code</label>
+                                <label for="courseCode" class="form-label">Código do Curso</label>
                                 <input type="text" class="form-control" id="courseCode" name="courseCode"
                                     value="{{ old('courseCode', $course->courseCode) }}" required>
                             </div>
                             <div class="col-md-6">
-                                <label for="courseName" class="form-label">Course Name</label>
+                                <label for="courseName" class="form-label">Nome do Curso</label>
                                 <input type="text" class="form-control" id="courseName" name="courseName"
                                     value="{{ old('courseName', $course->courseName) }}" required>
                             </div>
                             <div class="col-12">
-                                <label for="department" class="form-label">Department</label>
+                                <label for="department" class="form-label">Departamento</label>
                                 <input type="text" class="form-control" id="department" name="department"
                                     value="{{ old('department', $course->department) }}" required>
                             </div>
                             <div class="col-12">
-                                <label for="courseDescription" class="form-label">Course Description</label>
+                                <label for="courseDescription" class="form-label">Descrição do Curso</label>
                                 <textarea class="form-control" id="courseDescription" name="courseDescription"
                                     rows="4">{{ old('courseDescription', $course->courseDescription) }}</textarea>
                             </div>
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary">Update Course</button>
+                                <button type="submit" class="btn btn-primary">Atualizar Curso</button>
                             </div>
                         </div>
                     </form>
@@ -134,7 +134,7 @@
             </div>
         </div>
     </main>
-
+    {{--herdando o footer da footer.blade.php--}}
     @include('layouts._include.dashboard.footer')
 </div>
 @endsection

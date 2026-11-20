@@ -1,24 +1,25 @@
 @extends('layouts.admin')
 
-@section('title', 'Course Details - sgSchool')
+@section('title', 'Detalhes do Curso - sgSchool')
 @section('language', 'pt-PT')
 
 @section('head')
-<meta name="description" content="Course details">
+<meta name="description" content="Detalhes do curso">
 <link rel="icon" type="image/x-icon" href="{{ asset('dashboard/assets/dist/assets/favicon-9EIT7vLh.ico') }}">
 <script type="module" crossorigin src="{{ asset('dashboard/assets/dist/assets/main-ZZRh_wak.js') }}"></script>
 <link rel="stylesheet" crossorigin href="{{ asset('dashboard/assets/dist/assets/main-BV-wpnXD.css') }}">
 <link rel="stylesheet" crossorigin href="{{ asset('dashboard/assets/dist/assets/main-DVYj-QCH.css') }}">
+
 <style>
     * {
         box-sizing: border-box;
         margin: 0;
-        padding: 0
+        padding: 0;
     }
 
     body {
         background: #f5f7fa;
-        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif
+        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
     }
 
     .sidebar {
@@ -28,37 +29,44 @@
         height: 100vh;
         position: fixed;
         top: 0;
-        left: 0
+        left: 0;
     }
 
     .main-wrapper {
         min-height: 100vh;
         margin-left: 260px;
-        transition: margin-left .3s
+        transition: margin-left .3s;
     }
 
     .top-navbar {
         background: #fff;
         height: 60px;
         padding: 0 1rem;
-        box-shadow: 0 1px 3px #0000001a
+        box-shadow: 0 1px 3px #0000001a;
     }
 
     .dashboard-content {
-        padding: 24px
+        padding: 24px;
     }
 
     .dashboard-card {
         background: #fff;
         border: 1px solid #e5e7eb;
         border-radius: 8px;
-        box-shadow: 0 1px 3px #0000001a
+        box-shadow: 0 1px 3px #0000001a;
+    }
+
+    .dashboard-card-body {
+        padding: 24px;
     }
 </style>
 @endsection
 
 @section('content')
-<a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+<a href="#main-content" class="visually-hidden-focusable">
+    Saltar para o conteúdo principal
+</a>
+
 <div class="search-backdrop" id="searchBackdrop"></div>
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
@@ -67,17 +75,25 @@
 <div class="main-wrapper" id="mainWrapper">
     <header class="navbar top-navbar">
         <div class="container-fluid d-flex align-items-center h-100">
-            <button type="button" class="hamburger-menu" id="sidebarToggle" aria-label="Toggle sidebar"
+            <button type="button" class="hamburger-menu" id="sidebarToggle" aria-label="Abrir ou fechar a barra lateral"
                 aria-controls="sidebar">
                 <i class="bi bi-list"></i>
             </button>
-            <nav aria-label="Breadcrumb" class="d-none d-lg-block ms-3">
+
+            <nav aria-label="Navegação estrutural" class="d-none d-lg-block ms-3">
                 <ol class="breadcrumb mb-0">
-                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('courses.index') }}">Courses</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Course Details</li>
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('dashboard') }}">Painel</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('courses.index') }}">Cursos</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Detalhes do Curso
+                    </li>
                 </ol>
             </nav>
+
             <div class="navbar-brand d-lg-none fw-bold me-auto">sgSchool</div>
         </div>
     </header>
@@ -86,30 +102,48 @@
         <div class="container-fluid">
             <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 mb-4">
                 <div>
-                    <h1 class="h3 fw-bold mb-1">{{ $course->courseName }}</h1>
-                    <p class="text-muted mb-0">{{ $course->courseCode }}</p>
+                    <h1 class="h3 fw-bold mb-1">Detalhes do curso</h1>
+                    <p class="text-muted mb-0">Código do curso: {{ $course->courseCode }}</p>
                 </div>
+
                 <div class="d-flex gap-2">
-                    <a href="{{ route('courses.edit', $course) }}" class="btn btn-primary">Edit</a>
-                    <a href="{{ route('courses.index') }}" class="btn btn-outline-secondary">Back to Courses</a>
+                    <a href="{{ route('courses.edit', $course) }}" class="btn btn-primary">
+                        Editar Curso
+                    </a>
+
+                    <a href="{{ route('courses.index') }}" class="btn btn-outline-secondary">
+                        Voltar à Lista
+                    </a>
                 </div>
             </div>
 
             <div class="dashboard-card">
                 <div class="dashboard-card-body">
-                    <dl class="row mb-0">
-                        <dt class="col-sm-3 mb-2">Course Code</dt>
-                        <dd class="col-sm-9 mb-3">{{ $course->courseCode }}</dd>
+                    <h2 class="h5 fw-bold mb-4">Informações do Curso</h2>
 
-                        <dt class="col-sm-3 mb-2">Course Name</dt>
-                        <dd class="col-sm-9 mb-3">{{ $course->courseName }}</dd>
+                    <div class="row">
+                        <div class="col-12 border-bottom py-3">
+                            <div class="fw-semibold text-muted mb-1">Código do Curso</div>
+                            <div>{{ $course->courseCode }}</div>
+                        </div>
 
-                        <dt class="col-sm-3 mb-2">Department</dt>
-                        <dd class="col-sm-9 mb-3">{{ $course->department }}</dd>
+                        <div class="col-12 border-bottom py-3">
+                            <div class="fw-semibold text-muted mb-1">Nome do Curso</div>
+                            <div>{{ $course->courseName }}</div>
+                        </div>
 
-                        <dt class="col-sm-3 mb-2">Course Description</dt>
-                        <dd class="col-sm-9 mb-0">{{ $course->courseDescription }}</dd>
-                    </dl>
+                        <div class="col-12 border-bottom py-3">
+                            <div class="fw-semibold text-muted mb-1">Departamento</div>
+                            <div>{{ $course->department }}</div>
+                        </div>
+
+                        <div class="col-12 py-3">
+                            <div class="fw-semibold text-muted mb-1">Descrição do Curso</div>
+                            <div>
+                                {{ $course->courseDescription ?: 'Sem descrição disponível.' }}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

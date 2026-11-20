@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class CourseController extends Controller
 {
-    // Mostra todos os cursos
-    public function index(): View
+    // Lista os cursos
+    public function index()
     {
         $courses = Course::orderBy('courseCode')->get();
 
@@ -18,64 +16,60 @@ class CourseController extends Controller
     }
 
     // Mostra o formulário para criar um curso
-    public function create(): View
+    public function create()
     {
         return view('admin.courses.add-course.index');
     }
 
-    // Guarda o novo curso
-    public function store(Request $request): RedirectResponse
+    // Guarda um novo curso
+    public function store(Request $request)
     {
-        $courseData = $request->validate([
-            'courseCode' => ['required', 'string', 'max:50'],
-            'courseName' => ['required', 'string', 'max:255'],
-            'department' => ['required', 'string', 'max:255'],
-            'courseDescription' => ['nullable', 'string'],
-        ]);
-
-        Course::create($courseData);
+        Course::create($request->only([
+            'courseCode',
+            'courseName',
+            'department',
+            'courseDescription',
+        ]));
 
         return redirect()
             ->route('courses.index')
-            ->with('success', 'Course created successfully.');
+            ->with('success', 'Curso criado com sucesso.');
     }
 
     // Mostra os dados de um curso
-    public function show(Course $course): View
+    public function show(Course $course)
     {
         return view('admin.courses.course-info.index', compact('course'));
     }
 
     // Mostra o formulário para editar um curso
-    public function edit(Course $course): View
+    public function edit(Course $course)
     {
         return view('admin.courses.edit-course.index', compact('course'));
     }
 
     // Atualiza os dados do curso
-    public function update(Request $request, Course $course): RedirectResponse
+    public function update(Request $request, Course $course)
     {
-        $courseData = $request->validate([
-            'courseCode' => ['required', 'string', 'max:50'],
-            'courseName' => ['required', 'string', 'max:255'],
-            'department' => ['required', 'string', 'max:255'],
-            'courseDescription' => ['nullable', 'string'],
-        ]);
-
-        $course->update($courseData);
+        $course->update($request->only([
+            'courseCode',
+            'courseName',
+            'department',
+            'courseDescription',
+        ]));
 
         return redirect()
             ->route('courses.index')
-            ->with('success', 'Course updated successfully.');
+            ->with('success', 'Curso atualizado com sucesso.');
     }
 
-    // Elimina o curso
-    public function destroy(Course $course): RedirectResponse
+    // Elimina um curso
+    public function destroy(Course $course)
     {
         $course->delete();
 
         return redirect()
             ->route('courses.index')
-            ->with('success', 'Course deleted successfully.');
+            ->with('success', 'Curso eliminado com sucesso.');
     }
 }
