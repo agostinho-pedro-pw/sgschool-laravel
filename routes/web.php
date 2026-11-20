@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrollmentController;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -122,21 +123,12 @@ Route::get('/profile-students', function () {
 |--------------------------------------------------------------------------
 */
 
-Route::get('/all-course', function () {
-    return view('admin.courses.all-courses.index');
-})->name('all-course');
+Route::resource('courses', CourseController::class);
 
-Route::get('/add-courses', function () {
-    return view('admin.courses.add-course.index');
-})->name('add-courses');
-
-Route::get('/edit-course', function () {
-    return view('admin.courses.edit-course.index');
-})->name('edit-course');
-
-Route::get('/course-info', function () {
-    return view('admin.courses.course-info.index');
-})->name('course-info');
+Route::redirect('/all-course', '/courses')->name('all-course');
+Route::redirect('/add-courses', '/courses/create')->name('add-courses');
+Route::redirect('/edit-course', '/courses')->name('edit-course');
+Route::redirect('/course-info', '/courses')->name('course-info');
 
 Route::get('/course-payment', function () {
     return view('admin.courses.course-payment.index');

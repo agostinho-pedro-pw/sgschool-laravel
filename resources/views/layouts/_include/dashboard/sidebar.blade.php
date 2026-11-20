@@ -75,11 +75,8 @@
                         <span>Cursos</span>
                     </a>
                     <ul id="coursesSubmenu" class="submenu collapse  list-unstyled">
-                        <li><a class="nav-link " href="{{ route('all-course') }}">Todos os Cursos</a></li>
-                        <li><a class="nav-link " href="{{ route('add-courses') }}">Adicionar Curso</a></li>
-                        <li><a class="nav-link " href="{{ route('edit-course') }}">Editar Curso</a></li>
-                        <li><a class="nav-link " href="{{ route('course-info') }}">Informações do Curso</a></li>
-                        <li><a class="nav-link " href="{{ route('course-payment')}} ">Pagamento do Curso</a></li>
+                        <li><a class="nav-link " href="{{ route('courses.index') }}">List Courses</a></li>
+                        <li><a class="nav-link " href="{{ route('courses.create') }}">Add Course</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">

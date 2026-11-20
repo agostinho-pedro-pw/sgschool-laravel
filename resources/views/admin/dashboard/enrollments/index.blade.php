@@ -84,7 +84,8 @@
             <div class="dashboard-row">
                 <div class="dashboard-grid grid-cols-1">
                     <h4 class="page-title">{{ isset($enrollment) ? 'Editar inscrição' : 'Inscrição de estudante' }}</h4>
-                    <p class="text-muted">Preencha os campos abaixo para {{ isset($enrollment) ? 'atualizar a inscrição' : 'submeter a sua candidatura' }}.</p>
+                    <p class="text-muted">Preencha os campos abaixo para {{ isset($enrollment) ? 'atualizar a inscrição'
+                        : 'submeter a sua candidatura' }}.</p>
                 </div>
             </div>
 
@@ -122,9 +123,8 @@
                                             <div class="col-md-6 px-2">
                                                 <div class="mb-4">
                                                     <label for="fullName" class="form-label">Nome</label>
-                                                    <input type="text"
-                                                        class="form-control"
-                                                        id="fullName" name="fullName"
+                                                    <input type="text" class="form-control" id="fullName"
+                                                        name="fullName"
                                                         value="{{ old('fullName', $enrollment->fullName ?? '') }}"
                                                         placeholder="Introduza o nome completo">
                                                 </div>
@@ -132,10 +132,10 @@
 
                                             <div class="col-md-6 px-2">
                                                 <div class="mb-4">
-                                                    <label for="dateOfBirth" class="form-label">Data de nascimento</label>
-                                                    <input type="date"
-                                                        class="form-control"
-                                                        id="dateOfBirth" name="dateOfBirth"
+                                                    <label for="dateOfBirth" class="form-label">Data de
+                                                        nascimento</label>
+                                                    <input type="date" class="form-control" id="dateOfBirth"
+                                                        name="dateOfBirth"
                                                         value="{{ old('dateOfBirth', isset($enrollment) ? $enrollment->dateOfBirth->format('Y-m-d') : '') }}">
                                                 </div>
                                             </div>
@@ -143,9 +143,7 @@
                                             <div class="col-md-6 px-2">
                                                 <div class="mb-4">
                                                     <label for="phone" class="form-label">Número de telefone</label>
-                                                    <input type="text"
-                                                        class="form-control"
-                                                        id="phone" name="phone"
+                                                    <input type="text" class="form-control" id="phone" name="phone"
                                                         value="{{ old('phone', $enrollment->phone ?? '') }}"
                                                         placeholder="Introduza o número de telefone">
                                                 </div>
@@ -154,9 +152,8 @@
                                             <div class="col-md-6 px-2">
                                                 <div class="mb-4">
                                                     <label for="email" class="form-label">Endereço de email</label>
-                                                    <input type="text"
-                                                        class="form-control"
-                                                        id="email" name="email" value="{{ old('email', $enrollment->email ?? '') }}"
+                                                    <input type="text" class="form-control" id="email" name="email"
+                                                        value="{{ old('email', $enrollment->email ?? '') }}"
                                                         placeholder="exemplo@sgschool.edu">
                                                 </div>
                                             </div>
@@ -166,10 +163,10 @@
                                                     <legend class="form-label">Género</legend>
                                                     @foreach (['Masculino', 'Feminino'] as $genderOption)
                                                     <div class="form-check">
-                                                        <input class="form-check-input"
-                                                            type="radio" id="gender-{{ $loop->index }}" name="gender"
-                                                            value="{{ $genderOption }}"
-                                                            @checked(old('gender', $enrollment->gender ?? '') === $genderOption)>
+                                                        <input class="form-check-input" type="radio"
+                                                            id="gender-{{ $loop->index }}" name="gender"
+                                                            value="{{ $genderOption }}" @checked(old('gender',
+                                                            $enrollment->gender ?? '') === $genderOption)>
                                                         <label class="form-check-label" for="gender-{{ $loop->index }}">
                                                             {{ $genderOption }}
                                                         </label>
@@ -182,10 +179,12 @@
                                                 <div class="mb-4">
                                                     <label for="course" class="form-label">Curso</label>
                                                     <select class="form-select" id="course" name="course">
-                                                        @foreach (\App\Models\Enrollment::COURSES as $courseValue => $courseName)
-                                                        <option value="{{ $courseValue }}"
-                                                            @selected(old('course', $enrollment->course ?? '') === $courseValue)>
-                                                            {{ $courseName }}
+                                                        <!--Usei para deixar o codigo mais automatico ao inserir os cursos-->
+
+                                                        @foreach (\App\Models\Enrollment::COURSES as $value => $name)
+                                                        <option value="{{ $value }}" @selected(old('course',
+                                                            $enrollment->course ?? '') == $value)>
+                                                            {{ $name }}
                                                         </option>
                                                         @endforeach
                                                     </select>
@@ -197,7 +196,8 @@
                                             <div class="col-12 px-2">
                                                 <button type="submit" class="btn btn-primary">
                                                     <i class="bi bi-check-circle me-2"></i>
-                                                    {{ isset($enrollment) ? 'Atualizar inscrição' : 'Enviar a inscrição' }}
+                                                    {{ isset($enrollment) ? 'Atualizar inscrição' : 'Enviar a inscrição'
+                                                    }}
                                                 </button>
                                             </div>
                                         </div>
