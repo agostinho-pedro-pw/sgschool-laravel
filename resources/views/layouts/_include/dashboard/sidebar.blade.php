@@ -57,6 +57,17 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link has-submenu " href="javascript:void(0)" data-bs-toggle="collapse"
+                        data-bs-target="#enrollmentsSubmenu" aria-expanded="false">
+                        <i class="bi bi-card-checklist"></i>
+                        <span>Inscrição</span>
+                    </a>
+                    <ul id="enrollmentsSubmenu" class="submenu collapse list-unstyled">
+                        <li><a class="nav-link " href="{{ route('register') }}">Fazer inscrição</a></li>
+                        <li><a class="nav-link " href="{{ route('enrollments.index') }}">Listar inscrições</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link has-submenu " href="javascript:void(0)" data-bs-toggle="collapse"
                         data-bs-target="#studentsSubmenu" aria-expanded="false">
                         <i class="bi bi-people"></i>
                         <span>Estudantes</span>
@@ -83,22 +94,23 @@
                     <a class="nav-link has-submenu " href="javascript:void(0)" data-bs-toggle="collapse"
                         data-bs-target="#schoolClassesSubmenu" aria-expanded="false">
                         <i class="bi bi-mortarboard"></i>
-                        <span>Classes Escolares</span>
+                        <span>Turmas</span>
                     </a>
                     <ul id="schoolClassesSubmenu" class="submenu collapse list-unstyled">
-                        <li><a class="nav-link " href="{{ route('school-classes.create') }}">Adicionar Classe</a></li>
-                        <li><a class="nav-link " href="{{ route('school-classes.index') }}">Listar Classes</a></li>
+                        <li><a class="nav-link " href="{{ route('school-classes.create') }}">Adicionar Turma</a></li>
+                        <li><a class="nav-link " href="{{ route('school-classes.index') }}">Listar Turmas</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link has-submenu " href="javascript:void(0)" data-bs-toggle="collapse"
-                        data-bs-target="#enrollmentsSubmenu" aria-expanded="false">
-                        <i class="bi bi-card-checklist"></i>
-                        <span>Inscrição</span>
+                        data-bs-target="#academicYearsSubmenu" aria-expanded="false">
+                        <i class="bi bi-calendar-range"></i>
+                        <span>Anos Letivos</span>
                     </a>
-                    <ul id="enrollmentsSubmenu" class="submenu collapse list-unstyled">
-                        <li><a class="nav-link " href="{{ route('register') }}">Fazer inscrição</a></li>
-                        <li><a class="nav-link " href="{{ route('enrollments.index') }}">Listar inscrições</a></li>
+                    <ul id="academicYearsSubmenu" class="submenu collapse list-unstyled">
+                        <li><a class="nav-link " href="{{ route('academic-years.create') }}">Adicionar Ano Letivo</a>
+                        </li>
+                        <li><a class="nav-link " href="{{ route('academic-years.index') }}">Listar Anos Letivos</a></li>
                     </ul>
                 </li>
                 {{--De momento não quero lybary

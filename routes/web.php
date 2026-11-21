@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AcademicYearController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\SchoolClassController;
@@ -142,6 +143,14 @@ Route::get('/course-payment', function () {
 */
 
 Route::resource('school-classes', SchoolClassController::class);
+
+/*
+|--------------------------------------------------------------------------
+| Anos letivos
+|--------------------------------------------------------------------------
+*/
+
+Route::resource('academic-years', AcademicYearController::class);
 
 /*
 |--------------------------------------------------------------------------
