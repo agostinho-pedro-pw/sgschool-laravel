@@ -81,13 +81,13 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link has-submenu " href="javascript:void(0)" data-bs-toggle="collapse"
-                        data-bs-target="#turmasSubmenu" aria-expanded="false">
+                        data-bs-target="#schoolClassesSubmenu" aria-expanded="false">
                         <i class="bi bi-mortarboard"></i>
-                        <span>Turmas</span>
+                        <span>Classes Escolares</span>
                     </a>
-                    <ul id="turmasSubmenu" class="submenu collapse list-unstyled">
-                        <li><a class="nav-link " href="{{ route('turmas.create') }}">Adicionar Turma</a></li>
-                        <li><a class="nav-link " href="{{ route('turmas.index') }}">Listar Turmas</a></li>
+                    <ul id="schoolClassesSubmenu" class="submenu collapse list-unstyled">
+                        <li><a class="nav-link " href="{{ route('school-classes.create') }}">Adicionar Classe</a></li>
+                        <li><a class="nav-link " href="{{ route('school-classes.index') }}">Listar Classes</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">

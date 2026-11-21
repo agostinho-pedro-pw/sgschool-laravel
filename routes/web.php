@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrollmentController;
-use App\Http\Controllers\TurmaController;
+use App\Http\Controllers\SchoolClassController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -137,11 +137,11 @@ Route::get('/course-payment', function () {
 
 /*
 |--------------------------------------------------------------------------
-| Turmas
+| Classes escolares
 |--------------------------------------------------------------------------
 */
 
-Route::resource('turmas', TurmaController::class);
+Route::resource('school-classes', SchoolClassController::class);
 
 /*
 |--------------------------------------------------------------------------

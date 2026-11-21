@@ -1,14 +1,14 @@
 {{-- Herda o layout principal do painel de administração --}}
 @extends('layouts.admin')
 
-@section('title', 'Adicionar Turma - sgSchool')
+@section('title', 'Adicionar Classe Escolar - sgSchool')
 @section('language', 'pt-PT')
 
 {{-- Conteúdo do
 
 <head>: meta tags, ícone, scripts e estilos --}}
     @section('head')
-    <meta name="description" content="Adicionar uma turma">
+    <meta name="description" content="Adicionar uma classe escolar">
     <link rel="icon" type="image/x-icon" href="{{ asset('dashboard/assets/dist/assets/favicon-9EIT7vLh.ico') }}">
     <script type="module" crossorigin src="{{ asset('dashboard/assets/dist/assets/main-ZZRh_wak.js') }}"></script>
     <link rel="stylesheet" crossorigin href="{{ asset('dashboard/assets/dist/assets/main-BV-wpnXD.css') }}">
@@ -86,8 +86,8 @@
                 <nav aria-label="Navegação estrutural" class="d-none d-lg-block ms-3">
                     <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Painel</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('turmas.index') }}">Turmas</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Adicionar Turma</li>
+                        <li class="breadcrumb-item"><a href="{{ route('school-classes.index') }}">Classes Escolares</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Adicionar Classe</li>
                     </ol>
                 </nav>
                 <div class="navbar-brand d-lg-none fw-bold me-auto">sgSchool</div>
@@ -97,8 +97,8 @@
         <main class="dashboard-content" id="main-content">
             <div class="container-fluid">
                 <div class="mb-4">
-                    <h1 class="h3 fw-bold mb-1">Adicionar Turma</h1>
-                    <p class="text-muted mb-0">Criar uma nova turma.</p>
+                    <h1 class="h3 fw-bold mb-1">Adicionar Classe Escolar</h1>
+                    <p class="text-muted mb-0">Criar uma nova classe escolar.</p>
                 </div>
 
                 {{-- Lista de erros de validação devolvidos pelo controller --}}
@@ -114,18 +114,18 @@
 
                 <div class="dashboard-card">
                     <div class="dashboard-card-body">
-                        {{-- Envia os dados para turmas.store (POST) --}}
-                        <form action="{{ route('turmas.store') }}" method="POST">
+                        {{-- Envia os dados para school-classes.store (POST) --}}
+                        <form action="{{ route('school-classes.store') }}" method="POST">
                             {{-- Token de segurança obrigatório do Laravel --}}
                             @csrf
                             <div class="row g-3">
-                                {{-- Nome da turma --}}
+                                {{-- Nome da classe escolar --}}
                                 <div class="col-md-6">
-                                    <label for="nomeTurma" class="form-label">Nome da Turma <span
+                                    <label for="nomeTurma" class="form-label">Nome da Classe <span
                                             class="text-danger">*</span></label>
                                     {{-- old() mantém o valor digitado se a validação falhar --}}
                                     <input type="text" class="form-control" id="nomeTurma" name="nomeTurma"
-                                        value="{{ old('nomeTurma') }}" placeholder="Ex.: 10.ª A ou Turma 1" required>
+                                        value="{{ old('nomeTurma') }}" placeholder="Ex.: 10.ª A ou Classe 1" required>
                                 </div>
 
                                 {{-- Ano Letivo (2026/2027 até 2035/2036), gerado com range() --}}
@@ -134,8 +134,7 @@
                                             class="text-danger">*</span></label>
                                     <select class="form-select" id="anoLetivo" name="anoLetivo" required>
                                         <option value="">Selecione o ano letivo</option>
-                                        @foreach (array_map(fn($ano) => $ano . '/' . ($ano + 1), range(2026, 2035)) as
-                                        $anoLetivo)
+                                        @foreach (array_map(fn ($ano) => $ano . '/' . ($ano + 1), range(2026, 2035)) as $anoLetivo)
                                         <option value="{{ $anoLetivo }}" @selected(old('anoLetivo')===$anoLetivo)>{{
                                             $anoLetivo }}</option>
                                         @endforeach
@@ -196,7 +195,7 @@
 
                                 {{-- Botão de envio --}}
                                 <div class="col-12">
-                                    <button type="submit" class="btn btn-primary">Criar Turma</button>
+                                    <button type="submit" class="btn btn-primary">Criar Classe</button>
                                 </div>
                             </div>
                         </form>

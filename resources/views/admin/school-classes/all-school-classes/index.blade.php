@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
-@section('title', 'Listar Turmas - sgSchool')
+@section('title', 'Listar Classes Escolares - sgSchool')
 @section('language', 'pt-PT')
 
 @section('head')
-<meta name="description" content="Lista de turmas">
+<meta name="description" content="Lista de classes escolares">
 <link rel="icon" type="image/x-icon" href="{{ asset('dashboard/assets/dist/assets/favicon-9EIT7vLh.ico') }}">
 <script type="module" crossorigin src="{{ asset('dashboard/assets/dist/assets/main-ZZRh_wak.js') }}"></script>
 <link rel="stylesheet" crossorigin href="{{ asset('dashboard/assets/dist/assets/main-BV-wpnXD.css') }}">
@@ -17,7 +17,7 @@
     .top-navbar { background: #fff; height: 60px; padding: 0 1rem; box-shadow: 0 1px 3px #0000001a }
     .dashboard-content { padding: 24px }
     .dashboard-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 1px 3px #0000001a }
-    #turmaTable th, #turmaTable td { padding: 1rem 1.25rem }
+    #schoolClassTable th, #schoolClassTable td { padding: 1rem 1.25rem }
 </style>
 @endsection
 
@@ -36,7 +36,7 @@
             <nav aria-label="Navegação estrutural" class="d-none d-lg-block ms-3">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Painel</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Turmas</li>
+                    <li class="breadcrumb-item active" aria-current="page">Classes Escolares</li>
                 </ol>
             </nav>
             <div class="navbar-brand d-lg-none fw-bold me-auto">sgSchool</div>
@@ -51,17 +51,17 @@
 
             <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 mb-4">
                 <div>
-                    <h1 class="h3 fw-bold mb-1">Listar Turmas</h1>
-                    <p class="text-muted mb-0">Gerir as turmas da instituição.</p>
+                    <h1 class="h3 fw-bold mb-1">Listar Classes Escolares</h1>
+                    <p class="text-muted mb-0">Gerir as classes escolares da instituição.</p>
                 </div>
-                <a href="{{ route('turmas.create') }}" class="btn btn-primary">Adicionar Turma</a>
+                <a href="{{ route('school-classes.create') }}" class="btn btn-primary">Adicionar Classe</a>
             </div>
 
             <div class="dashboard-card">
-                <table class="table table-hover align-middle mb-0" id="turmaTable">
+                <table class="table table-hover align-middle mb-0" id="schoolClassTable">
                     <thead>
                         <tr>
-                            <th scope="col">Nome da Turma</th>
+                            <th scope="col">Nome da Classe</th>
                             <th scope="col">Ano Letivo</th>
                             <th scope="col">Classe</th>
                             <th scope="col">Curso</th>
@@ -71,14 +71,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($turmas as $turma)
+                        @forelse ($schoolClasses as $schoolClass)
                         <tr>
-                            <td class="fw-semibold">{{ $turma->nomeTurma }}</td>
-                            <td>{{ $turma->anoLetivo }}</td>
-                            <td>{{ $turma->classe }}</td>
-                            <td>{{ $turma->curso }}</td>
-                            <td>{{ ucfirst($turma->periodo) }}</td>
-                            <td>{{ $turma->sala }}</td>
+                            <td class="fw-semibold">{{ $schoolClass->nomeTurma }}</td>
+                            <td>{{ $schoolClass->anoLetivo }}</td>
+                            <td>{{ $schoolClass->classe }}</td>
+                            <td>{{ $schoolClass->curso }}</td>
+                            <td>{{ ucfirst($schoolClass->periodo) }}</td>
+                            <td>{{ $schoolClass->sala }}</td>
                             <td>
                                 <div class="dropdown">
                                     <button class="btn btn-sm btn-light dropdown-toggle" type="button"
@@ -86,12 +86,12 @@
                                         <i class="bi bi-three-dots-vertical"></i>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="{{ route('turmas.show', $turma) }}"><i class="bi bi-eye me-2"></i>Detalhes</a></li>
-                                        <li><a class="dropdown-item" href="{{ route('turmas.edit', $turma) }}"><i class="bi bi-pencil me-2"></i>Editar</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('school-classes.show', $schoolClass) }}"><i class="bi bi-eye me-2"></i>Detalhes</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('school-classes.edit', $schoolClass) }}"><i class="bi bi-pencil me-2"></i>Editar</a></li>
                                         <li><hr class="dropdown-divider"></li>
                                         <li>
-                                            <form action="{{ route('turmas.destroy', $turma) }}" method="POST"
-                                                onsubmit="return confirm('Eliminar esta turma?');">
+                                            <form action="{{ route('school-classes.destroy', $schoolClass) }}" method="POST"
+                                                onsubmit="return confirm('Eliminar esta classe escolar?');">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="dropdown-item text-danger">
@@ -105,7 +105,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="7" class="py-4 text-center text-muted">Nenhuma turma encontrada.</td>
+                            <td colspan="7" class="py-4 text-center text-muted">Nenhuma classe escolar encontrada.</td>
                         </tr>
                         @endforelse
                     </tbody>
