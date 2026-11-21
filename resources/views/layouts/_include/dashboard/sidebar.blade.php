@@ -75,8 +75,19 @@
                         <span>Cursos</span>
                     </a>
                     <ul id="coursesSubmenu" class="submenu collapse  list-unstyled">
-                        <li><a class="nav-link " href="{{ route('courses.index') }}">List Courses</a></li>
-                        <li><a class="nav-link " href="{{ route('courses.create') }}">Add Course</a></li>
+                        <li><a class="nav-link " href="{{ route('courses.create') }}">Adicionar Curso</a></li>
+                        <li><a class="nav-link " href="{{ route('courses.index') }}">Listar Cursos</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link has-submenu " href="javascript:void(0)" data-bs-toggle="collapse"
+                        data-bs-target="#turmasSubmenu" aria-expanded="false">
+                        <i class="bi bi-mortarboard"></i>
+                        <span>Turmas</span>
+                    </a>
+                    <ul id="turmasSubmenu" class="submenu collapse list-unstyled">
+                        <li><a class="nav-link " href="{{ route('turmas.create') }}">Adicionar Turma</a></li>
+                        <li><a class="nav-link " href="{{ route('turmas.index') }}">Listar Turmas</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">

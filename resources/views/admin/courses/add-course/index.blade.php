@@ -109,17 +109,20 @@
                         @csrf
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label for="courseCode" class="form-label">Código do Curso</label>
+                                <label for="courseCode" class="form-label">Código do Curso <span
+                                        class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="courseCode" name="courseCode"
                                     value="{{ old('courseCode') }}" required>
                             </div>
                             <div class="col-md-6">
-                                <label for="courseName" class="form-label">Nome do Curso</label>
+                                <label for="courseName" class="form-label">Nome do Curso <span
+                                        class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="courseName" name="courseName"
                                     value="{{ old('courseName') }}" required>
                             </div>
                             <div class="col-12">
-                                <label for="department" class="form-label">Departamento</label>
+                                <label for="department" class="form-label">Departamento <span
+                                        class="text-danger">*</span></label>
                                 {{-- Todos os departamentos listados --}}
                                 <select class="form-select" id="department" name="department" required>
                                     <option value="">Selecione um departamento</option>
@@ -132,7 +135,8 @@
                                 </select>
                             </div>
                             <div class="col-12">
-                                <label for="courseDescription" class="form-label">Descrição do Curso</label>
+                                <label for="courseDescription" class="form-label">Descrição do Curso <span
+                                        class="text-danger">*</span></label>
                                 <textarea class="form-control" id="courseDescription" name="courseDescription" rows="4"
                                     placceholder="Alguma descrição">{{ old('courseDescription') }}</textarea>
                             </div>

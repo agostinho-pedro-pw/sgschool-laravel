@@ -26,6 +26,7 @@ class EnrollmentController extends Controller
     // Guarda uma inscrição
     public function store(Request $request)
     {
+        // dd($request->all());
         Enrollment::create($request->only([
             'fullName',
             'dateOfBirth',

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('gender', 20);
             $table->string('course');
             $table->date('applicationDate');
+            $table->string('status')->default('pending');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -54,6 +54,32 @@
         border-radius: 8px;
         box-shadow: 0 1px 3px #0000001a
     }
+
+    #courseTable th,
+    #courseTable td {
+        padding: 1rem 1.25rem
+    }
+
+    #courseTable .dropdown-menu {
+        padding: .375rem
+    }
+
+    #courseTable .dropdown-item {
+        border-radius: 6px;
+        padding: .5rem .75rem;
+        transition: background-color .15s ease, transform .15s ease
+    }
+
+    #courseTable .dropdown-menu .dropdown-item:hover,
+    #courseTable .dropdown-menu .dropdown-item:focus {
+        background-color: #cbd5e1 !important;
+        transform: translateX(3px)
+    }
+
+    #courseTable .dropdown-menu .dropdown-item.text-danger:hover,
+    #courseTable .dropdown-menu .dropdown-item.text-danger:focus {
+        background-color: #fecaca !important
+    }
 </style>
 @endsection
 
@@ -99,11 +125,11 @@
 
                 <a href="{{ route('courses.create') }}" class="btn btn-primary">Adicionar Curso</a>
             </div>
-
+            {{--
             <div class="mb-3">
                 <label for="courseSearch" class="visually-hidden">Pesquisar cursos</label>
                 <input type="search" class="form-control" id="courseSearch" placeholder="Pesquisar cursos...">
-            </div>
+            </div>--}}
 
             <div class="dashboard-card">
                 <table class="table table-hover align-middle mb-0" id="courseTable">

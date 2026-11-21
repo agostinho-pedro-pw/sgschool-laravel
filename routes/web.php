@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\TurmaController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -133,6 +134,14 @@ Route::redirect('/course-info', '/courses')->name('course-info');
 Route::get('/course-payment', function () {
     return view('admin.courses.course-payment.index');
 })->name('course-payment');
+
+/*
+|--------------------------------------------------------------------------
+| Turmas
+|--------------------------------------------------------------------------
+*/
+
+Route::resource('turmas', TurmaController::class);
 
 /*
 |--------------------------------------------------------------------------
