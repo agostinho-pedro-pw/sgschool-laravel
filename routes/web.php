@@ -3,19 +3,20 @@
 use App\Http\Controllers\AcademicYearController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SchoolClassController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-// Rota inicial: redireciona para o dashboard
+// Rota inicial: redireciona para o dashboard.
 Route::get('/', function () {
     return redirect()->route('dashboard');
 });
 
 /*
 |--------------------------------------------------------------------------
-| Autenticação
+| Autenticação e inscrição
 |--------------------------------------------------------------------------
 */
 
@@ -60,10 +61,24 @@ Route::get('/analytics', function () {
     return view('admin.dashboard.analytics.index');
 })->name('analytics');
 
+/*
+|--------------------------------------------------------------------------
+| Inscrições
+|--------------------------------------------------------------------------
+*/
+
 Route::resource('enrollments', EnrollmentController::class);
 
 Route::post('/enrollments/{enrollment}/accept', [EnrollmentController::class, 'accept'])
     ->name('enrollments.accept');
+
+/*
+|--------------------------------------------------------------------------
+| Matrículas
+|--------------------------------------------------------------------------
+*/
+
+Route::resource('registrations', RegistrationController::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -99,25 +114,21 @@ Route::get('/profile-professors', function () {
 
 /*
 |--------------------------------------------------------------------------
-| Estudantes
+| Matrículas nas views de estudantes existentes
 |--------------------------------------------------------------------------
 */
 
-Route::get('/all-students', function () {
-    return view('admin.students.all-students.index');
-})->name('all-students');
+Route::get('/all-students', [RegistrationController::class, 'index'])
+    ->name('all-students');
 
-Route::get('/add-students', function () {
-    return view('admin.students.add-student.index');
-})->name('add-students');
+Route::get('/add-students', [RegistrationController::class, 'create'])
+    ->name('add-students');
 
-Route::get('/edit-students', function () {
-    return view('admin.students.edit-student.index');
-})->name('edit-students');
+Route::get('/edit-students/{registration}/edit', [RegistrationController::class, 'edit'])
+    ->name('edit-students');
 
-Route::get('/profile-students', function () {
-    return view('admin.students.student-profile.index');
-})->name('profile-students');
+Route::get('/profile-students/{registration}', [RegistrationController::class, 'show'])
+    ->name('profile-students');
 
 /*
 |--------------------------------------------------------------------------

@@ -70,13 +70,11 @@
                     <a class="nav-link has-submenu " href="javascript:void(0)" data-bs-toggle="collapse"
                         data-bs-target="#studentsSubmenu" aria-expanded="false">
                         <i class="bi bi-people"></i>
-                        <span>Estudantes</span>
+                        <span>Matrícula</span>
                     </a>
                     <ul id="studentsSubmenu" class="submenu collapse  list-unstyled">
-                        <li><a class="nav-link " href="{{ route('all-students') }}">Todos os Estudantes</a></li>
-                        <li><a class="nav-link " href="{{ route('add-students') }}">Adicionar Estudante</a></li>
-                        <li><a class="nav-link " href="{{ route('edit-students') }}">Editar Estudante</a></li>
-                        <li><a class="nav-link " href="{{ route('profile-students') }}">Perfil do Estudante</a></li>
+                        <li><a class="nav-link " href="{{ route('add-students') }}">Adicionar matrícula</a></li>
+                        <li><a class="nav-link " href="{{ route('all-students') }}">Listar matrículas</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">

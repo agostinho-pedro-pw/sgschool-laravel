@@ -86,7 +86,8 @@
                 <nav aria-label="Navegação estrutural" class="d-none d-lg-block ms-3">
                     <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Painel</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('school-classes.index') }}">Classes Escolares</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('school-classes.index') }}">Classes Escolares</a>
+                        </li>
                         <li class="breadcrumb-item active" aria-current="page">Adicionar Classe</li>
                     </ol>
                 </nav>
@@ -134,7 +135,8 @@
                                             class="text-danger">*</span></label>
                                     <select class="form-select" id="anoLetivo" name="anoLetivo" required>
                                         <option value="">Selecione o ano letivo</option>
-                                        @foreach (array_map(fn ($ano) => $ano . '/' . ($ano + 1), range(2026, 2035)) as $anoLetivo)
+                                        @foreach (array_map(fn ($ano) => $ano . '/' . ($ano + 1), range(2026, 2035)) as
+                                        $anoLetivo)
                                         <option value="{{ $anoLetivo }}" @selected(old('anoLetivo')===$anoLetivo)>{{
                                             $anoLetivo }}</option>
                                         @endforeach
