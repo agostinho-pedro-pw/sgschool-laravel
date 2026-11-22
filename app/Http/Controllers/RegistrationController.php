@@ -26,14 +26,18 @@ class RegistrationController extends Controller
     {
         Registration::create($request->only([
             'fullName',
+            'studentId',
+            'department',
+            'academicYear',
             'dateOfBirth',
             'phone',
+            'parentPhone',
             'email',
             'gender',
             'course',
             'schoolClass',
             'room',
-            'period',
+            'turno',
         ]));
 
         return redirect()
@@ -58,14 +62,18 @@ class RegistrationController extends Controller
     {
         $registration->update($request->only([
             'fullName',
+            'studentId',
+            'department',
+            'academicYear',
             'dateOfBirth',
             'phone',
+            'parentPhone',
             'email',
             'gender',
             'course',
             'schoolClass',
             'room',
-            'period',
+            'turno',
         ]));
 
         return redirect()

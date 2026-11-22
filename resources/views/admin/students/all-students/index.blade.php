@@ -1,201 +1,184 @@
 @extends('layouts.admin')
 
-@section('title', 'Matrículas - sgSchool')
+@section('title', 'Listar Matrículas - sgSchool')
 @section('language', 'pt-PT')
 
 @section('head')
+<meta name="description" content="Lista de matrículas de estudantes">
+<link rel="icon" type="image/x-icon" href="{{ asset('dashboard/assets/dist/assets/favicon-9EIT7vLh.ico') }}">
+<script type="module" crossorigin src="{{ asset('dashboard/assets/dist/assets/main-ZZRh_wak.js') }}"></script>
+<link rel="stylesheet" crossorigin href="{{ asset('dashboard/assets/dist/assets/main-BV-wpnXD.css') }}">
+<link rel="stylesheet" crossorigin href="{{ asset('dashboard/assets/dist/assets/main-DVYj-QCH.css') }}">
 <style>
-    /* Estilos limitados à página de listagem de matrículas. */
-    #registration-list-page.dashboard-content {
-        min-height: calc(100vh - 60px);
-        padding: clamp(1rem, 2.5vw, 2rem);
-        background: #f5f7fb;
-    }
-
-    #registration-list-page .registration-heading h1 {
-        color: #172033;
-        letter-spacing: -.025em;
-    }
-
-    #registration-list-page .registration-heading p {
-        color: #64748b;
-    }
-
-    #registration-list-page .registration-add-button {
-        min-height: 44px;
-        padding: .65rem 1rem;
-        border-radius: 8px;
-        background: #2563eb;
-        border-color: #1d4ed8;
-        font-weight: 600;
-        white-space: nowrap;
-    }
-
-    #registration-list-page .registration-card {
-        overflow: hidden;
-        border: 1px solid #e5eaf1;
-        border-radius: 14px;
-        background: #fff;
-        box-shadow: 0 8px 24px rgba(15, 23, 42, .06);
-    }
-
-    #registration-list-page .registration-table {
-        min-width: 850px;
-        margin-bottom: 0;
-    }
-
-    #registration-list-page .registration-table thead th {
-        padding: 1rem .9rem;
-        border-bottom: 1px solid #e5eaf1;
-        background: #f8fafc;
-        color: #475569;
-        font-size: .78rem;
-        font-weight: 700;
-        letter-spacing: .045em;
-        text-transform: uppercase;
-        white-space: nowrap;
-    }
-
-    #registration-list-page .registration-table tbody td {
-        padding: .95rem .9rem;
-        border-color: #edf1f5;
-        color: #334155;
+    /* Estilos locais da tabela de matrículas, sem redefinir o layout do painel. */
+    #registrationTable th,
+    #registrationTable td {
+        padding: .9rem 1rem;
         vertical-align: middle;
     }
 
-    #registration-list-page .student-name {
+    #registrationTable thead th {
+        white-space: nowrap;
+        color: #475569;
+        font-size: .82rem;
+    }
+
+    #registrationTable tbody td {
+        color: #334155;
+    }
+
+    .registration-list-card {
+        overflow: hidden;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        background: #fff;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, .08);
+    }
+
+    .registration-name {
         color: #172033;
         font-weight: 600;
     }
 
-    #registration-list-page .registration-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: .4rem;
-        min-width: 190px;
-    }
-
-    #registration-list-page .registration-actions .btn {
-        border-radius: 7px;
-    }
-
-    #registration-list-page .empty-registrations {
-        padding: 3rem 1rem !important;
-        color: #64748b;
-    }
-
     @media (max-width: 767.98px) {
-        #registration-list-page.dashboard-content {
-            padding: 1rem .75rem;
-        }
-
-        #registration-list-page .registration-heading {
-            align-items: flex-start !important;
-            flex-direction: column;
-        }
-
-        #registration-list-page .registration-add-button {
-            width: 100%;
+        #registrationTable {
+            min-width: 850px;
         }
     }
 </style>
 @endsection
 
 @section('content')
+<a href="#main-content" class="visually-hidden-focusable">Saltar para o conteúdo principal</a>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
 @include('layouts._include.dashboard.sidebar')
 
 <div class="main-wrapper" id="mainWrapper">
     <header class="navbar top-navbar">
-        <div class="container-fluid">
+        <div class="container-fluid d-flex align-items-center h-100">
             <button type="button" class="hamburger-menu" id="sidebarToggle"
                 aria-label="Abrir ou fechar a barra lateral">
                 <i class="bi bi-list"></i>
             </button>
-            <nav aria-label="Navegação estrutural" class="ms-3">
+            <nav aria-label="Navegação estrutural" class="d-none d-lg-block ms-3">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Painel</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Matrículas</li>
                 </ol>
             </nav>
+            <div class="navbar-brand d-lg-none fw-bold me-auto">sgSchool</div>
         </div>
     </header>
 
-    <main class="dashboard-content" id="registration-list-page">
+    <main class="dashboard-content" id="main-content">
         <div class="container-fluid">
-            <div class="registration-heading d-flex justify-content-between align-items-center mb-4">
+            @if (session('success'))
+            <div class="alert alert-success" role="alert">{{ session('success') }}</div>
+            @endif
+
+            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 mb-4">
                 <div>
-                    <h1 class="h3 fw-bold mb-1">Matrículas</h1>
-                    <p class="mb-0">Consultar e gerir matrículas de estudantes.</p>
+                    <h1 class="h3 fw-bold mb-1">Listar Matrículas</h1>
+                    <p class="text-muted mb-0">Consultar e gerir as matrículas dos estudantes.</p>
                 </div>
-                <a href="{{ route('add-students') }}" class="btn btn-primary registration-add-button">
-                    <i class="bi bi-plus-lg me-2"></i>Adicionar matrícula
+                <a href="{{ route('add-students') }}" class="btn btn-primary">
+                    <i class="bi bi-plus-circle me-2"></i>Adicionar Matrícula
                 </a>
             </div>
 
-            @if (session('success'))
-            <div class="alert alert-success" role="status">{{ session('success') }}</div>
-            @endif
-
             @php
-            // Traduz os valores guardados como texto, sem consultar outras tabelas.
+            // Mostra nomes legíveis sem consultar nem relacionar outras tabelas.
             $courseLabels = [
             'informatica-gestao' => 'Informática de Gestão',
             'informatica-sistemas-multimedia' => 'Informática, Sistemas e Multimédia',
             'eletronica-telecomunicacoes' => 'Eletrónica e Telecomunicações',
             'analises-clinicas' => 'Análises Clínicas',
             ];
-            $periodLabels = ['manha' => 'Manhã', 'tarde' => 'Tarde', 'noite' => 'Noite'];
+            $shiftLabels = ['manha' => 'Manhã', 'tarde' => 'Tarde', 'noite' => 'Noite'];
             @endphp
 
-            <div class="dashboard-card registration-card">
-                <div class="dashboard-card-body table-responsive p-0">
-                    <table class="table table-hover align-middle registration-table">
+            <div class="registration-list-card">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0" id="registrationTable">
                         <thead>
                             <tr>
-                                <th>Estudante</th>
-                                <th>Curso</th>
-                                <th>Classe/Turma</th>
-                                <th>Sala</th>
-                                <th>Período</th>
-                                <th>Ações</th>
+                                <th scope="col">Estudante</th>
+                                <th scope="col">N.º estudante</th>
+                                <th scope="col">Curso</th>
+                                <th scope="col">Turma</th>
+                                <th scope="col">Ano lectivo</th>
+                                <th scope="col">Sala</th>
+                                <th scope="col">Turno</th>
+                                <th scope="col">Acções</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($registrations as $registration)
                             <tr>
-                                <td class="student-name">{{ $registration->fullName }}</td>
-                                <td>{{ $courseLabels[$registration->course] ?? $registration->course }}</td>
-                                <td>{{ $registration->schoolClass }}</td>
-                                <td>{{ $registration->room }}</td>
-                                <td>{{ $periodLabels[$registration->period] ?? $registration->period }}</td>
+                                <td class="registration-name">{{ $registration->fullName }}</td>
+                                <td>{{ $registration->studentId ?? '—' }}</td>
+                                <td>{{ $courseLabels[$registration->course] ?? $registration->course ?? '—' }}</td>
+                                <td>{{ $registration->schoolClass ?? '—' }}</td>
+                                <td>{{ $registration->academicYear ?? '—' }}</td>
+                                <td>{{ $registration->room ?? '—' }}</td>
+                                <td>{{ $shiftLabels[$registration->turno ?? ''] ?? $registration->turno ?? '—' }}</td>
                                 <td>
-                                    <div class="registration-actions">
-                                        <a href="{{ route('registrations.show', $registration) }}"
-                                            class="btn btn-sm btn-outline-primary">Detalhes</a>
-                                        <a href="{{ route('registrations.edit', $registration) }}"
-                                            class="btn btn-sm btn-outline-secondary">Editar</a>
-                                        <form action="{{ route('registrations.destroy', $registration) }}" method="POST"
-                                            onsubmit="return confirm('Eliminar esta matrícula?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                class="btn btn-sm btn-outline-danger">Eliminar</button>
-                                        </form>
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-light dropdown-toggle" type="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false"
+                                            aria-label="Mais opções da matrícula">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li>
+                                                <a class="dropdown-item"
+                                                    href="{{ route('registrations.show', $registration) }}">
+                                                    <i class="bi bi-eye me-2"></i>Detalhes
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item"
+                                                    href="{{ route('registrations.edit', $registration) }}">
+                                                    <i class="bi bi-pencil me-2"></i>Editar
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li>
+                                                <form action="{{ route('registrations.destroy', $registration) }}"
+                                                    method="POST"
+                                                    onsubmit="return confirm('Eliminar esta matrícula?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="dropdown-item text-danger">
+                                                        <i class="bi bi-trash me-2"></i>Eliminar
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </td>
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="6" class="text-center empty-registrations">
-                                    Ainda não existem matrículas.
-                                </td>
+                                <td colspan="8" class="py-4 text-center text-muted">Nenhuma matrícula encontrada.</td>
                             </tr>
                             @endforelse
                         </tbody>
                     </table>
                 </div>
             </div>
+
+            @if (method_exists($registrations, 'links'))
+            <div class="mt-4 d-flex justify-content-center">
+                {{ $registrations->links() }}
+            </div>
+            @endif
         </div>
     </main>
+
+    @include('layouts._include.dashboard.footer')
 </div>
 @endsection

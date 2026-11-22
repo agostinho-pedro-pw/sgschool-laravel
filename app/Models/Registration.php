@@ -14,14 +14,18 @@ class Registration extends Model
     // Campos que o controller pode guardar ou atualizar.
     protected $fillable = [
         'fullName',
+        'studentId',
+        'department',
+        'academicYear',
         'dateOfBirth',
         'phone',
+        'parentPhone',
         'email',
         'gender',
         'course',
         'schoolClass',
         'room',
-        'period',
+        'turno',
     ];
 
     // Converte a data de nascimento para um objeto de data do Laravel.
