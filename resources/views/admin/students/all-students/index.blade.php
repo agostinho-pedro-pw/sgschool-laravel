@@ -13,7 +13,8 @@
     /* Estilos locais da tabela de matrículas, sem redefinir o layout do painel. */
     #registrationTable th,
     #registrationTable td {
-        padding: .9rem 1rem;
+        /* Mais espaço dentro das células */
+        padding: 1rem 1.25rem;
         vertical-align: middle;
     }
 
@@ -28,7 +29,7 @@
     }
 
     .registration-list-card {
-        overflow: hidden;
+        /* Sem overflow: assim não aparece a barra de scroll nem o menu de ações fica cortado */
         border: 1px solid #e5e7eb;
         border-radius: 10px;
         background: #fff;
@@ -40,10 +41,28 @@
         font-weight: 600;
     }
 
-    @media (max-width: 767.98px) {
-        #registrationTable {
-            min-width: 850px;
-        }
+    /* Menu de ações: espaçamento e transição suave */
+    #registrationTable .dropdown-menu {
+        padding: .375rem
+    }
+
+    #registrationTable .dropdown-item {
+        border-radius: 6px;
+        padding: .5rem .75rem;
+        transition: background-color .15s ease, transform .15s ease
+    }
+
+    /* Hover de Detalhes e Editar */
+    #registrationTable .dropdown-menu .dropdown-item:hover,
+    #registrationTable .dropdown-menu .dropdown-item:focus {
+        background-color: #cbd5e1 !important;
+        transform: translateX(3px)
+    }
+
+    /* Hover de Eliminar (vermelho claro) */
+    #registrationTable .dropdown-menu .dropdown-item.text-danger:hover,
+    #registrationTable .dropdown-menu .dropdown-item.text-danger:focus {
+        background-color: #fecaca !important
     }
 </style>
 @endsection
@@ -99,76 +118,73 @@
             @endphp
 
             <div class="registration-list-card">
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle mb-0" id="registrationTable">
-                        <thead>
-                            <tr>
-                                <th scope="col">Estudante</th>
-                                <th scope="col">N.º estudante</th>
-                                <th scope="col">Curso</th>
-                                <th scope="col">Turma</th>
-                                <th scope="col">Ano lectivo</th>
-                                <th scope="col">Sala</th>
-                                <th scope="col">Turno</th>
-                                <th scope="col">Acções</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($registrations as $registration)
-                            <tr>
-                                <td class="registration-name">{{ $registration->fullName }}</td>
-                                <td>{{ $registration->studentId ?? '—' }}</td>
-                                <td>{{ $courseLabels[$registration->course] ?? $registration->course ?? '—' }}</td>
-                                <td>{{ $registration->schoolClass ?? '—' }}</td>
-                                <td>{{ $registration->academicYear ?? '—' }}</td>
-                                <td>{{ $registration->room ?? '—' }}</td>
-                                <td>{{ $shiftLabels[$registration->turno ?? ''] ?? $registration->turno ?? '—' }}</td>
-                                <td>
-                                    <div class="dropdown">
-                                        <button class="btn btn-sm btn-light dropdown-toggle" type="button"
-                                            data-bs-toggle="dropdown" aria-expanded="false"
-                                            aria-label="Mais opções da matrícula">
-                                            <i class="bi bi-three-dots-vertical"></i>
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end">
-                                            <li>
-                                                <a class="dropdown-item"
-                                                    href="{{ route('registrations.show', $registration) }}">
-                                                    <i class="bi bi-eye me-2"></i>Detalhes
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item"
-                                                    href="{{ route('registrations.edit', $registration) }}">
-                                                    <i class="bi bi-pencil me-2"></i>Editar
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <hr class="dropdown-divider">
-                                            </li>
-                                            <li>
-                                                <form action="{{ route('registrations.destroy', $registration) }}"
-                                                    method="POST"
-                                                    onsubmit="return confirm('Eliminar esta matrícula?');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="dropdown-item text-danger">
-                                                        <i class="bi bi-trash me-2"></i>Eliminar
-                                                    </button>
-                                                </form>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <td colspan="8" class="py-4 text-center text-muted">Nenhuma matrícula encontrada.</td>
-                            </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
+                <table class="table table-hover align-middle mb-0" id="registrationTable">
+                    <thead>
+                        <tr>
+                            <th scope="col">Estudante</th>
+                            <th scope="col">N.º estudante</th>
+                            <th scope="col">Curso</th>
+                            <th scope="col">Turma</th>
+                            <th scope="col">Ano lectivo</th>
+                            <th scope="col">Sala</th>
+                            <th scope="col">Turno</th>
+                            <th scope="col">Acções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($registrations as $registration)
+                        <tr>
+                            <td class="registration-name">{{ $registration->fullName }}</td>
+                            <td>{{ $registration->studentId ?? '—' }}</td>
+                            <td>{{ $courseLabels[$registration->course] ?? $registration->course ?? '—' }}</td>
+                            <td>{{ $registration->schoolClass ?? '—' }}</td>
+                            <td>{{ $registration->academicYear ?? '—' }}</td>
+                            <td>{{ $registration->room ?? '—' }}</td>
+                            <td>{{ $shiftLabels[$registration->turno ?? ''] ?? $registration->turno ?? '—' }}</td>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-light dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false"
+                                        aria-label="Mais opções da matrícula">
+                                        <i class="bi bi-three-dots-vertical"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li>
+                                            <a class="dropdown-item"
+                                                href="{{ route('registrations.show', $registration) }}">
+                                                <i class="bi bi-eye me-2"></i>Detalhes
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item"
+                                                href="{{ route('registrations.edit', $registration) }}">
+                                                <i class="bi bi-pencil me-2"></i>Editar
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li>
+                                            <form action="{{ route('registrations.destroy', $registration) }}"
+                                                method="POST" onsubmit="return confirm('Eliminar esta matrícula?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="dropdown-item text-danger">
+                                                    <i class="bi bi-trash me-2"></i>Eliminar
+                                                </button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="8" class="py-4 text-center text-muted">Nenhuma matrícula encontrada.</td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
 
             @if (method_exists($registrations, 'links'))
