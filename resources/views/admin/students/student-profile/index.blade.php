@@ -2,29 +2,20 @@
 
 @section('title', 'Perfil do estudante - Painel sgSchool')
 
-@section('language', 'en')
+@section('language', 'pt-PT')
 
 @section('head')
-<meta name="description" content="sgSchool - Plataforma moderna de gestão escolar para universidades">
-<meta name="keywords" content="education, dashboard, university, management, admin">
+<meta name="description" content="sgSchool - Plataforma moderna de gestão escolar">
+<meta name="keywords" content="educação, painel, escola, gestão, administração">
 <meta name="author" content="Agostinho Pedro">
 
-<!-- Preconnect to external domains -->
-<link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+<!-- Ligação prévia aos domínios externos -->
 <link rel="preconnect" href="https://ui-avatars.com" crossorigin>
-<link rel="dns-prefetch" href="https://flagcdn.com">
 
-
-
-<!-- Favicon -->
+<!-- Ícone do separador -->
 <link rel="icon" type="image/x-icon" href="{{ asset('dashboard/assets/dist/assets/favicon-9EIT7vLh.ico') }}">
 
-
-<!-- Load stylesheets -->
-
-
-
-
+<!-- Scripts e estilos do painel -->
 <script type="module" crossorigin src="{{ asset('dashboard/assets/dist/assets/main-ZZRh_wak.js') }}"></script>
 <link rel="stylesheet" crossorigin href="{{ asset('dashboard/assets/dist/assets/main-BV-wpnXD.css') }}">
 <link rel="stylesheet" crossorigin href="{{ asset('dashboard/assets/dist/assets/main-DVYj-QCH.css') }}">
@@ -71,44 +62,54 @@
 
 @section('content')
 
-<!-- Skip to main content for accessibility -->
+@php
+// Nomes legíveis dos cursos e turnos (os mesmos da lista de matrículas)
+$courseLabels = [
+'informatica-gestao' => 'Informática de Gestão',
+'informatica-sistemas-multimedia' => 'Informática, Sistemas e Multimédia',
+'eletronica-telecomunicacoes' => 'Eletrónica e Telecomunicações',
+'analises-clinicas' => 'Análises Clínicas',
+];
+$shiftLabels = ['manha' => 'Manhã', 'tarde' => 'Tarde', 'noite' => 'Noite'];
+@endphp
+
+<!-- Ligação para saltar ao conteúdo principal (acessibilidade) -->
 <a href="#main-content" class="visually-hidden-focusable">Saltar para o conteúdo principal</a>
 
-<!-- Required DOM elements for dashboard.js -->
+<!-- Elementos necessários para o JavaScript do painel -->
 <div class="search-backdrop" id="searchBackdrop"></div>
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-<!-- Barra lateral, painel lateral do site usando include -->
+<!-- Barra lateral -->
 @include('layouts._include.dashboard.sidebar')
 
-<!-- Main Content Wrapper -->
+<!-- Área principal -->
 <div class="main-wrapper" id="mainWrapper">
-    <!-- Header -->
+    <!-- Cabeçalho -->
     <header class="navbar top-navbar">
         <div class="container-fluid d-flex align-items-center h-100">
-            <!-- Hamburger Menu -->
+            <!-- Botão do menu -->
             <button type="button" class="hamburger-menu" id="sidebarToggle" aria-label="Mostrar/ocultar menu lateral"
                 aria-controls="sidebar">
                 <i class="bi bi-list"></i>
             </button>
 
-            <!-- Breadcrumb for desktop -->
+            <!-- Trilho de navegação (ecrã grande) -->
             <nav aria-label="Trilho de navegação" class="d-none d-lg-block ms-3">
                 <ol class="breadcrumb mb-0">
-                    <li class="breadcrumb-item"><a href="index.html">Início</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Início</a></li>
                     <li class="breadcrumb-item active">Perfil do estudante</li>
                 </ol>
             </nav>
 
-            <!-- Logo for mobile -->
+            <!-- Logótipo (telemóvel) -->
             <div class="navbar-brand d-lg-none fw-bold me-auto">sgSchool</div>
 
-            <!-- Spacer for desktop -->
             <div class="flex-grow-1 d-none d-lg-block"></div>
 
-            <!-- Right Actions -->
+            <!-- Ações do lado direito -->
             <div class="d-flex align-items-center gap-2">
-                <!-- Search -->
+                <!-- Pesquisa -->
                 <div class="search-container">
                     <button type="button" class="btn btn-light btn-icon" id="searchToggle" aria-label="Abrir pesquisa"
                         aria-controls="searchForm">
@@ -137,7 +138,7 @@
                     </div>
                 </div>
 
-                <!-- Notifications -->
+                <!-- Notificações -->
                 <div class="dropdown">
                     <button type="button" class="btn btn-light btn-icon position-relative" data-bs-toggle="dropdown"
                         id="notificationsToggle" aria-label="Notificações">
@@ -191,10 +192,10 @@
                                         <i class="bi bi-exclamation-triangle text-warning"></i>
                                     </div>
                                     <div class="flex-grow-1">
-                                        <div class="fw-semibold">System Alert</div>
+                                        <div class="fw-semibold">Alerta do sistema</div>
                                         <div class="text-muted small">Cópia de segurança da base de dados concluída
                                         </div>
-                                        <div class="text-muted small">Yesterday</div>
+                                        <div class="text-muted small">Ontem</div>
                                     </div>
                                 </div>
                             </a>
@@ -210,7 +211,7 @@
                     </ul>
                 </div>
 
-                <!-- Quick Actions -->
+                <!-- Ações rápidas -->
                 <div class="dropdown">
                     <button type="button" class="btn btn-light btn-icon" data-bs-toggle="dropdown"
                         aria-label="Ações rápidas">
@@ -231,7 +232,7 @@
                     </ul>
                 </div>
 
-                <!-- User Menu -->
+                <!-- Menu do utilizador -->
                 <div class="dropdown">
                     <button type="button" class="btn btn-light d-flex align-items-center" data-bs-toggle="dropdown"
                         aria-label="Menu da conta de Sarah Johnson">
@@ -258,40 +259,41 @@
         </div>
     </header>
 
-    <!-- Main Content -->
+    <!-- Conteúdo principal -->
     <main class="dashboard-content" id="main-content">
         <div class="container-fluid">
-            <!-- Profile Header -->
+            <!-- Cabeçalho do perfil: dados reais do estudante -->
             <div class="dashboard-row">
                 <div class="dashboard-grid grid-cols-1">
                     <div class="dashboard-card">
                         <div class="dashboard-card-body">
                             <div class="row align-items-center">
                                 <div class="col-md-auto text-center text-md-start mb-3 mb-md-0 pe-md-3">
-                                    <img src="https://ui-avatars.com/api/?name=Alex+Johnson&background=6366f1&color=fff&size=120"
-                                        alt="Alex Johnson" class="rounded-circle" width="120" height="120"
-                                        loading="lazy">
+                                    <img src="https://ui-avatars.com/api/?name={{ urlencode($registration->fullName) }}&background=6366f1&color=fff&size=120"
+                                        alt="{{ $registration->fullName }}" class="rounded-circle" width="120"
+                                        height="120" loading="lazy">
                                 </div>
                                 <div class="col-md ms-md-2">
-                                    <h3 class="mb-1">Alex Johnson</h3>
-                                    <p class="text-muted mb-2">Departamento de Ciências Informáticas</p>
+                                    <h3 class="mb-1">{{ $registration->fullName }}</h3>
+                                    <p class="text-muted mb-2">{{ $courseLabels[$registration->course] ??
+                                        $registration->course }}</p>
                                     <div class="d-flex flex-wrap gap-2">
-                                        <span class="badge bg-primary"><i class="bi bi-hash me-1"></i>STU2024001</span>
-                                        <span class="badge bg-success"><i
-                                                class="bi bi-check-circle me-1"></i>Ativo</span>
-                                        <span class="badge bg-info text-dark"><i class="bi bi-calendar me-1"></i>3rd
-                                            Ano</span>
-                                        <span class="badge bg-warning text-dark"><i class="bi bi-trophy me-1"></i>Honor
-                                            Roll</span>
+                                        <span class="badge bg-primary"><i class="bi bi-hash me-1"></i>{{
+                                            $registration->studentId }}</span>
+                                        <span class="badge bg-info text-dark"><i class="bi bi-people me-1"></i>{{
+                                            $registration->schoolClass }}</span>
+                                        <span class="badge bg-warning text-dark"><i class="bi bi-calendar me-1"></i>{{
+                                            $registration->academicYear }}</span>
                                     </div>
                                 </div>
                                 <div class="col-md-auto mt-3 mt-md-0 ms-md-3">
                                     <div class="btn-group" role="group">
-                                        <a href="edit-student.html" class="btn btn-outline-primary">
-                                            <i class="bi bi-pencil me-2"></i>Editar Perfil
+                                        <a href="{{ route('registrations.edit', $registration) }}"
+                                            class="btn btn-outline-primary">
+                                            <i class="bi bi-pencil me-2"></i>Editar perfil
                                         </a>
                                         <button type="button" class="btn btn-outline-secondary">
-                                            <i class="bi bi-download me-2"></i>Transferir relat?rio
+                                            <i class="bi bi-download me-2"></i>Transferir relatório
                                         </button>
                                     </div>
                                 </div>
@@ -301,12 +303,12 @@
                 </div>
             </div>
 
-            <!-- Profile Details Tabs -->
+            <!-- Separadores com os detalhes do perfil -->
             <div class="dashboard-row">
                 <div class="dashboard-grid grid-cols-1">
                     <div class="dashboard-card">
                         <div class="dashboard-card-body">
-                            <!-- Tab Navigation -->
+                            <!-- Navegação dos separadores -->
                             <ul class="nav nav-tabs mb-4" id="profileTabs" role="tablist">
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link active" id="overview-tab" data-bs-toggle="tab"
@@ -320,29 +322,11 @@
                                         <i class="bi bi-book me-2"></i>Cursos
                                     </button>
                                 </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="grades-tab" data-bs-toggle="tab"
-                                        data-bs-target="#grades" type="button" role="tab">
-                                        <i class="bi bi-clipboard-check me-2"></i>Notas
-                                    </button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="attendance-tab" data-bs-toggle="tab"
-                                        data-bs-target="#attendance" type="button" role="tab">
-                                        <i class="bi bi-calendar-check me-2"></i>Presenças
-                                    </button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="activities-tab" data-bs-toggle="tab"
-                                        data-bs-target="#activities" type="button" role="tab">
-                                        <i class="bi bi-lightning me-2"></i>Atividades
-                                    </button>
-                                </li>
                             </ul>
 
-                            <!-- Tab Content -->
+                            <!-- Conteúdo dos separadores -->
                             <div class="tab-content" id="profileTabContent">
-                                <!-- Overview Tab -->
+                                <!-- Separador: Visão geral (dados reais do estudante) -->
                                 <div class="tab-pane fade show active" id="overview" role="tabpanel">
                                     <div class="row">
                                         <div class="col-lg-6">
@@ -351,34 +335,29 @@
                                                 <tbody>
                                                     <tr>
                                                         <td class="text-muted">Nome completo:</td>
-                                                        <td>Alex Johnson</td>
+                                                        <td>{{ $registration->fullName }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-muted">Estudante ID:</td>
-                                                        <td>STU2024001</td>
+                                                        <td class="text-muted">N.º de estudante:</td>
+                                                        <td>{{ $registration->studentId }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="text-muted">Data de nascimento:</td>
-                                                        <td>15 de março de 2004</td>
+                                                        <td>{{ $registration->dateOfBirth ?
+                                                            \Carbon\Carbon::parse($registration->dateOfBirth)->format('d/m/Y')
+                                                            : '' }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="text-muted">Género:</td>
-                                                        <td>Masculino</td>
+                                                        <td>{{ $registration->gender }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="text-muted">E-mail:</td>
-                                                        <td><a
-                                                                href="mailto:alex.johnson@university.edu">alex.johnson@university.edu</a>
-                                                        </td>
+                                                        <td>{{ $registration->email }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="text-muted">Telefone:</td>
-                                                        <td>+1 234-567-8900</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-muted">Morada:</td>
-                                                        <td>123 University Avenue, Building A, Sala 205<br>New York,
-                                                            NY 10001</td>
+                                                        <td>{{ $registration->phone }}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -388,343 +367,29 @@
                                             <table class="table table-borderless">
                                                 <tbody>
                                                     <tr>
-                                                        <td class="text-muted">Departamento:</td>
-                                                        <td>Ciências Informáticas</td>
-                                                    </tr>
-                                                    <tr>
                                                         <td class="text-muted">Curso:</td>
-                                                        <td>Licenciatura em Ciências Informáticas</td>
+                                                        <td>{{ $courseLabels[$registration->course] ??
+                                                            $registration->course }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-muted">Ano:</td>
-                                                        <td>3.º ano</td>
+                                                        <td class="text-muted">Turma:</td>
+                                                        <td>{{ $registration->schoolClass }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-muted">Data de matrícula:</td>
-                                                        <td>1 de setembro de 2021</td>
+                                                        <td class="text-muted">Ano letivo:</td>
+                                                        <td>{{ $registration->academicYear }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-muted">Conclusão prevista:</td>
-                                                        <td>Junho de 2026</td>
+                                                        <td class="text-muted">Sala:</td>
+                                                        <td>{{ $registration->room }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-muted">Orientador académico:</td>
-                                                        <td>Dr. Sarah Williams</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-muted">Estado:</td>
-                                                        <td><span class="badge bg-success">Ativo</span></td>
+                                                        <td class="text-muted">Turno:</td>
+                                                        <td>{{ $shiftLabels[$registration->turno] ??
+                                                            $registration->turno }}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                        </div>
-                                    </div>
-                                    <hr class="my-4">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <h5 class="mb-3">Contacto de emergência</h5>
-                                            <table class="table table-borderless">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="text-muted" style="width: 200px">Nome do contacto:
-                                                        </td>
-                                                        <td>Robert Johnson (Father)</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-muted">Progenitoresco:</td>
-                                                        <td>Progenitor</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-muted">Telefone:</td>
-                                                        <td>+1 234-567-8901</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Courses Tab -->
-                                <div class="tab-pane fade" id="courses" role="tabpanel">
-                                    <h5 class="mb-3">Cursos do semestre atual</h5>
-                                    <div class="table-responsive">
-                                        <table class="table table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>Código do curso</th>
-                                                    <th>Nome do curso</th>
-                                                    <th>Docente</th>
-                                                    <th>Créditos</th>
-                                                    <th>Horário</th>
-                                                    <th>Sala</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>CS301</td>
-                                                    <td>Estruturas de dados e algoritmos</td>
-                                                    <td>Prof. Michael Chen</td>
-                                                    <td>4</td>
-                                                    <td>Seg., qua., 10h00–11h30</td>
-                                                    <td>Sala 201</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>CS302</td>
-                                                    <td>Sistemas de Gestão de Bases de Dados</td>
-                                                    <td>Dr. Emily Davis</td>
-                                                    <td>3</td>
-                                                    <td>Ter., qui., 14h00–15h30</td>
-                                                    <td>Sala 305</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>CS303</td>
-                                                    <td>Desenvolvimento Web</td>
-                                                    <td>Prof. James Wilson</td>
-                                                    <td>3</td>
-                                                    <td>Seg., qua., 14h00–15h30</td>
-                                                    <td>Laboratório 102</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>CS304</td>
-                                                    <td>Sistemas Operativos</td>
-                                                    <td>Dr. Robert Brown</td>
-                                                    <td>4</td>
-                                                    <td>Ter., qui., 10h00–11h30</td>
-                                                    <td>Sala 401</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>MATH201</td>
-                                                    <td>Matemática Discreta</td>
-                                                    <td>Prof. Linda Martinez</td>
-                                                    <td>3</td>
-                                                    <td>Sex., 9h00–12h00</td>
-                                                    <td>Sala 150</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>ENG201</td>
-                                                    <td>Escrita técnica</td>
-                                                    <td>Dr. Susan Taylor</td>
-                                                    <td>2</td>
-                                                    <td>Qua., 16h00–18h00</td>
-                                                    <td>Sala 220</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-                                <!-- Grades Tab -->
-                                <div class="tab-pane fade" id="grades" role="tabpanel">
-                                    <h5 class="mb-3">Desempenho académico</h5>
-                                    <div class="row mb-4">
-
-                                        <div class="col-md-4">
-                                            <div class="alert alert-success">
-                                                <h6>Média acumulada</h6>
-                                                <h3 class="mb-0">3.78</h3>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="alert alert-warning">
-                                                <h6>Posição na turma</h6>
-                                                <h3 class="mb-0">15/250</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h6 class="mb-3">Notas recentes</h6>
-                                    <div class="table-responsive">
-                                        <table class="table table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>Curso</th>
-                                                    <th>Semestre</th>
-                                                    <th>Nota</th>
-                                                    <th>Créditos</th>
-                                                    <th>Pontos</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>CS201 - Programming Fundamentals</td>
-                                                    <td>Outono de 2023</td>
-                                                    <td><span class="badge bg-success">A</span></td>
-                                                    <td>4</td>
-                                                    <td>16.0</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>CS202 - Computer Networks</td>
-                                                    <td>Outono de 2023</td>
-                                                    <td><span class="badge bg-success">A-</span></td>
-                                                    <td>3</td>
-                                                    <td>11.1</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>MATH101 - Calculus I</td>
-                                                    <td>Outono de 2023</td>
-                                                    <td><span class="badge bg-primary">B+</span></td>
-                                                    <td>3</td>
-                                                    <td>9.9</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>CS203 - Software Engenharia</td>
-                                                    <td>Primavera de 2024</td>
-                                                    <td><span class="badge bg-success">A</span></td>
-                                                    <td>4</td>
-                                                    <td>16.0</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>PHY101 - Physics I</td>
-                                                    <td>Primavera de 2024</td>
-                                                    <td><span class="badge bg-primary">B</span></td>
-                                                    <td>3</td>
-                                                    <td>9.0</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-                                <!-- Attendance Tab -->
-                                <div class="tab-pane fade" id="attendance" role="tabpanel">
-                                    <h5 class="mb-3">Presenças Record</h5>
-                                    <div class="row mb-4">
-                                        <div class="col-md-3">
-                                            <div class="card text-center">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Aulas em regime parcial</h5>
-                                                    <h3 class="text-primary">240</h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="card text-center">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Present</h5>
-                                                    <h3 class="text-success">221</h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="card text-center">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Absent</h5>
-                                                    <h3 class="text-danger">19</h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="card text-center">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Percentage</h5>
-                                                    <h3 class="text-info">92%</h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h6 class="mb-3">Monthly Presenças</h6>
-                                    <div class="table-responsive">
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Month</th>
-                                                    <th>Paratal Days</th>
-                                                    <th>Present</th>
-                                                    <th>Absent</th>
-                                                    <th>Percentage</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>September 2024</td>
-                                                    <td>22</td>
-                                                    <td>20</td>
-                                                    <td>2</td>
-                                                    <td><span class="badge bg-success">91%</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Outubro de 2024</td>
-                                                    <td>23</td>
-                                                    <td>22</td>
-                                                    <td>1</td>
-                                                    <td><span class="badge bg-success">96%</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>November 2024</td>
-                                                    <td>21</td>
-                                                    <td>19</td>
-                                                    <td>2</td>
-                                                    <td><span class="badge bg-success">90%</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>December 2024</td>
-                                                    <td>15</td>
-                                                    <td>14</td>
-                                                    <td>1</td>
-                                                    <td><span class="badge bg-success">93%</span></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-                                <!-- Activities Tab -->
-                                <div class="tab-pane fade" id="activities" role="tabpanel">
-                                    <h5 class="mb-3">Extra-Curricular Atividades</h5>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <h6>Clubs &amp; Organizations</h6>
-                                            <ul class="list-group mb-3">
-                                                <li
-                                                    class="list-group-item d-flex justify-content-between align-items-center">
-                                                    Ci?ncias Inform?ticas Club
-                                                    <span class="badge bg-primary rounded-pill">President</span>
-                                                </li>
-                                                <li
-                                                    class="list-group-item d-flex justify-content-between align-items-center">
-                                                    Robotics Team
-                                                    <span class="badge bg-secondary rounded-pill">Member</span>
-                                                </li>
-                                                <li
-                                                    class="list-group-item d-flex justify-content-between align-items-center">
-                                                    Debate Society
-                                                    <span class="badge bg-secondary rounded-pill">Member</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <h6>Achievements</h6>
-                                            <ul class="list-group">
-                                                <li class="list-group-item">
-                                                    <i class="bi bi-trophy text-warning me-2"></i>Dean's List - Fall
-                                                    2023
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <i class="bi bi-award text-primary me-2"></i>Hackathon Winner -
-                                                    March 2024
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <i class="bi bi-star text-success me-2"></i>Académico Excellence
-                                                    Award
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <hr class="my-4">
-                                    <h6>Recent Atividades</h6>
-                                    <div class="timeline">
-                                        <div class="alert alert-light">
-                                            <strong>December 2024:</strong> Participated in International Coding
-                                            Competition
-                                        </div>
-                                        <div class="alert alert-light">
-                                            <strong>November 2024:</strong> Organized Tech Talk on AI and Machine
-                                            Learning
-                                        </div>
-                                        <div class="alert alert-light">
-                                            <strong>October 2024:</strong>Voluntariado no Dia Aberto do Campus
-                                        </div>
-                                        <div class="alert alert-light">
-                                            <strong>September 2024:</strong> Joined University Basketball Team
                                         </div>
                                     </div>
                                 </div>
@@ -736,7 +401,7 @@
         </div>
     </main>
 
-    <!-- Footer -->
+    <!-- Rodapé -->
     <footer class="dashboard-footer">
         <div class="container-fluid">
             <div class="row">
@@ -750,10 +415,4 @@
         </div>
     </footer>
 </div>
-
-<!-- Load JavaScript -->
-
-
-
-
 @endsection
