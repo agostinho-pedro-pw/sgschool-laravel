@@ -9,11 +9,15 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-// Rota inicial: redireciona para o dashboard.
+/* Rota inicial: redireciona para o dashboard.
 Route::get('/', function () {
-    return redirect()->route('dashboard');
-});
+    return redirect()->route('dashboard_sec');
+});*/
+//Usado para aceder a rota principal
 
+Route::get('/', function () {
+    return view('admin.dashboard.index-1.index');
+})->name('dashboard_sec');
 /*
 |--------------------------------------------------------------------------
 | Autenticação e inscrição

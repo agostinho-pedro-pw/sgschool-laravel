@@ -10,17 +10,15 @@ class EnrollmentController extends Controller
     // Lista as matrículas
     public function index()
     {
-        $enrollments = Enrollment::orderByDesc('applicationDate')
-            ->orderByDesc('id')
-            ->get();
+        $enrollments = Enrollment::orderByDesc('id')->get();
 
-        return view('admin.students.all-students.index', compact('enrollments'));
+        return view('admin.dashboard.enrollment-applications.index', compact('enrollments'));
     }
 
     // Mostra o formulário de matrícula
     public function create()
     {
-        return view('admin.students.add-student.index');
+        return view('admin.dashboard.enrollments.index');
     }
 
     // Guarda uma inscrição
@@ -49,13 +47,13 @@ class EnrollmentController extends Controller
     // Mostra os dados de uma inscrição
     public function show(Enrollment $enrollment)
     {
-        return view('admin.students.student-profile.index', compact('enrollment'));
+        return view('admin.dashboard.enrollment-applications.show', compact('enrollment'));
     }
 
     // Mostra o formulário de edição
     public function edit(Enrollment $enrollment)
     {
-        return view('admin.students.edit-student.index', compact('enrollment'));
+        return view('admin.dashboard.enrollments.index', compact('enrollment'));
     }
 
     // Atualiza uma inscrição

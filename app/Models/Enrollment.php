@@ -24,10 +24,10 @@ class Enrollment extends Model
     ];
 
     public const COURSES = [
-        'informatica-gestao' => 'Business Informatics',
-        'informatica-sistemas-multimedia' => 'Computer Science and Multimedia Systems',
-        'eletronica-telecomunicacoes' => 'Electronics and Telecommunications',
-        'analises-clinicas' => 'Clinical Analysis',
+        'informatica-gestao' => 'Informática de gestão',
+        'informatica-sistemas-multimedia' => 'Informática e sistema de Multimédia',
+        'eletronica-telecomunicacoes' => 'Electronica e telecomunicações',
+        'analises-clinicas' => 'Analises Clinicas',
     ];
 
     public const CLASSES = [

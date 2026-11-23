@@ -10,14 +10,55 @@
 <link rel="stylesheet" crossorigin href="{{ asset('dashboard/assets/dist/assets/main-BV-wpnXD.css') }}">
 <link rel="stylesheet" crossorigin href="{{ asset('dashboard/assets/dist/assets/main-DVYj-QCH.css') }}">
 <style>
-    * { box-sizing: border-box; margin: 0; padding: 0 }
-    body { background: #f5f7fa; font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif }
-    .sidebar { z-index: 1040; background: #1f2937; width: 260px; height: 100vh; position: fixed; top: 0; left: 0 }
-    .main-wrapper { min-height: 100vh; margin-left: 260px; transition: margin-left .3s }
-    .top-navbar { background: #fff; height: 60px; padding: 0 1rem; box-shadow: 0 1px 3px #0000001a }
-    .dashboard-content { padding: 24px }
-    .dashboard-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 1px 3px #0000001a }
-    #academicYearTable th, #academicYearTable td { padding: 1rem 1.25rem }
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0
+    }
+
+    body {
+        background: #f5f7fa;
+        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif
+    }
+
+    .sidebar {
+        z-index: 1040;
+        background: #1f2937;
+        width: 260px;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0
+    }
+
+    .main-wrapper {
+        min-height: 100vh;
+        margin-left: 260px;
+        transition: margin-left .3s
+    }
+
+    .top-navbar {
+        background: #fff;
+        height: 60px;
+        padding: 0 1rem;
+        box-shadow: 0 1px 3px #0000001a
+    }
+
+    .dashboard-content {
+        padding: 24px
+    }
+
+    .dashboard-card {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px #0000001a
+    }
+
+    #academicYearTable th,
+    #academicYearTable td {
+        padding: 1rem 1.25rem
+    }
 </style>
 @endsection
 
@@ -29,7 +70,8 @@
 <div class="main-wrapper" id="mainWrapper">
     <header class="navbar top-navbar">
         <div class="container-fluid d-flex align-items-center h-100">
-            <button type="button" class="hamburger-menu" id="sidebarToggle" aria-label="Abrir ou fechar a barra lateral">
+            <button type="button" class="hamburger-menu" id="sidebarToggle"
+                aria-label="Abrir ou fechar a barra lateral">
                 <i class="bi bi-list"></i>
             </button>
             <nav aria-label="Navegação estrutural" class="d-none d-lg-block ms-3">
@@ -74,18 +116,27 @@
                             <td>{{ date('d/m/Y', strtotime($academicYear->end_date)) }}</td>
                             <td>
                                 <div class="dropdown">
-                                    <button class="btn btn-sm btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Mais opções">
+                                    <button class="btn btn-sm btn-light dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false" aria-label="Mais opções">
                                         <i class="bi bi-three-dots-vertical"></i>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="{{ route('academic-years.show', $academicYear) }}"><i class="bi bi-eye me-2"></i>Detalhes</a></li>
-                                        <li><a class="dropdown-item" href="{{ route('academic-years.edit', $academicYear) }}"><i class="bi bi-pencil me-2"></i>Editar</a></li>
-                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('academic-years.show', $academicYear) }}"><i
+                                                    class="bi bi-eye me-2"></i>Detalhes</a></li>
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('academic-years.edit', $academicYear) }}"><i
+                                                    class="bi bi-pencil me-2"></i>Editar</a></li>
                                         <li>
-                                            <form action="{{ route('academic-years.destroy', $academicYear) }}" method="POST" onsubmit="return confirm('Eliminar este ano letivo?');">
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li>
+                                            <form action="{{ route('academic-years.destroy', $academicYear) }}"
+                                                method="POST" onsubmit="return confirm('Eliminar este ano letivo?');">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="dropdown-item text-danger"><i class="bi bi-trash me-2"></i>Eliminar</button>
+                                                <button type="submit" class="dropdown-item text-danger"><i
+                                                        class="bi bi-trash me-2"></i>Eliminar</button>
                                             </form>
                                         </li>
                                     </ul>
