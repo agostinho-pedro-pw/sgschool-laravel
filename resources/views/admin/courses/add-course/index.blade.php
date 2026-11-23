@@ -88,7 +88,7 @@
                 <h1 class="h3 fw-bold mb-1">Adicionar Curso</h1>
                 <p class="text-muted mb-0">Criar um novo curso.</p>
             </div>
-            {{--Alertas da para a view--}}
+            {{--Alertas da para a view, com Bootstrap-alert--}}
             @if (session('success'))
             <div class="alert alert-success" role="alert">{{ session('success') }}</div>
             @endif
@@ -112,13 +112,13 @@
                                 <label for="courseCode" class="form-label">Código do Curso <span
                                         class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="courseCode" name="courseCode"
-                                    value="{{ old('courseCode') }}" required>
+                                    value="{{ old('courseCode') }}" required placeholder="ex: INF">
                             </div>
                             <div class="col-md-6">
                                 <label for="courseName" class="form-label">Nome do Curso <span
                                         class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="courseName" name="courseName"
-                                    value="{{ old('courseName') }}" required>
+                                    value="{{ old('courseName') }}" required placeholder="ex: multimédia">
                             </div>
                             <div class="col-12">
                                 <label for="department" class="form-label">Departamento <span

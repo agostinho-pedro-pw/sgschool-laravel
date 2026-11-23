@@ -113,6 +113,7 @@
 
     <main class="dashboard-content" id="main-content">
         <div class="container-fluid">
+            {{--Alerta , com bootstrap--}}
             @if (session('success'))
             <div class="alert alert-success" role="alert">{{ session('success') }}</div>
             @endif
