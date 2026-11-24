@@ -100,6 +100,17 @@
                         </li>
                         <li><a class="nav-link " href="{{ route('academic-years.index') }}">Listar Anos Letivos</a></li>
                     </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link has-submenu " href="javascript:void(0)" data-bs-toggle="collapse"
+                        data-bs-target="#roomsSubmenu" aria-expanded="false">
+                        <i class="bi bi-door-open"></i>
+                        <span>Salas</span>
+                    </a>
+                    <ul id="roomsSubmenu" class="submenu collapse list-unstyled">
+                        <li><a class="nav-link " href="{{ route('rooms.create') }}">Adicionar Sala</a></li>
+                        <li><a class="nav-link " href="{{ route('rooms.index') }}">Listar Salas</a></li>
+                    </ul>
                 </li>{{--
                 <li class="nav-item">
                     <a class="nav-link has-submenu " href="javascript:void(0)" data-bs-toggle="collapse"

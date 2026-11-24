@@ -4,6 +4,7 @@ use App\Http\Controllers\AcademicYearController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SchoolClassController;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -166,6 +167,14 @@ Route::resource('school-classes', SchoolClassController::class);
 */
 
 Route::resource('academic-years', AcademicYearController::class);
+
+/*
+|--------------------------------------------------------------------------
+| Salas (entidade independente, sem relações com outras tabelas)
+|--------------------------------------------------------------------------
+*/
+
+Route::resource('rooms', RoomController::class)->except('show');
 
 /*
 |--------------------------------------------------------------------------

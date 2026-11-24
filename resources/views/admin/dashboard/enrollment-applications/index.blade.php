@@ -123,7 +123,7 @@
 
                                             <td>
                                                 @php
-                                                $course = $enrollment->course ?? '—';
+                                                $course = $enrollment->course ?? '-';
                                                 $courses = \App\Models\Enrollment::COURSES ?? [];
                                                 @endphp
 
