@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AcademicYearController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\RoomController;
@@ -196,18 +197,8 @@ Route::get('/mailbox', function () {
 
 /*
 |--------------------------------------------------------------------------
-| Departamento
+| Departamentos (entidade independente, sem relações com outras tabelas)
 |--------------------------------------------------------------------------
 */
 
-Route::get('/add-department', function () {
-    return view('admin.departments.add-department.index');
-})->name('add-department');
-
-Route::get('/edit-department', function () {
-    return view('admin.departments.edit-department.index');
-})->name('edit-department');
-
-Route::get('/department', function () {
-    return view('admin.departments.departments.index');
-})->name('department');
+Route::resource('departments', DepartmentController::class)->except('show');

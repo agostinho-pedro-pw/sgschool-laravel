@@ -111,6 +111,19 @@
                         <li><a class="nav-link " href="{{ route('rooms.create') }}">Adicionar Sala</a></li>
                         <li><a class="nav-link " href="{{ route('rooms.index') }}">Listar Salas</a></li>
                     </ul>
+                </li>
+                {{-- Departamentos: entra no grupo Académico --}}
+                <li class="nav-item">
+                    <a class="nav-link has-submenu " href="javascript:void(0)" data-bs-toggle="collapse"
+                        data-bs-target="#departmentsSubmenu" aria-expanded="false">
+                        <i class="bi bi-building"></i>
+                        <span>Departamentos</span>
+                    </a>
+                    <ul id="departmentsSubmenu" class="submenu collapse list-unstyled">
+                        <li><a class="nav-link " href="{{ route('departments.create') }}">Adicionar Departamento</a>
+                        </li>
+                        <li><a class="nav-link " href="{{ route('departments.index') }}">Listar Departamentos</a></li>
+                    </ul>
                 </li>{{--
                 <li class="nav-item">
                     <a class="nav-link has-submenu " href="javascript:void(0)" data-bs-toggle="collapse"
@@ -134,19 +147,6 @@
                         <li><a class="nav-link " href="library-assets.html">Acervo da Biblioteca</a></li>
                         <li><a class="nav-link " href="add-library-assets.html">Adicionar Item ao Acervo</a></li>
                         <li><a class="nav-link " href="edit-library-assets.html">Editar Item do Acervo</a></li>
-                    </ul>
-                </li>--}}
-                {{--
-                <li class="nav-item">
-                    <a class="nav-link has-submenu " href="javascript:void(0)" data-bs-toggle="collapse"
-                        data-bs-target="#departmentsSubmenu" aria-expanded="false">
-                        <i class="bi bi-building"></i>
-                        <span>Departamentos</span>
-                    </a>
-                    <ul id="departmentsSubmenu" class="submenu collapse  list-unstyled">
-                        <li><a class="nav-link " href="{{ route('department') }}">Lista de Departamentos</a></li>
-                        <li><a class="nav-link " href="{{ route('add-department') }}">Adicionar Departamento</a></li>
-                        <li><a class="nav-link " href="{{ route('edit-department') }}">Editar Departamento</a></li>
                     </ul>
                 </li>--}}
             </ul>
