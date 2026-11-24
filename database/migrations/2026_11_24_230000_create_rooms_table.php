@@ -12,11 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('rooms', function (Blueprint $table) {
-            // Chave primária da sala: id_sala
             $table->id('id_sala');
-            // Designação da sala (ex.: Sala-01)
             $table->string('designacao');
-            // Capacidade da sala (número de lugares)
             $table->integer('capacidade');
             $table->timestamps();
         });

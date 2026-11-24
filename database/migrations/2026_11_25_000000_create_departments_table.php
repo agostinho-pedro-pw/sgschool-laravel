@@ -12,13 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('departments', function (Blueprint $table) {
-            // Chave primária do departamento: department_id
             $table->id('department_id');
-            // Nome do departamento (ex.: Ciências Informáticas)
             $table->string('department_name');
-            // Código curto do departamento (ex.: CI)
             $table->string('department_code', 20);
-            // Descrição livre do departamento
             $table->text('description')->nullable();
             $table->timestamps();
         });

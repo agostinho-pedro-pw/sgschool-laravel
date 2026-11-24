@@ -5,7 +5,7 @@
 @section('language', 'pt-PT')
 
 @section('head')
-<link rel="icon" type="image/x-icon" href="{{ asset('dashboard/assets/dist/assets/favicon-9EIT7vLh.ico') }}">
+<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 
     <style>
         * {

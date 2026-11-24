@@ -9,7 +9,6 @@ class Department extends Model
     // Chave primária da tabela departments
     protected $primaryKey = 'department_id';
 
-    // Campos que podem ser preenchidos pelos formulários
     protected $fillable = [
         'department_name',
         'department_code',
