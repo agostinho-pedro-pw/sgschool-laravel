@@ -103,22 +103,24 @@
                         <div class="row g-3">
                             {{-- Designação da sala --}}
                             <div class="col-md-6">
-                                <label for="designacao" class="form-label">Designação</label>
+                                <label for="designacao" class="form-label">Designação <span
+                                        class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="designacao" name="designacao"
                                     value="{{ old('designacao') }}" placeholder="Ex.: Sala-01">
                             </div>
 
                             {{-- Capacidade da sala (número de lugares) --}}
                             <div class="col-md-6">
-                                <label for="capacidade" class="form-label">Capacidade</label>
+                                <label for="capacidade" class="form-label">Capacidade <span
+                                        class="text-danger">*</span></label>
                                 <input type="number" class="form-control" id="capacidade" name="capacidade"
                                     value="{{ old('capacidade') }}" placeholder="Ex.: 30">
                             </div>
 
                             {{-- Botão de envio --}}
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary">Criar Sala</button>
-                                <a href="{{ route('rooms.index') }}" class="btn btn-light">Cancelar</a>
+                                <button type="submit" class="btn btn-primary">Criar Sala</button>{{--botão de cancelar
+                                <a href="{{ route('rooms.index') }}" class="btn btn-light">Cancelar</a>--}}
                             </div>
                         </div>
                     </form>

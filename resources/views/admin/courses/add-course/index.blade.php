@@ -135,8 +135,7 @@
                                 </select>
                             </div>
                             <div class="col-12">
-                                <label for="courseDescription" class="form-label">Descrição do Curso <span
-                                        class="text-danger">*</span></label>
+                                <label for="courseDescription" class="form-label">Descrição do Curso</label>
                                 <textarea class="form-control" id="courseDescription" name="courseDescription" rows="4"
                                     placceholder="Alguma descrição">{{ old('courseDescription') }}</textarea>
                             </div>

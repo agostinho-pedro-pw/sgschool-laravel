@@ -103,14 +103,16 @@
                         <div class="row g-3">
                             {{-- Nome do departamento --}}
                             <div class="col-md-6">
-                                <label for="department_name" class="form-label">Nome do Departamento</label>
+                                <label for="department_name" class="form-label">Nome do Departamento <span
+                                        class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="department_name" name="department_name"
                                     value="{{ old('department_name') }}" placeholder="Ex.: Ciências Informáticas">
                             </div>
 
                             {{-- Código curto do departamento --}}
                             <div class="col-md-6">
-                                <label for="department_code" class="form-label">Código</label>
+                                <label for="department_code" class="form-label">Código <span
+                                        class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="department_code" name="department_code"
                                     value="{{ old('department_code') }}" placeholder="Ex.: CI">
                             </div>
@@ -124,8 +126,9 @@
 
                             {{-- Botões de ação --}}
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary">Criar Departamento</button>
-                                <a href="{{ route('departments.index') }}" class="btn btn-light">Cancelar</a>
+                                <button type="submit" class="btn btn-primary">Criar Departamento</button>{{--
+                                botão de cancelar
+                                <a href="{{ route('departments.index') }}" class="btn btn-light">Cancelar</a>--}}
                             </div>
                         </div>
                     </form>

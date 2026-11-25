@@ -220,7 +220,7 @@
         <div class="container-fluid">
             <!-- Cabeçalho da página -->
             <div class="mb-3">
-                <h1 class="h3 fw-bold">Visão Geral do Painel</h1>
+                <h1 class="h3 fw-bold">Visão Geral Administrativa</h1>
                 <p class="text-muted small">Bem-vindo de volta! Veja o que está a acontecer na sua instituição hoje.
                 </p>
             </div>
