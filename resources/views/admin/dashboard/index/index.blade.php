@@ -52,14 +52,10 @@
             <!-- Navegação estrutural (desktop) -->
             <nav aria-label="Navegação estrutural do cabeçalho" class="d-none d-lg-block ms-3">
                 <ol class="breadcrumb mb-0">
-                    <li class="breadcrumb-item"><a href="index.html">Início</a></li>
+                    <li class="breadcrumb-item"><a href="#l">Início</a></li>
                     <li class="breadcrumb-item active">Painel</li>
                 </ol>
             </nav>
-
-            <!-- Logótipo (mobile) -->
-            <div class="navbar-brand d-lg-none fw-bold me-auto">sgSchool</div>
-
             <!-- Espaçador (desktop) -->
             <div class="flex-grow-1 d-none d-lg-block"></div>
 
@@ -79,94 +75,8 @@
                         <button type="button" class="close-search" id="closeSearch" aria-label="Fechar pesquisa">
                             <i class="bi bi-x-lg"></i>
                         </button>
-
-                        <ul class="dropdown-menu w-100 mt-2">
-                            <li><a class="dropdown-item" href="#">Matrícula de Estudantes</a></li>
-                            <li><a class="dropdown-item" href="#">Gestão de Cursos</a></li>
-                            <li><a class="dropdown-item" href="#">Lançamento de Notas</a></li>
-                            <li><a class="dropdown-item" href="#">Diretório de Docentes</a></li>
-                            <li><a class="dropdown-item" href="#">Recursos da Biblioteca</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Pesquisa Avançada</a></li>
-                        </ul>
                     </div>
                 </div>
-
-                <!-- Notificações -->
-                <div class="dropdown">
-                    <button type="button" class="btn btn-light btn-icon position-relative" data-bs-toggle="dropdown"
-                        id="notificationsToggle" aria-label="Notificações">
-                        <i class="bi bi-bell"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                            style="font-size: 0.6rem;">3</span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" style="width: 320px;">
-                        <li class="dropdown-header d-flex align-items-center justify-content-between">
-                            <span>Notificações</span>
-                            <small class="text-muted">3 novas</small>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li>
-                            <a class="dropdown-item py-2" href="#">
-                                <div class="d-flex align-items-center">
-                                    <div class="rounded-circle bg-primary bg-opacity-10 p-2 me-3 d-flex align-items-center justify-content-center flex-shrink-0"
-                                        style="width: 40px; height: 40px;">
-                                        <i class="bi bi-calendar-check text-primary"></i>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <div class="fw-semibold">Novo Evento</div>
-                                        <div class="text-muted small">Feira de Ciências a 15 de Março</div>
-                                        <div class="text-muted small">há 5 minutos</div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item py-2" href="#">
-                                <div class="d-flex align-items-center">
-                                    <div class="rounded-circle bg-success bg-opacity-10 p-2 me-3 d-flex align-items-center justify-content-center flex-shrink-0"
-                                        style="width: 40px; height: 40px;">
-                                        <i class="bi bi-check-circle text-success"></i>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <div class="fw-semibold">Trabalho Submetido</div>
-                                        <div class="text-muted small">O João submeteu o seu projeto</div>
-                                        <div class="text-muted small">há 2 horas</div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item py-2" href="#">
-                                <div class="d-flex align-items-center">
-                                    <div class="rounded-circle bg-warning bg-opacity-10 p-2 me-3 d-flex align-items-center justify-content-center flex-shrink-0"
-                                        style="width: 40px; height: 40px;">
-                                        <i class="bi bi-exclamation-triangle text-warning"></i>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <div class="fw-semibold">Alerta do Sistema</div>
-                                        <div class="text-muted small">Cópia de segurança da base de dados concluída
-                                        </div>
-                                        <div class="text-muted small">Ontem</div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li>
-                            <a class="dropdown-item text-center" href="notifications.html">
-                                <small>Ver todas as notificações</small>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
                 <!-- Ações rápidas -->
                 <div class="dropdown">
                     <button type="button" class="btn btn-light btn-icon" data-bs-toggle="dropdown"
@@ -192,19 +102,20 @@
                 <div class="dropdown">
                     <button type="button" class="btn btn-light d-flex align-items-center" data-bs-toggle="dropdown"
                         aria-label="Menu da conta de Sarah Johnson">
+                        {{--Nome do usuario, ou user-rpofile--}}
                         <span class="user-avatar me-2">
-                            SJ
+                            MH
                         </span>
-                        <span class="d-none d-md-inline">Sarah Johnson</span>
+                        <span class="d-none d-md-inline">Miguel Hamuyela</span>
                         <i class="bi bi-chevron-down ms-1"></i>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Perfil</a></li>
                         <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Definições</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="bi bi-question-circle me-2"></i>Centro de
+                        <!--<li><a class="dropdown-item" href="#"><i class="bi bi-question-circle me-2"></i>Centro de
                                 Ajuda</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
+                        <li>-->
+                        <hr class="dropdown-divider">
                         </li>
                         <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2"></i>Terminar
                                 Sessão</a>
@@ -226,45 +137,76 @@
             </div>
 
             <!-- Linha de cartões de estatísticas -->
+            <!-- Cartões dee visualização com dados em tempo real -->
             <div class="dashboard-row">
                 <div class="dashboard-grid grid-cols-4">
-                    <div class="stats-card">
-                        <div class="stats-card-label">Tecnologias de Computação</div>
-                        <div class="stats-card-value">$5,000</div>
-                        <span class="stats-card-change positive">+20%</span>
-                        <div class="progress-custom">
-                            <div class="progress-bar-custom bg-success" style="width: 20%"></div>
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-body text-center">
+                            <div class="mb-3">
+                                <div class="stat-icon-large bg-warning bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto"
+                                    style="width: 60px; height: 60px;">
+                                    <i class="bi bi-person-badge" style="font-size: 24px; color: #ffc107;"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value text-warning fw-bold mb-1" style="font-size: 2rem;">100</div>
+                            <div class="stat-label text-muted mb-2">Total de inscrições</div>
+                            <div class="stat-change text-success small fw-semibold">
+                                <!--<i class="bi bi-arrow-up" style="font-size: 12px;"></i> +3-->
+                            </div>
+                            <div class="text-muted" style="font-size: 0.75rem;">_</div>
                         </div>
                     </div>
-
-                    <div class="stats-card">
-                        <div class="stats-card-label">Contabilidade</div>
-                        <div class="stats-card-value">$3,000</div>
-                        <span class="stats-card-change positive">+30%</span>
-                        <div class="progress-custom">
-                            <div class="progress-bar-custom bg-danger" style="width: 30%"></div>
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-body text-center">
+                            <div class="mb-3">
+                                <div class="stat-icon-large bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto"
+                                    style="width: 60px; height: 60px;">
+                                    <i class="bi bi-people-fill" style="font-size: 24px; color: #0d6efd;"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value text-primary fw-bold mb-1" style="font-size: 2rem;">9,284</div>
+                            <div class="stat-label text-muted mb-2">Inscritos Matriculados</div>
+                            <div class="stat-change text-success small fw-semibold">
+                                <!--<i class="bi bi-arrow-up" style="font-size: 12px;"></i> +412-->
+                            </div>
+                            <div class="text-muted" style="font-size: 0.75rem;">no corrente ano lectivo</div>
                         </div>
                     </div>
-
-                    <div class="stats-card">
-                        <div class="stats-card-label">Engenharia Eléctrica</div>
-                        <div class="stats-card-value">$2,000</div>
-                        <span class="stats-card-change positive">+60%</span>
-                        <div class="progress-custom">
-                            <div class="progress-bar-custom bg-info" style="width: 60%"></div>
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-body text-center">
+                            <div class="mb-3">
+                                <div class="stat-icon-large bg-success bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto"
+                                    style="width: 60px; height: 60px;">
+                                    <i class="bi bi-book-half" style="font-size: 24px; color: #198754;"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value text-success fw-bold mb-1" style="font-size: 2rem;">14</div>
+                            <div class="stat-label text-muted mb-2">Total de Cursos</div>
+                            <div class="stat-change text-success small fw-semibold">
+                                <!--<i class="bi bi-arrow-up" style="font-size: 12px;"></i> +8-->
+                            </div>
+                            <div class="text-muted" style="font-size: 0.75rem;">novos neste semestre</div>
                         </div>
                     </div>
-
-                    <div class="stats-card">
-                        <div class="stats-card-label">Engenharia Química</div>
-                        <div class="stats-card-value">$3,500</div>
-                        <span class="stats-card-change positive">+80%</span>
-                        <div class="progress-custom">
-                            <div class="progress-bar-custom bg-warning" style="width: 80%"></div>
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-body text-center">
+                            <div class="mb-3">
+                                <div class="stat-icon-large bg-info bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto"
+                                    style="width: 60px; height: 60px;">
+                                    <i class="bi bi-award" style="font-size: 24px; color: #0dcaf0;"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value text-info fw-bold mb-1" style="font-size: 2rem;">5</div>
+                            <div class="stat-label text-muted mb-2">Total de Departamentos</div>
+                            <div class="stat-change text-success small fw-semibold">
+                                <!--<i class="bi bi-arrow-up" style="font-size: 12px;"></i> +0.3-->
+                            </div>
+                            <div class="text-muted" style="font-size: 0.75rem;">melhoria média</div>
                         </div>
                     </div>
                 </div>
             </div>
+            >
 
             <!-- Linha de gráficos -->
             <div class="dashboard-row">
