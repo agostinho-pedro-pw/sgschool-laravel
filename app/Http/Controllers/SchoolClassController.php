@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SchoolClass;
 use Illuminate\Http\Request;
+use App\Models\Course;
 
 class SchoolClassController extends Controller
 {
@@ -18,7 +19,7 @@ class SchoolClassController extends Controller
     // Mostra o formulário para criar uma Turma
     public function create()
     {
-        $courses = $this->courses();
+        $courses = Course::orderBy('courseName')->get();
 
         return view('admin.school-classes.add-school-class.index', compact('courses'));
     }
@@ -30,7 +31,7 @@ class SchoolClassController extends Controller
             'nomeTurma',
             'anoLetivo',
             'classe',
-            'curso',
+            'course_id',
             'periodo',
             'sala',
         ]));
@@ -49,7 +50,7 @@ class SchoolClassController extends Controller
     // Mostra o formulário para editar uma Turma
     public function edit(SchoolClass $schoolClass)
     {
-        $courses = $this->courses();
+        //$courses = $this->courses();
 
         return view('admin.school-classes.edit-school-class.index', compact('schoolClass', 'courses'));
     }
@@ -61,7 +62,7 @@ class SchoolClassController extends Controller
             'nomeTurma',
             'anoLetivo',
             'classe',
-            'curso',
+            'course_id',
             'periodo',
             'sala',
         ]));
@@ -79,18 +80,5 @@ class SchoolClassController extends Controller
         return redirect()
             ->route('school-classes.index')
             ->with('success', 'Turma eliminada com sucesso.');
-    }
-
-    // Lista fixa usada apenas pelo formulário da Turma.
-    private function courses(): array
-    {
-        return [
-            'Ciências Económico-Jurídicas',
-            'Ciências Humanas',
-            'Ciências Físicas e Biológicas',
-            'Informática',
-            'Contabilidade',
-            'Multimédia',
-        ];
     }
 }

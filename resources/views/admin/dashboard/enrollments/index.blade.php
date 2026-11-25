@@ -85,10 +85,8 @@ $editing = isset($enrollment);
         <div class="container-fluid">
             <div class="dashboard-row">
                 <div class="dashboard-grid grid-cols-1">
-                    <h4 class="page-title">{{ isset($enrollment) ? 'Editar inscrição' : 'Inscrição de Candidatos' }}
+                    <h4 class="page-title">{{ isset($enrollment) ? 'Editar inscrição' : 'Inscrição para Candidatos' }}
                     </h4>
-                    <p class="text-muted">Preencha os campos abaixo para {{ isset($enrollment) ? 'atualizar a inscrição'
-                        : 'submeter a sua candidatura' }}.</p>
                 </div>
             </div>
 
