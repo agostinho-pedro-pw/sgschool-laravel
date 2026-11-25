@@ -10,7 +10,7 @@ use Illuminate\View\View;
 class RoomController extends Controller
 {
     // Lista todas as salas por ordem alfabética da designação
-    public function index(): View
+    public function index()
     {
         $rooms = Room::orderBy('designacao')->get();
 
@@ -18,13 +18,13 @@ class RoomController extends Controller
     }
 
     // Mostra o formulário para criar uma sala
-    public function create(): View
+    public function create()
     {
         return view('admin.rooms.add-room.index');
     }
 
     // Guarda uma nova sala
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         Room::create($request->only([
             'designacao',
@@ -35,15 +35,18 @@ class RoomController extends Controller
             ->route('rooms.index')
             ->with('success', 'Sala criada com sucesso.');
     }
-
+    public function show(Room $room)
+    {
+        return view('admin.rooms.rooms.index', compact('rooms.show'));
+    }
     // Mostra o formulário para editar uma sala
-    public function edit(Room $room): View
+    public function edit(Room $room)
     {
         return view('admin.rooms.edit-room.index', compact('room'));
     }
 
     // Atualiza uma sala
-    public function update(Request $request, Room $room): RedirectResponse
+    public function update(Request $request, Room $room)
     {
         $room->update($request->only([
             'designacao',
@@ -56,7 +59,7 @@ class RoomController extends Controller
     }
 
     // Elimina uma sala
-    public function destroy(Room $room): RedirectResponse
+    public function destroy(Room $room)
     {
         $room->delete();
 

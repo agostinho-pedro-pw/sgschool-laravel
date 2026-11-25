@@ -36,6 +36,10 @@ class DepartmentController extends Controller
             ->route('departments.index')
             ->with('success', 'Departamento criado com sucesso.');
     }
+    public function show(Department $department)
+    {
+        return view('admin.departments.all-departments.index', compact('department'));
+    }
 
     // Mostra o formulário para editar um departamento
     public function edit(Department $department): View

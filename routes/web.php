@@ -176,7 +176,7 @@ Route::resource('academic-years', AcademicYearController::class);
 */
 
 Route::resource('rooms', RoomController::class)->except('show');
-
+Route::get('/rooms/{room}', [DepartmentController::class, 'show'])->name('rooms.show');
 /*
 |--------------------------------------------------------------------------
 | Correio
@@ -202,3 +202,4 @@ Route::get('/mailbox', function () {
 */
 
 Route::resource('departments', DepartmentController::class)->except('show');
+Route::get('/departments/{department}', [DepartmentController::class, 'show'])->name('departments.show');

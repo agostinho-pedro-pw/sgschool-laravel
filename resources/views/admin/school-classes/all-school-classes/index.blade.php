@@ -13,12 +13,12 @@
     * {
         box-sizing: border-box;
         margin: 0;
-        padding: 0
+        padding: 0;
     }
 
     body {
         background: #f5f7fa;
-        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     .sidebar {
@@ -28,42 +28,64 @@
         height: 100vh;
         position: fixed;
         top: 0;
-        left: 0
+        left: 0;
     }
 
     .main-wrapper {
         min-height: 100vh;
         margin-left: 260px;
-        transition: margin-left .3s
+        transition: margin-left .3s;
     }
 
     .top-navbar {
         background: #fff;
         height: 60px;
         padding: 0 1rem;
-        box-shadow: 0 1px 3px #0000001a
+        box-shadow: 0 1px 3px #0000001a;
     }
 
     .dashboard-content {
-        padding: 24px
+        padding: 24px;
     }
 
     .dashboard-card {
         background: #fff;
         border: 1px solid #e5e7eb;
         border-radius: 8px;
-        box-shadow: 0 1px 3px #0000001a
+        box-shadow: 0 1px 3px #0000001a;
     }
 
     #schoolClassTable th,
     #schoolClassTable td {
-        padding: 1rem 1.25rem
+        padding: 1rem 1.25rem;
+    }
+
+    #schoolClassTable .dropdown-menu {
+        padding: .375rem;
+    }
+
+    #schoolClassTable .dropdown-item {
+        border-radius: 6px;
+        padding: .5rem .75rem;
+        transition: background-color .15s ease, transform .15s ease;
+    }
+
+    #schoolClassTable .dropdown-menu .dropdown-item:hover,
+    #schoolClassTable .dropdown-menu .dropdown-item:focus {
+        background-color: #cbd5e1 !important;
+        transform: translateX(3px);
+    }
+
+    #schoolClassTable .dropdown-menu .dropdown-item.text-danger:hover,
+    #schoolClassTable .dropdown-menu .dropdown-item.text-danger:focus {
+        background-color: #fecaca !important;
     }
 </style>
 @endsection
 
 @section('content')
 <a href="#main-content" class="visually-hidden-focusable">Saltar para o conteúdo principal</a>
+<div class="search-backdrop" id="searchBackdrop"></div>
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
 @include('layouts._include.dashboard.sidebar')
@@ -71,17 +93,13 @@
 <div class="main-wrapper" id="mainWrapper">
     <header class="navbar top-navbar">
         <div class="container-fluid d-flex align-items-center h-100">
-            <button type="button" class="hamburger-menu" id="sidebarToggle"
-                aria-label="Abrir ou fechar a barra lateral">
+            <button type="button" class="hamburger-menu" id="sidebarToggle" aria-label="Abrir ou fechar a barra lateral"
+                aria-controls="sidebar">
                 <i class="bi bi-list"></i>
             </button>
             <nav aria-label="Navegação estrutural" class="d-none d-lg-block ms-3">
-                <ol class="breadcrumb mb-0">
-                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Painel</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Classes Escolares</li>
-                </ol>
+                <ol class="breadcrumb mb-0"></ol>
             </nav>
-            <div class="navbar-brand d-lg-none fw-bold me-auto">sgSchool</div>
         </div>
     </header>
 
@@ -93,8 +111,8 @@
 
             <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 mb-4">
                 <div>
-                    <h1 class="h3 fw-bold mb-1">Listar Classes Escolares</h1>
-                    <p class="text-muted mb-0">Gerir as classes escolares da instituição.</p>
+                    <h1 class="h3 fw-bold mb-1">Listar Turmas</h1>
+                    <p class="text-muted mb-0">Gerir as turmas da instituição.</p>
                 </div>
                 <a href="{{ route('school-classes.create') }}" class="btn btn-primary">Adicionar Classe</a>
             </div>
@@ -128,12 +146,18 @@
                                         <i class="bi bi-three-dots-vertical"></i>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item"
-                                                href="{{ route('school-classes.show', $schoolClass) }}"><i
-                                                    class="bi bi-eye me-2"></i>Detalhes</a></li>
-                                        <li><a class="dropdown-item"
-                                                href="{{ route('school-classes.edit', $schoolClass) }}"><i
-                                                    class="bi bi-pencil me-2"></i>Editar</a></li>
+                                        <li>
+                                            <a class="dropdown-item"
+                                                href="{{ route('school-classes.show', $schoolClass) }}">
+                                                <i class="bi bi-eye me-2"></i>Detalhes
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item"
+                                                href="{{ route('school-classes.edit', $schoolClass) }}">
+                                                <i class="bi bi-pencil me-2"></i>Editar
+                                            </a>
+                                        </li>
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
@@ -154,7 +178,9 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="7" class="py-4 text-center text-muted">Nenhuma classe escolar encontrada.</td>
+                            <td colspan="7" class="py-4 text-center text-muted">
+                                Nenhuma classe escolar encontrada.
+                            </td>
                         </tr>
                         @endforelse
                     </tbody>

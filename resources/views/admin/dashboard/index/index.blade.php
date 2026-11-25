@@ -51,10 +51,6 @@
 
             <!-- Navegação estrutural (desktop) -->
             <nav aria-label="Navegação estrutural do cabeçalho" class="d-none d-lg-block ms-3">
-                <ol class="breadcrumb mb-0">
-                    <li class="breadcrumb-item"><a href="#l">Início</a></li>
-                    <li class="breadcrumb-item active">Painel</li>
-                </ol>
             </nav>
             <!-- Espaçador (desktop) -->
             <div class="flex-grow-1 d-none d-lg-block"></div>
@@ -131,8 +127,8 @@
         <div class="container-fluid">
             <!-- Cabeçalho da página -->
             <div class="mb-3">
-                <h1 class="h3 fw-bold">Visão Geral Administrativa</h1>
-                <p class="text-muted small">Bem-vindo de volta! Veja o que está a acontecer na sua instituição hoje.
+                <h1 class="h3 fw-bold"></h1>
+                <p class="text-muted small">
                 </p>
             </div>
 
@@ -148,7 +144,7 @@
                                     <i class="bi bi-person-badge" style="font-size: 24px; color: #ffc107;"></i>
                                 </div>
                             </div>
-                            <div class="stat-value text-warning fw-bold mb-1" style="font-size: 2rem;">100</div>
+                            <div class="stat-value text-warning fw-bold mb-1" style="font-size: 2rem;">103</div>
                             <div class="stat-label text-muted mb-2">Total de inscrições</div>
                             <div class="stat-change text-success small fw-semibold">
                                 <!--<i class="bi bi-arrow-up" style="font-size: 12px;"></i> +3-->
@@ -165,11 +161,11 @@
                                 </div>
                             </div>
                             <div class="stat-value text-primary fw-bold mb-1" style="font-size: 2rem;">9,284</div>
-                            <div class="stat-label text-muted mb-2">Inscritos Matriculados</div>
+                            <div class="stat-label text-muted mb-2">Matriculados</div>
                             <div class="stat-change text-success small fw-semibold">
                                 <!--<i class="bi bi-arrow-up" style="font-size: 12px;"></i> +412-->
                             </div>
-                            <div class="text-muted" style="font-size: 0.75rem;">no corrente ano lectivo</div>
+                            <div class="text-muted" style="font-size: 0.75rem;">_</div>
                         </div>
                     </div>
                     <div class="dashboard-card">
@@ -185,7 +181,7 @@
                             <div class="stat-change text-success small fw-semibold">
                                 <!--<i class="bi bi-arrow-up" style="font-size: 12px;"></i> +8-->
                             </div>
-                            <div class="text-muted" style="font-size: 0.75rem;">novos neste semestre</div>
+                            <div class="text-muted" style="font-size: 0.75rem;">_</div>
                         </div>
                     </div>
                     <div class="dashboard-card">
@@ -201,12 +197,12 @@
                             <div class="stat-change text-success small fw-semibold">
                                 <!--<i class="bi bi-arrow-up" style="font-size: 12px;"></i> +0.3-->
                             </div>
-                            <div class="text-muted" style="font-size: 0.75rem;">melhoria média</div>
+                            <div class="text-muted" style="font-size: 0.75rem;">_</div>
                         </div>
                     </div>
                 </div>
             </div>
-            >
+
 
             <!-- Linha de gráficos -->
             <div class="dashboard-row">
@@ -361,26 +357,14 @@
         </div>
     </main>
 
-    <!-- Rodapé -->
-    <footer class="dashboard-footer">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-6">
-                    <p class="mb-0">&copy; 2026 sgSCHOOL. Todos os direitos reservados.</p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <p class="mb-0">Feito com <i class="bi bi-heart-fill text-danger"></i> para a educação</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-</div>
+    {{--Rodapé--}}
+    @include('layouts._include.dashboard.footer')
 
-<!-- Scripts (Bootstrap, Chart.js e script do painel) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
+    <!-- Scripts (Bootstrap, Chart.js e script do painel) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
         if (typeof Chart === 'undefined') return;
 
         // Destrói um gráfico já existente no canvas (evita conflito com o main.js)
@@ -468,7 +452,7 @@
         criarSparkline('pageViewsSparkline', [30, 25, 45, 40, 60, 52, 70], '#198754');
         criarSparkline('bounceRateSparkline', [48, 45, 50, 44, 46, 41, 42], '#ffc107');
     });
-</script>
-<script src="{{ asset('dashboard/assets/js/main.js') }}"></script>
+    </script>
+    <script src="{{ asset('dashboard/assets/js/main.js') }}"></script>
 
-@endsection
+    @endsection

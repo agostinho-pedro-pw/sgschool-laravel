@@ -16,6 +16,9 @@
 <link rel="stylesheet" crossorigin href="{{ asset('dashboard/assets/dist/assets/main-BV-wpnXD.css') }}">
 <link rel="stylesheet" crossorigin href="{{ asset('dashboard/assets/dist/assets/main-DVYj-QCH.css') }}">
 
+{{-- Datatable (Bootstrap Table): pesquisa, paginação e escolha de colunas --}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.6/dist/bootstrap-table.min.css">
+
 <style>
     .enrollment-page .dashboard-content {
         padding: 24px;
@@ -36,41 +39,83 @@
         background-color: rgba(13, 110, 253, 0.05);
     }
 
-    /* Botão de 3 pontos (menu de ações) */
-    .enrollment-page .btn-actions {
+    /* Botões de ação (ver, aceitar, eliminar) */
+    .enrollment-page .btn-action {
         width: 34px;
         height: 34px;
         padding: 0;
+        margin: 0 .125rem;
         display: inline-flex;
         align-items: center;
         justify-content: center;
         border: 0;
-        border-radius: 50%;
-        background: transparent;
-        color: #6c757d;
+        border-radius: 8px;
+        text-decoration: none;
+        cursor: pointer;
         transition: background-color .15s ease, color .15s ease;
     }
 
-    .enrollment-page .btn-actions:hover,
-    .enrollment-page .btn-actions:focus,
-    .enrollment-page .btn-actions.show {
+    .enrollment-page .btn-view {
         background-color: rgba(13, 110, 253, 0.1);
         color: #0d6efd;
     }
 
-    .enrollment-page .btn-actions::after {
+    .enrollment-page .btn-view:hover {
+        background-color: #0d6efd;
+        color: #fff;
+    }
+
+    .enrollment-page .btn-accept {
+        background-color: rgba(25, 135, 84, 0.1);
+        color: #198754;
+    }
+
+    .enrollment-page .btn-accept:hover {
+        background-color: #198754;
+        color: #fff;
+    }
+
+    .enrollment-page .btn-delete {
+        background-color: rgba(220, 53, 69, 0.1);
+        color: #dc3545;
+    }
+
+    .enrollment-page .btn-delete:hover {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+    /* Datatable: espaçamento da barra de pesquisa e da paginação dentro do cartão */
+    .enrollment-page .fixed-table-toolbar {
+        padding: 0 1.5rem;
+    }
+
+    .enrollment-page .fixed-table-pagination {
+        padding: 0 1.5rem 1rem;
+    }
+
+    /* Esconde o texto "A mostrar X até Y de Z linhas" */
+    .enrollment-page .fixed-table-pagination .pagination-info {
         display: none;
     }
 
-    /* Itens do menu (botões dentro de formulários ocupam toda a largura) */
-    .enrollment-page .dropdown-menu form {
-        margin: 0;
+    /* Barra de pesquisa maior */
+    .enrollment-page .fixed-table-toolbar .search {
+        min-width: 380px;
+        max-width: 100%;
     }
 
-    .enrollment-page .dropdown-menu .dropdown-item {
-        display: flex;
-        align-items: center;
-        gap: .5rem;
+    .enrollment-page .fixed-table-toolbar .search .search-input {
+        height: 46px;
+        font-size: 1.05rem;
+        padding: 0 1rem;
+    }
+
+    @media (max-width: 575.98px) {
+        .enrollment-page .fixed-table-toolbar .search {
+            min-width: 0;
+            width: 100%;
+        }
     }
 </style>
 @endsection
@@ -99,19 +144,7 @@
                 </button>
 
                 <nav aria-label="Navegação estrutural do cabeçalho" class="d-none d-lg-block ms-3">
-                    <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item">
-                            <a href="{{ route('dashboard') }}">Início</a>
-                        </li>
-                        <li class="breadcrumb-item active" aria-current="page">
-                            Inscrições
-                        </li>
-                    </ol>
                 </nav>
-
-                <div class="navbar-brand d-lg-none fw-bold me-auto">
-                    sgSchool
-                </div>
             </div>
         </header>
 
@@ -153,128 +186,109 @@
                         </div>
 
                         <div class="dashboard-card-body p-0">
-                            {{-- Tabela de candidaturas --}}
-                            <div class="table-responsive">
-                                <table class="table table-hover align-middle mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col" class="px-4 py-3">Nome completo</th>
-                                            <th scope="col" class="py-3">Telefone</th>
-                                            <th scope="col" class="py-3">Curso pretendido</th>
-                                            <th scope="col" class="py-3">Data da candidatura</th>
-                                            <th scope="col" class="py-3 pe-4 text-end">Ações</th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        @forelse ($enrollments as $enrollment)
-                                        <tr>
-                                            <td class="px-4">
-                                                <div class="fw-semibold">
-                                                    {{ $enrollment->fullName ?? '—' }}
-                                                </div>
-                                            </td>
-
-                                            <td class="text-nowrap">
-                                                {{ $enrollment->phone ?? '—' }}
-                                            </td>
-
-                                            {{-- Curso: converte o código guardado no nome legível (Enrollment::COURSES)
-                                            --}}
-                                            <td>
-                                                @php
-                                                $course = $enrollment->course ?? '-';
-                                                $courses = \App\Models\Enrollment::COURSES ?? [];
-                                                @endphp
-
-                                                {{ $courses[$course] ?? $course }}
-                                            </td>
-
-                                            {{-- Data: aceita objeto de data ou texto e formata como dd/mm/aaaa --}}
-                                            <td class="text-nowrap">
-                                                @php
-                                                $applicationDate = $enrollment->applicationDate ?? null;
-                                                @endphp
-
-                                                @if ($applicationDate instanceof \DateTimeInterface)
-                                                {{ $applicationDate->format('d/m/Y') }}
-                                                @elseif ($applicationDate)
-                                                {{ \Carbon\Carbon::parse($applicationDate)->format('d/m/Y') }}
-                                                @else
-                                                —
-                                                @endif
-                                            </td>
-
-                                            {{-- Ações: menu de 3 pontos (Detalhes, Aceitar, Eliminar) --}}
-                                            <td class="pe-4 text-end">
-                                                <div class="dropdown">
-                                                    {{-- strategy "fixed" evita que o menu fique cortado pela tabela
-                                                    responsiva --}}
-                                                    <button type="button" class="btn-actions" data-bs-toggle="dropdown"
-                                                        data-bs-popper-config='{"strategy":"fixed"}'
-                                                        aria-expanded="false" aria-label="Ações da candidatura">
-                                                        <i class="bi bi-three-dots-vertical"></i>
-                                                    </button>
-
-                                                    <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-                                                        {{-- Ver detalhes da candidatura --}}
-                                                        <li>
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('enrollments.show', $enrollment) }}">
-                                                                <i class="bi bi-eye"></i>Detalhes
-                                                            </a>
-                                                        </li>
-
-                                                        {{-- Aceitar candidatura (POST protegido com CSRF) --}}
-                                                        <li>
-                                                            <form
-                                                                action="{{ route('enrollments.accept', $enrollment) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                <button type="submit" class="dropdown-item">
-                                                                    <i class="bi bi-check-circle"></i>Aceitar
-                                                                </button>
-                                                            </form>
-                                                        </li>
-
-                                                        <li>
-                                                            <hr class="dropdown-divider">
-                                                        </li>
-
-                                                        {{-- Eliminar candidatura (DELETE com confirmação) --}}
-                                                        <li>
-                                                            <form
-                                                                action="{{ route('enrollments.destroy', $enrollment) }}"
-                                                                method="POST"
-                                                                onsubmit="return confirm('Tem a certeza de que pretende eliminar esta candidatura?');">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="dropdown-item text-danger">
-                                                                    <i class="bi bi-trash"></i>Eliminar
-                                                                </button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        {{-- Estado vazio: quando não há candidaturas --}}
-                                        @empty
-                                        <tr>
-                                            <td colspan="5" class="px-4 py-5 text-center">
-                                                <div class="text-muted">
-                                                    <i class="bi bi-inbox fs-2 d-block mb-2" aria-hidden="true"></i>
-                                                    <p class="fw-semibold mb-1">Ainda não existem candidaturas.</p>
-                                                    <p class="small mb-0">
-                                                        As candidaturas submetidas aparecerão aqui.
-                                                    </p>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        @endforelse
-                                    </tbody>
-                                </table>
+                            {{-- Estado vazio: quando não há candidaturas --}}
+                            @if ($enrollments->isEmpty())
+                            <div class="px-4 py-5 text-center">
+                                <div class="text-muted">
+                                    <i class="bi bi-inbox fs-2 d-block mb-2" aria-hidden="true"></i>
+                                    <p class="fw-semibold mb-1">Ainda não existem candidaturas.</p>
+                                    <p class="small mb-0">
+                                        As candidaturas submetidas aparecerão aqui.
+                                    </p>
+                                </div>
                             </div>
+                            @else
+                            {{-- Datatable de candidaturas (pesquisa, paginação e colunas) --}}
+                            <table id="enrollmentsTable" class="table table-hover align-middle mb-0" data-toggle="table"
+                                data-theme="bootstrap5" data-locale="pt-PT"
+                                data-classes="table table-hover align-middle mb-0" data-pagination="true"
+                                data-page-size="10" data-page-list="[10, 25, 50]" data-search="true">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" data-field="fullName">Nome completo</th>
+                                        <th scope="col" data-field="phone">Telefone</th>
+                                        <th scope="col" data-field="course">Curso pretendido</th>
+                                        <th scope="col" data-field="applicationDate">Data da candidatura</th>
+                                        <th scope="col" data-field="actions" data-searchable="false"
+                                            data-switchable="false" data-halign="center" data-align="center">Ações</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach ($enrollments as $enrollment)
+                                    <tr>
+                                        <td>
+                                            <div class="fw-semibold">
+                                                {{ $enrollment->fullName ?? '—' }}
+                                            </div>
+                                        </td>
+
+                                        <td class="text-nowrap">
+                                            {{ $enrollment->phone ?? '—' }}
+                                        </td>
+
+                                        {{-- Curso: converte o código guardado no nome legível (Enrollment::COURSES)
+                                        --}}
+                                        <td>
+                                            @php
+                                            $course = $enrollment->course ?? '-';
+                                            $courses = \App\Models\Enrollment::COURSES ?? [];
+                                            @endphp
+
+                                            {{ $courses[$course] ?? $course }}
+                                        </td>
+
+                                        {{-- Data: aceita objeto de data ou texto e formata como dd/mm/aaaa --}}
+                                        <td class="text-nowrap">
+                                            @php
+                                            $applicationDate = $enrollment->applicationDate ?? null;
+                                            @endphp
+
+                                            @if ($applicationDate instanceof \DateTimeInterface)
+                                            {{ $applicationDate->format('d/m/Y') }}
+                                            @elseif ($applicationDate)
+                                            {{ \Carbon\Carbon::parse($applicationDate)->format('d/m/Y') }}
+                                            @else
+                                            —
+                                            @endif
+                                        </td>
+
+                                        {{-- Ações: Detalhes, Aceitar e Eliminar --}}
+                                        <td class="text-center text-nowrap">
+                                            {{-- Ver detalhes da candidatura --}}
+                                            <a class="btn-action btn-view"
+                                                href="{{ route('enrollments.show', $enrollment) }}" title="Detalhes"
+                                                aria-label="Detalhes">
+                                                <i aria-hidden="true" class="bi bi-eye"></i>
+                                            </a>
+
+                                            {{-- Aceitar candidatura (POST protegido com CSRF) --}}
+                                            <form class="d-inline"
+                                                action="{{ route('enrollments.accept', $enrollment) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="btn-action btn-accept" title="Aceitar"
+                                                    aria-label="Aceitar">
+                                                    <i aria-hidden="true" class="bi bi-check-circle"></i>
+                                                </button>
+                                            </form>
+
+                                            {{-- Eliminar candidatura (DELETE com confirmação) --}}
+                                            <form class="d-inline"
+                                                action="{{ route('enrollments.destroy', $enrollment) }}" method="POST"
+                                                onsubmit="return confirm('Tem a certeza de que pretende eliminar esta candidatura?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn-action btn-delete" title="Eliminar"
+                                                    aria-label="Eliminar">
+                                                    <i aria-hidden="true" class="bi bi-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -282,19 +296,13 @@
         </main>
 
         {{-- Rodapé --}}
-        <footer class="dashboard-footer">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-6">
-                        <p class="mb-0">&copy; 2026 sgSchool. Todos os direitos reservados.</p>
-                    </div>
-
-                    <div class="col-md-6 text-md-end">
-                        <p class="mb-0">Criado com para a educação</p>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        {{--Rodapé--}}
+        @include('layouts._include.dashboard.footer')
     </div>
 </div>
+
+{{-- Scripts da datatable (jQuery + Bootstrap Table + tradução pt-PT) --}}
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.6/dist/bootstrap-table.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.6/dist/locale/bootstrap-table-pt-PT.min.js"></script>
 @endsection

@@ -10,7 +10,7 @@ use Illuminate\View\View;
 class AcademicYearController extends Controller
 {
     // Lista todos os anos letivos.
-    public function index(): View
+    public function index()
     {
         $academicYears = AcademicYear::orderBy('start_date', 'desc')->get();
 
@@ -18,21 +18,20 @@ class AcademicYearController extends Controller
     }
 
     // Mostra o formulário para criar um ano letivo.
-    public function create(): View
+    public function create()
     {
         return view('admin.academic-years.add-academic-year.index');
     }
 
     // Guarda um novo ano letivo.
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
-        $validated = $request->validate([
-            'designation' => ['required', 'string', 'max:20'],
-            'start_date' => ['required', 'date'],
-            'end_date' => ['required', 'date', 'after:start_date'],
-        ]);
 
-        AcademicYear::create($validated);
+        AcademicYear::create($request->only([
+            'designation',
+            'start_date',
+            'end_date',
+        ]));
 
         return redirect()
             ->route('academic-years.index')
@@ -40,27 +39,25 @@ class AcademicYearController extends Controller
     }
 
     // Mostra os detalhes de um ano letivo.
-    public function show(AcademicYear $academicYear): View
+    public function show(AcademicYear $academicYear)
     {
         return view('admin.academic-years.academic-year-info.index', compact('academicYear'));
     }
 
     // Mostra o formulário para editar um ano letivo.
-    public function edit(AcademicYear $academicYear): View
+    public function edit(AcademicYear $academicYear)
     {
         return view('admin.academic-years.edit-academic-year.index', compact('academicYear'));
     }
 
     // Atualiza um ano letivo.
-    public function update(Request $request, AcademicYear $academicYear): RedirectResponse
+    public function update(Request $request, AcademicYear $academicYear)
     {
-        $validated = $request->validate([
-            'designation' => ['required', 'string', 'max:20'],
-            'start_date' => ['required', 'date'],
-            'end_date' => ['required', 'date', 'after:start_date'],
-        ]);
-
-        $academicYear->update($validated);
+        $academicYear->update($request->only([
+            'designation',
+            'start_date',
+            'end_date',
+        ]));
 
         return redirect()
             ->route('academic-years.index')
@@ -68,7 +65,7 @@ class AcademicYearController extends Controller
     }
 
     // Elimina um ano letivo.
-    public function destroy(AcademicYear $academicYear): RedirectResponse
+    public function destroy(AcademicYear $academicYear)
     {
         $academicYear->delete();
 

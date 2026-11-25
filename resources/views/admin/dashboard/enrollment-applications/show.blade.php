@@ -52,13 +52,7 @@
             </button>
 
             <nav aria-label="Navegação estrutural do cabeçalho" class="d-none d-lg-block ms-3">
-                <ol class="breadcrumb mb-0">
-                    <li class="breadcrumb-item"><a href="{{ route('enrollments.index') }}">Inscrições</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Detalhes da Candidatura</li>
-                </ol>
             </nav>
-
-            <div class="navbar-brand d-lg-none fw-bold me-auto">sgSchool</div>
         </div>
     </header>
 
@@ -130,18 +124,6 @@
     </main>
 
     {{-- Rodapé --}}
-    <footer class="dashboard-footer">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-6">
-                    <p class="mb-0">&copy; 2026 sgSchool. Todos os direitos reservados.</p>
-                </div>
-
-                <div class="col-md-6 text-md-end">
-                    <p class="mb-0">Criado com <i class="bi bi-heart-fill text-danger"></i> para a educação</p>
-                </div>
-            </div>
-        </div>
-    </footer>
+    @include('layouts._include.dashboard.footer')
 </div>
 @endsection

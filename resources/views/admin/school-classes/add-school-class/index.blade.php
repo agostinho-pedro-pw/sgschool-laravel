@@ -102,13 +102,7 @@ $salas = [
             </button>
             <nav aria-label="Navegação estrutural" class="d-none d-lg-block ms-3">
                 <ol class="breadcrumb mb-0">
-                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Painel</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('school-classes.index') }}">Turma</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">Adicionar Turma</li>
-                </ol>
             </nav>
-            <div class="navbar-brand d-lg-none fw-bold me-auto">sgSchool</div>
         </div>
     </header>
 
@@ -139,7 +133,7 @@ $salas = [
                         <div class="row g-3">
                             {{-- Nome da classe escolar --}}
                             <div class="col-md-6">
-                                <label for="nomeTurma" class="form-label">Nome da Classe <span
+                                <label for="nomeTurma" class="form-label">Nome da Turma <span
                                         class="text-danger">*</span></label>
                                 {{-- old() mantém o valor digitado se a validação falhar --}}
                                 <input type="text" class="form-control" id="nomeTurma" name="nomeTurma"

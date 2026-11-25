@@ -100,14 +100,8 @@
 
             <nav aria-label="Navegação estrutural" class="d-none d-lg-block ms-3">
                 <ol class="breadcrumb mb-0">
-                    <li class="breadcrumb-item">
-                        <a href="{{ route('dashboard') }}">Painel</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">Cursos</li>
                 </ol>
             </nav>
-
-            <div class="navbar-brand d-lg-none fw-bold me-auto">sgSchool</div>
         </div>
     </header>
 

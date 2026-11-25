@@ -496,19 +496,8 @@
     </div>
 </main>
 
-<!-- Footer -->
-<footer class="dashboard-footer">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6">
-                <p class="mb-0">&copy; 2026 sgSchool. Todos os direitos reservados.</p>
-            </div>
-            <div class="col-md-6 text-md-end">
-                <p class="mb-0">Criado com <i class="bi bi-heart-fill text-danger"></i> para a educação</p>
-            </div>
-        </div>
-    </div>
-</footer>
+{{--Rodapé--}}
+@include('layouts._include.dashboard.footer')
 </div>
 
 <script>
