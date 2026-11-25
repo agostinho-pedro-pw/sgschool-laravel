@@ -275,7 +275,7 @@
                             <h5 class="dashboard-card-title">Receitas da Universidade</h5>
                         </div>
                         <div class="chart-container-main">
-                            <canvas id="earningsChart" width="300" height="80"></canvas>
+                            <canvas id="earningsChart"></canvas>
                         </div>
                     </div>
 
@@ -290,7 +290,7 @@
                                 <i class="bi bi-eye text-info" style="font-size: 24px;"></i>
                             </div>
                             <div class="chart-container-small">
-                                <canvas id="visitsSparkline" width="300" height="80"></canvas>
+                                <canvas id="visitsSparkline"></canvas>
                             </div>
                         </div>
 
@@ -303,7 +303,7 @@
                                 <i class="bi bi-file-text text-success" style="font-size: 24px;"></i>
                             </div>
                             <div class="chart-container-small">
-                                <canvas id="pageViewsSparkline" width="300" height="80"></canvas>
+                                <canvas id="pageViewsSparkline"></canvas>
                             </div>
                         </div>
 
@@ -316,7 +316,7 @@
                                 <i class="bi bi-arrow-up-circle text-warning" style="font-size: 24px;"></i>
                             </div>
                             <div class="chart-container-small">
-                                <canvas id="bounceRateSparkline" width="300" height="80"></canvas>
+                                <canvas id="bounceRateSparkline"></canvas>
                             </div>
                         </div>
                     </div>
@@ -435,27 +435,98 @@
 </div>
 
 <!-- Scripts (Bootstrap, Chart.js e script do painel) -->
-<script>
-    const canvas = document.getElementById('pageViewsSparkline');
-    const context = canvas.getContext('2d');
-
-    const values = [20, 35, 28, 50, 42, 65, 55];
-
-    context.beginPath();
-    context.moveTo(0, canvas.height - values[0]);
-
-    values.forEach((value, index) => {
-        const x = index * (canvas.width / (values.length - 1));
-        const y = canvas.height - value;
-        context.lineTo(x, y);
-    });
-
-    context.strokeStyle = '#0d6efd';
-    context.lineWidth = 3;
-    context.stroke();
-</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        if (typeof Chart === 'undefined') return;
+
+        // Destrói um gráfico já existente no canvas (evita conflito com o main.js)
+        function prepararCanvas(id) {
+            const el = document.getElementById(id);
+            if (!el) return null;
+            const existente = Chart.getChart(el);
+            if (existente) existente.destroy();
+            return el;
+        }
+
+        // Mini-gráfico (sparkline) reutilizável
+        function criarSparkline(id, valores, cor) {
+            const el = prepararCanvas(id);
+            if (!el) return;
+
+            new Chart(el, {
+                type: 'line',
+                data: {
+                    labels: valores.map((_, i) => i + 1),
+                    datasets: [{
+                        data: valores,
+                        borderColor: cor,
+                        backgroundColor: cor + '22',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false }, tooltip: { enabled: false } },
+                    scales: { x: { display: false }, y: { display: false } }
+                }
+            });
+        }
+
+        // Receitas da Universidade
+        const earnings = prepararCanvas('earningsChart');
+        if (earnings) {
+            new Chart(earnings, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                    datasets: [
+                        {
+                            label: 'Receitas',
+                            data: [3200, 4100, 3800, 5200, 4800, 6100, 5700, 6800, 6300, 7200, 6900, 8000],
+                            borderColor: '#0d6efd',
+                            backgroundColor: '#0d6efd22',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 3
+                        },
+                        {
+                            label: 'Despesas',
+                            data: [2400, 2900, 2700, 3500, 3300, 4000, 3800, 4400, 4100, 4700, 4500, 5100],
+                            borderColor: '#198754',
+                            backgroundColor: '#19875422',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: { legend: { position: 'bottom' } },
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+        // Sparklines das estatísticas laterais
+        criarSparkline('visitsSparkline', [20, 35, 28, 50, 42, 65, 55], '#0dcaf0');
+        criarSparkline('pageViewsSparkline', [30, 25, 45, 40, 60, 52, 70], '#198754');
+        criarSparkline('bounceRateSparkline', [48, 45, 50, 44, 46, 41, 42], '#ffc107');
+    });
+</script>
 <script src="{{ asset('dashboard/assets/js/main.js') }}"></script>
 
 @endsection

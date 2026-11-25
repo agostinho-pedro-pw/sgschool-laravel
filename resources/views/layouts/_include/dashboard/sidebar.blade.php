@@ -2,8 +2,9 @@
     <div class="sidebar-header">
         <div class="sidebar-brand">
             <h5 class="d-flex align-items-center gap-2 mb-0">
+                {{--Icone do projecto, com um fav-icon
                 <i class="bi bi-mortarboard-fill"></i>
-                sgSchool
+                sgSchool--}}
             </h5>
             <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Fechar barra lateral">
                 <i class="bi bi-x-lg"></i>

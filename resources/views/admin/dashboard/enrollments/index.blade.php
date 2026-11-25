@@ -87,7 +87,7 @@
                 <nav aria-label="Trilho de navegação" class="d-none d-lg-block ms-3">
                     <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Início</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Inscrição de estudante</li>
+                        <li class="breadcrumb-item active" aria-current="page">Candidatura para estudante</li>
                     </ol>
                 </nav>
                 <div class="navbar-brand d-lg-none fw-bold me-auto">sgSchool</div>
