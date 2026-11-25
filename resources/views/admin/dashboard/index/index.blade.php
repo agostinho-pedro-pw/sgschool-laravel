@@ -144,7 +144,8 @@
                                     <i class="bi bi-person-badge" style="font-size: 24px; color: #ffc107;"></i>
                                 </div>
                             </div>
-                            <div class="stat-value text-warning fw-bold mb-1" style="font-size: 2rem;">103</div>
+                            <div class="stat-value text-warning fw-bold mb-1" style="font-size: 2rem;">
+                                {{ $totalInscritos }}</div>
                             <div class="stat-label text-muted mb-2">Total de inscrições</div>
                             <div class="stat-change text-success small fw-semibold">
                                 <!--<i class="bi bi-arrow-up" style="font-size: 12px;"></i> +3-->
@@ -176,7 +177,8 @@
                                     <i class="bi bi-book-half" style="font-size: 24px; color: #198754;"></i>
                                 </div>
                             </div>
-                            <div class="stat-value text-success fw-bold mb-1" style="font-size: 2rem;">14</div>
+                            <div class="stat-value text-success fw-bold mb-1" style="font-size: 2rem;">{{ $totalCursos
+                                }}</div>
                             <div class="stat-label text-muted mb-2">Total de Cursos</div>
                             <div class="stat-change text-success small fw-semibold">
                                 <!--<i class="bi bi-arrow-up" style="font-size: 12px;"></i> +8-->
@@ -192,7 +194,8 @@
                                     <i class="bi bi-award" style="font-size: 24px; color: #0dcaf0;"></i>
                                 </div>
                             </div>
-                            <div class="stat-value text-info fw-bold mb-1" style="font-size: 2rem;">5</div>
+                            <div class="stat-value text-info fw-bold mb-1" style="font-size: 2rem;">
+                                {{ $totalDepartamentos }}</div>
                             <div class="stat-label text-muted mb-2">Total de Departamentos</div>
                             <div class="stat-change text-success small fw-semibold">
                                 <!--<i class="bi bi-arrow-up" style="font-size: 12px;"></i> +0.3-->

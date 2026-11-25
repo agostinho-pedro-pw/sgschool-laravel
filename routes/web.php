@@ -7,7 +7,9 @@ use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SchoolClassController;
-use App\Models\User;
+use App\Models\Enrollment;
+use App\Models\Course;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +20,7 @@ Route::get('/', function () {
 //Usado para aceder a rota principal
 
 Route::get('/', function () {
-    return view('admin.dashboard.index-1.index');
+    return redirect()->route('dashboard');
 })->name('dashboard_sec');
 /*
 |--------------------------------------------------------------------------
@@ -28,18 +30,6 @@ Route::get('/', function () {
 
 Route::redirect('/register', '/enrollments/create')->name('register');
 
-Route::post('/create-user', function (Request $request) {
-    try {
-        User::create([
-            'username' => $request->username,
-            'password' => $request->password,
-        ]);
-
-        return redirect()->route('dashboard');
-    } catch (Exception $e) {
-        return back()->withInput();
-    }
-})->name('create-user');
 
 /*
 |--------------------------------------------------------------------------
@@ -48,7 +38,13 @@ Route::post('/create-user', function (Request $request) {
 */
 
 Route::get('/dashboard', function () {
-    return view('admin.dashboard.index.index');
+    /*Foi usado para ter um total 
+    das entidade inscrição, cursos e departamento no BD*/
+    $totalInscritos = Enrollment::count();
+    $totalDepartamentos = Department::count();
+    $totalCursos = Course::count();
+
+    return view('admin.dashboard.index.index', compact('totalInscritos', 'totalDepartamentos', 'totalCursos'));
 })->name('dashboard');
 
 Route::get('/dashboard-1', function () {
@@ -155,7 +151,7 @@ Route::get('/course-payment', function () {
 
 /*
 |--------------------------------------------------------------------------
-| Classes escolares
+| Turmas
 |--------------------------------------------------------------------------
 */
 
@@ -175,8 +171,8 @@ Route::resource('academic-years', AcademicYearController::class);
 |--------------------------------------------------------------------------
 */
 
-Route::resource('rooms', RoomController::class)->except('show');
-Route::get('/rooms/{room}', [DepartmentController::class, 'show'])->name('rooms.show');
+Route::resource('rooms', RoomController::class);
+
 /*
 |--------------------------------------------------------------------------
 | Correio

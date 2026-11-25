@@ -121,7 +121,7 @@
                 <table class="table table-hover align-middle mb-0" id="schoolClassTable">
                     <thead>
                         <tr>
-                            <th scope="col">Nome da Classe</th>
+                            <th scope="col">Sigla da Turma</th>
                             <th scope="col">Ano Letivo</th>
                             <th scope="col">Classe</th>
                             <th scope="col">Curso</th>
@@ -179,7 +179,7 @@
                         @empty
                         <tr>
                             <td colspan="7" class="py-4 text-center text-muted">
-                                Nenhuma classe escolar encontrada.
+                                Nenhuma turma encontrada.
                             </td>
                         </tr>
                         @endforelse

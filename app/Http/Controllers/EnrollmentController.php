@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class EnrollmentController extends Controller
 {
+
     // Lista as matrículas
     public function index()
     {

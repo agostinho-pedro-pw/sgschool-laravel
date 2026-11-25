@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class SchoolClassController extends Controller
 {
-    // Lista todas as classes escolares por ordem alfabética
+    // Lista todas as turma por ordem alfabética
     public function index()
     {
         $schoolClasses = SchoolClass::orderBy('nomeTurma')->get();
@@ -15,7 +15,7 @@ class SchoolClassController extends Controller
         return view('admin.school-classes.all-school-classes.index', compact('schoolClasses'));
     }
 
-    // Mostra o formulário para criar uma classe escolar
+    // Mostra o formulário para criar uma Turma
     public function create()
     {
         $courses = $this->courses();
@@ -23,7 +23,7 @@ class SchoolClassController extends Controller
         return view('admin.school-classes.add-school-class.index', compact('courses'));
     }
 
-    // Guarda uma nova classe escolar
+    // Guarda uma nova Turma
     public function store(Request $request)
     {
         SchoolClass::create($request->only([
@@ -37,16 +37,16 @@ class SchoolClassController extends Controller
 
         return redirect()
             ->route('school-classes.index')
-            ->with('success', 'Classe escolar criada com sucesso.');
+            ->with('success', 'Turma criada com sucesso.');
     }
 
-    // Mostra os detalhes de uma classe escolar
+    // Mostra os detalhes de uma Turma
     public function show(SchoolClass $schoolClass)
     {
         return view('admin.school-classes.school-class-info.index', compact('schoolClass'));
     }
 
-    // Mostra o formulário para editar uma classe escolar
+    // Mostra o formulário para editar uma Turma
     public function edit(SchoolClass $schoolClass)
     {
         $courses = $this->courses();
@@ -54,7 +54,7 @@ class SchoolClassController extends Controller
         return view('admin.school-classes.edit-school-class.index', compact('schoolClass', 'courses'));
     }
 
-    // Atualiza uma classe escolar
+    // Atualiza uma Turma
     public function update(Request $request, SchoolClass $schoolClass)
     {
         $schoolClass->update($request->only([
@@ -68,20 +68,20 @@ class SchoolClassController extends Controller
 
         return redirect()
             ->route('school-classes.index')
-            ->with('success', 'Classe escolar atualizada com sucesso.');
+            ->with('success', 'Turma atualizada com sucesso.');
     }
 
-    // Elimina uma classe escolar
+    // Elimina uma Turma
     public function destroy(SchoolClass $schoolClass)
     {
         $schoolClass->delete();
 
         return redirect()
             ->route('school-classes.index')
-            ->with('success', 'Classe escolar eliminada com sucesso.');
+            ->with('success', 'Turma eliminada com sucesso.');
     }
 
-    // Lista fixa usada apenas pelo formulário da classe escolar.
+    // Lista fixa usada apenas pelo formulário da Turma.
     private function courses(): array
     {
         return [

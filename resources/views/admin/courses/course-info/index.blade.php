@@ -11,53 +11,14 @@
 <link rel="stylesheet" crossorigin href="{{ asset('dashboard/assets/dist/assets/main-DVYj-QCH.css') }}">
 
 <style>
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
-
-    body {
-        background: #f5f7fa;
-        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
-    }
-
-    .sidebar {
-        z-index: 1040;
-        background: #1f2937;
-        width: 260px;
-        height: 100vh;
-        position: fixed;
-        top: 0;
-        left: 0;
-    }
-
-    .main-wrapper {
-        min-height: 100vh;
-        margin-left: 260px;
-        transition: margin-left .3s;
-    }
-
-    .top-navbar {
-        background: #fff;
-        height: 60px;
-        padding: 0 1rem;
-        box-shadow: 0 1px 3px #0000001a;
-    }
-
     .dashboard-content {
         padding: 24px;
     }
 
-    .dashboard-card {
-        background: #fff;
-        border: 1px solid #e5e7eb;
-        border-radius: 8px;
-        box-shadow: 0 1px 3px #0000001a;
-    }
-
-    .dashboard-card-body {
-        padding: 24px;
+    @media (max-width: 575.98px) {
+        .dashboard-content {
+            padding: 16px;
+        }
     }
 </style>
 @endsection
@@ -81,8 +42,7 @@
             </button>
 
             <nav aria-label="Navegação estrutural" class="d-none d-lg-block ms-3">
-                <ol class="breadcrumb mb-0">
-                </ol>
+                <ol class="breadcrumb mb-0"></ol>
             </nav>
         </div>
     </header>
@@ -95,42 +55,44 @@
                     <p class="text-muted mb-0">Código do curso: {{ $course->courseCode }}</p>
                 </div>
 
-                <div class="d-flex gap-2">
+                <div class="d-flex flex-wrap gap-2">
                     <a href="{{ route('courses.edit', $course) }}" class="btn btn-primary">
+                        <i class="bi bi-pencil me-1" aria-hidden="true"></i>
                         Editar Curso
                     </a>
 
                     <a href="{{ route('courses.index') }}" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-1" aria-hidden="true"></i>
                         Voltar à Lista
                     </a>
                 </div>
             </div>
 
             <div class="dashboard-card">
-                <div class="dashboard-card-body">
-                    <h2 class="h5 fw-bold mb-4">Informações do Curso</h2>
+                <div class="dashboard-card-header py-4 px-4">
+                    <h2 class="h5 mb-0">{{ $course->courseName }}</h2>
+                </div>
 
-                    <div class="row">
-                        <div class="col-12 border-bottom py-3">
-                            <div class="fw-semibold text-muted mb-1">Código do Curso</div>
-                            <div>{{ $course->courseCode }}</div>
+                <div class="dashboard-card-body p-4">
+                    <div class="row g-4">
+                        <div class="col-md-6 col-xl-4">
+                            <span class="small text-muted d-block">Código do Curso</span>
+                            <span class="fw-semibold">{{ $course->courseCode }}</span>
                         </div>
 
-                        <div class="col-12 border-bottom py-3">
-                            <div class="fw-semibold text-muted mb-1">Nome do Curso</div>
-                            <div>{{ $course->courseName }}</div>
+                        <div class="col-md-6 col-xl-4">
+                            <span class="small text-muted d-block">Nome do Curso</span>
+                            <span class="fw-semibold">{{ $course->courseName }}</span>
                         </div>
 
-                        <div class="col-12 border-bottom py-3">
-                            <div class="fw-semibold text-muted mb-1">Departamento</div>
-                            <div>{{ $course->department }}</div>
+                        <div class="col-md-6 col-xl-4">
+                            <span class="small text-muted d-block">Departamento</span>
+                            <span class="fw-semibold">{{ $course->department }}</span>
                         </div>
 
-                        <div class="col-12 py-3">
-                            <div class="fw-semibold text-muted mb-1">Descrição do Curso</div>
-                            <div>
-                                {{ $course->courseDescription ?: 'Sem descrição disponível.' }}
-                            </div>
+                        <div class="col-12">
+                            <span class="small text-muted d-block">Descrição do Curso</span>
+                            <span>{{ $course->courseDescription ?: 'Sem descrição disponível.' }}</span>
                         </div>
                     </div>
                 </div>

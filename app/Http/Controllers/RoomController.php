@@ -37,7 +37,7 @@ class RoomController extends Controller
     }
     public function show(Room $room)
     {
-        return view('admin.rooms.rooms.index', compact('rooms.show'));
+        return view('admin.rooms.rooms.index', compact('room'));
     }
     // Mostra o formulário para editar uma sala
     public function edit(Room $room)

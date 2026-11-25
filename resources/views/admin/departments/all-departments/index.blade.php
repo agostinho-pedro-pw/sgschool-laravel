@@ -51,7 +51,7 @@
             <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 mb-4">
                 <div>
                     <h1 class="h3 mb-1 text-gray-800">Detalhes do Departamento</h1>
-                    <p class="text-muted mb-0">Informações completas do departamento.</p>
+                    <p class="text-muted mb-0">Informações completa do departamento.</p>
                 </div>
 
                 <a href="{{ route('departments.index') }}" class="btn btn-outline-secondary">

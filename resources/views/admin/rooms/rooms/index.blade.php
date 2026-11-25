@@ -51,13 +51,18 @@
             <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 mb-4">
                 <div>
                     <h1 class="h3 mb-1 text-gray-800">Detalhes da Sala</h1>
-                    <p class="text-muted mb-0">Informações completas da sala.</p>
+                    <p class="text-muted mb-0">Informação completa sobre a sala.</p>
                 </div>
 
-                <a href="{{ route('rooms.index') }}" class="btn btn-outline-secondary">
-                    <i class="bi bi-arrow-left me-1" aria-hidden="true"></i>
-                    Voltar à lista
-                </a>
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="{{ route('rooms.edit', $room) }}" class="btn btn-primary">
+                        <i class="bi bi-pencil me-1" aria-hidden="true"></i>Editar Sala
+                    </a>
+
+                    <a href="{{ route('rooms.index') }}" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-1" aria-hidden="true"></i>Voltar à Lista
+                    </a>
+                </div>
             </div>
 
             <div class="dashboard-card">
@@ -100,10 +105,6 @@
                     </div>
 
                     <div class="mt-4">
-                        <a href="{{ route('rooms.edit', $room) }}" class="btn btn-primary">
-                            <i class="bi bi-pencil me-2" aria-hidden="true"></i>
-                            Editar sala
-                        </a>
                     </div>
                 </div>
             </div>
