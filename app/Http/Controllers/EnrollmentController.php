@@ -54,7 +54,7 @@ class EnrollmentController extends Controller
     // Mostra o formulário de edição
     public function edit(Enrollment $enrollment)
     {
-        return view('admin.dashboard.enrollments.index', compact('enrollment'));
+        return view('admin.dashboard.enrollment-applications.edit', compact('enrollment'));
     }
 
     // Atualiza uma inscrição
