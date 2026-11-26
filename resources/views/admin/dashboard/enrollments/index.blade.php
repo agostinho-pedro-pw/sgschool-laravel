@@ -39,7 +39,7 @@
 <a href="#main-content" class="visually-hidden-focusable">Saltar para o conteúdo principal</a>
 <div class="search-backdrop" id="searchBackdrop"></div>
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
+{{--Sidebar--}}
 @include('layouts._include.dashboard.sidebar')
 
 <div class="main-wrapper" id="mainWrapper">
@@ -77,27 +77,30 @@
 
                         <div class="row gx-4 gy-3">
                             <div class="col-md-6">
-                                <label for="fullName" class="form-label">Nome</label>
+                                <label for="fullName" class="form-label">Nome <span
+                                        class="text-danger">*</span></span></label>
                                 <input type="text" id="fullName" name="fullName" class="form-control"
                                     value="{{ old('fullName', $enrollment->fullName ?? '') }}"
                                     placeholder="Digite o nome completo">
                             </div>
 
                             <div class="col-md-6">
-                                <label for="dateOfBirth" class="form-label">Data de nascimento</label>
+                                <label for="dateOfBirth" class="form-label">Data de nascimento <span
+                                        class="text-danger">*</span></span></label>
                                 <input type="date" id="dateOfBirth" name="dateOfBirth" class="form-control"
                                     value="{{ old('dateOfBirth', isset($enrollment) ? $enrollment->dateOfBirth?->format('Y-m-d') : '') }}">
                             </div>
 
                             <div class="col-md-6">
-                                <label for="phone" class="form-label">Número de telefone</label>
+                                <label for="phone" class="form-label">Número de telefone <span
+                                        class="text-danger">*</span></span></label>
                                 <input type="text" id="phone" name="phone" class="form-control"
                                     value="{{ old('phone', $enrollment->phone ?? '') }}"
                                     placeholder="Digite o número de telefone" inputmode="numeric">
                             </div>
 
                             <div class="col-md-6">
-                                <label for="email" class="form-label">Endereço de email</label>
+                                <label for="email" class="form-label">Endereço de email </label>
                                 <input type="email" id="email" name="email" class="form-control"
                                     value="{{ old('email', $enrollment->email ?? '') }}"
                                     placeholder="exemplo@sgschool.com">
@@ -105,7 +108,7 @@
 
                             <div class="col-md-6">
                                 <fieldset class="mb-2 border-0 p-0">
-                                    <legend class="form-label">Género</legend>
+                                    <legend class="form-label">Género <span class="text-danger">*</span></span></legend>
                                     @foreach (['Masculino', 'Feminino'] as $gender)
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" id="gender-{{ $loop->index }}"
@@ -120,26 +123,31 @@
                             </div>
 
                             <div class="col-md-6">
-                                <label for="course" class="form-label">Curso</label>
+                                <label for="course" class="form-label">Curso <span
+                                        class="text-danger">*</span></span></label>
                                 <select id="course" name="course" class="form-select">
                                     <option value="">Selecione o curso</option>
+
                                     @foreach (\App\Models\Enrollment::COURSES as $value => $name)
                                     <option value="{{ $value }}" @selected(old('course', $enrollment->course ?? '') ==
                                         $value)>
                                         {{ $name }}
                                     </option>
+
                                     @endforeach
                                 </select>
                             </div>
 
                             <div class="col-md-6">
-                                <label for="bi" class="form-label">Bilhete de Identidade</label>
+                                <label for="bi" class="form-label">Bilhete de Identidade <span
+                                        class="text-danger">*</span></span></label>
                                 <input class="form-control" type="file" id="bi" name="bi" accept=".pdf,.png,.jpg,.jpeg">
                                 <div class="form-text">PDF, PNG ou JPEG (máx. 2 MB).</div>
                             </div>
 
                             <div class="col-md-6">
-                                <label for="certificado" class="form-label">Certificado de habilitação</label>
+                                <label for="certificado" class="form-label">Certificado de habilitação <span
+                                        class="text-danger">*</span></span></label>
                                 <input class="form-control" type="file" id="certificado" name="certificado"
                                     accept=".pdf,.png,.jpg,.jpeg">
                                 <div class="form-text">PDF, PNG ou JPEG (máx. 2 MB).</div>
@@ -159,7 +167,7 @@
             </div>
         </div>
     </main>
-
+    {{--Rodapé--}}
     @include('layouts._include.dashboard.footer')
 </div>
 @endsection

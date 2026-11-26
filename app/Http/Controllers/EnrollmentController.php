@@ -42,7 +42,7 @@ class EnrollmentController extends Controller
 
         return redirect()
             ->route('enrollments.index')
-            ->with('success', 'Matrícula criada com sucesso.');
+            ->with('success', 'Candidatura criada com sucesso.');
     }
 
     // Mostra os dados de uma inscrição
@@ -74,7 +74,7 @@ class EnrollmentController extends Controller
 
         return redirect()
             ->route('enrollments.index')
-            ->with('success', 'Matrícula atualizada com sucesso.');
+            ->with('success', 'Candidatura atualizada com sucesso.');
     }
 
     // Aceita uma candidatura
@@ -96,6 +96,6 @@ class EnrollmentController extends Controller
 
         return redirect()
             ->route('enrollments.index')
-            ->with('success', 'Matrícula eliminada com sucesso.');
+            ->with('success', 'Candidatura eliminada com sucesso.');
     }
 }

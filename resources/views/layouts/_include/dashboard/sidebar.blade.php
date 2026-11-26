@@ -113,6 +113,18 @@
                         <li><a class="nav-link " href="{{ route('rooms.index') }}">Listar Salas</a></li>
                     </ul>
                 </li>
+                {{--Oque eu acho que é opcional--}}
+                <li class="nav-item">
+                    <a class="nav-link has-submenu " href="javascript:void(0)" data-bs-toggle="collapse"
+                        data-bs-target="#librarySubmenu" aria-expanded="false">
+                        <i class="bi bi-journal-bookmark"></i>
+                        <span>Classe</span>
+                    </a>
+                    <ul id="librarySubmenu" class="submenu collapse  list-unstyled">
+                        <li><a class="nav-link " href="{{ route('classes.create')}}">Adicionar Classe</a></li>
+                        <li><a class="nav-link " href="{{ route('classes.index')}}">Listar Classes</a></li>
+                    </ul>
+                </li>
                 {{-- Departamentos: entra no grupo Académico --}}
                 <li class="nav-item">
                     <a class="nav-link has-submenu " href="javascript:void(0)" data-bs-toggle="collapse"
@@ -135,19 +147,6 @@
                     <ul id="studentsSubmenu" class="submenu collapse  list-unstyled">
                         <li><a class="nav-link " href="{{ route('add-students') }}">Adicionar matrícula</a></li>
                         <li><a class="nav-link " href="{{ route('all-students') }}">Listar matrículas</a></li>
-                    </ul>
-                </li>--}}
-                {{--De momento não quero lybary
-                <li class="nav-item">
-                    <a class="nav-link has-submenu " href="javascript:void(0)" data-bs-toggle="collapse"
-                        data-bs-target="#librarySubmenu" aria-expanded="false">
-                        <i class="bi bi-journal-bookmark"></i>
-                        <span>Biblioteca</span>
-                    </a>
-                    <ul id="librarySubmenu" class="submenu collapse  list-unstyled">
-                        <li><a class="nav-link " href="library-assets.html">Acervo da Biblioteca</a></li>
-                        <li><a class="nav-link " href="add-library-assets.html">Adicionar Item ao Acervo</a></li>
-                        <li><a class="nav-link " href="edit-library-assets.html">Editar Item do Acervo</a></li>
                     </ul>
                 </li>--}}
             </ul>

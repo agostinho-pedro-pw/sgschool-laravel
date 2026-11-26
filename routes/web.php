@@ -8,6 +8,7 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SchoolClassController;
 use App\Models\Enrollment;
+use App\Http\Controllers\ClassLevelController;
 use App\Models\Course;
 use App\Models\Department;
 use Illuminate\Http\Request;
@@ -172,6 +173,15 @@ Route::resource('academic-years', AcademicYearController::class);
 */
 
 Route::resource('rooms', RoomController::class);
+
+/*
+|--------------------------------------------------------------------------
+| Classes escolares
+|--------------------------------------------------------------------------
+*/
+
+Route::resource('classes', ClassLevelController::class)
+    ->parameters(['classes' => 'classLevel']);
 
 /*
 |--------------------------------------------------------------------------
