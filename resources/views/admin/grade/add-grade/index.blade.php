@@ -87,10 +87,10 @@
                             <div class="col-12 mt-3 d-flex flex-wrap gap-2">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="bi bi-check-circle me-2" aria-hidden="true"></i>Criar Classe
-                                </button>
+                                </button>{{--
                                 <a href="{{ route('classes.index') }}" class="btn btn-outline-secondary">
                                     <i class="bi bi-arrow-left me-1" aria-hidden="true"></i>Voltar à Lista
-                                </a>
+                                </a>--}}
                             </div>
                         </div>
                     </form>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use Illuminate\Http\Request;
+use App\Models\Department;
 
 class CourseController extends Controller
 {
@@ -18,7 +19,8 @@ class CourseController extends Controller
     // Mostra o formulário para criar um curso
     public function create()
     {
-        return view('admin.courses.add-course.index');
+        $departments = Department::orderBy('department_name')->get();
+        return view('admin.courses.add-course.index', compact('departments'));
     }
 
     // Guarda um novo curso

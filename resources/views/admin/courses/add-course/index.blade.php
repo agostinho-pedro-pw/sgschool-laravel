@@ -116,17 +116,18 @@
                                     value="{{ old('courseName') }}" required placeholder="ex: multimédia">
                             </div>
                             <div class="col-12">
-                                <label for="department" class="form-label">Departamento <span
-                                        class="text-danger">*</span></label>
-                                {{-- Todos os departamentos listados --}}
-                                <select class="form-select" id="department" name="department" required>
+                                <label for="department_id" class="form-label">
+                                    Departamento <span class="text-danger">*</span>
+                                </label>
+
+                                <select class="form-select" id="department_id" name="department_id" required>
                                     <option value="">Selecione um departamento</option>
-                                    <option value="Ciência da Computação">Ciência da Computação</option>
-                                    <option value="Engenharia Informática">Engenharia Informática</option>
-                                    <option value="Sistemas de Informação">Sistemas de Informação</option>
-                                    <option value="Redes de Computadores">Redes de Computadores</option>
-                                    <option value="Engenharia de Software">Engenharia de Software</option>
-                                    <option value="Multimédia">Multimédia</option>
+                                    {{--usado para obter os departamentos na DB--}}
+                                    @foreach ($departments as $department)
+                                    <option value="{{ $department->department_id }}">
+                                        {{ $department->department_name }}
+                                    </option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-12">

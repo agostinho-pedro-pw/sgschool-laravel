@@ -14,11 +14,16 @@ return new class extends Migration
         Schema::create('school_classes', function (Blueprint $table) {
             $table->id();
             $table->string('nomeTurma');
-            $table->string('anoLetivo', 20);
             $table->string('classe', 20);
-            $table->string('curso');
+            $table->foreignId('course_id')
+                ->constrained('courses')
+                ->restrictOnDelete();
             $table->string('periodo', 10);
-            $table->string('sala', 20);
+            $table->foreignId('room_id')
+                ->nullable()
+                ->constrained('rooms', 'id_sala')
+                ->nullOnDelete();
+
             $table->timestamps();
         });
     }

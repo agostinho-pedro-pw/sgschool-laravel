@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Enrollment extends Model
 {
     use SoftDeletes;
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 
     protected $fillable = [
         'fullName',
@@ -15,27 +19,11 @@ class Enrollment extends Model
         'phone',
         'email',
         'gender',
-        'course',
-        'schoolClass',
-        'room',
-        'period',
+        'course_id',
         'applicationDate',
         'status',
-    ];
-
-    public const COURSES = [
-        'informatica-gestao' => 'Informática de gestão',
-        'informatica-sistemas-multimedia' => 'Informática e sistema de Multimédia',
-        'eletronica-telecomunicacoes' => 'Electronica e telecomunicações',
-        'analises-clinicas' => 'Analises Clinicas',
-    ];
-
-    public const CLASSES = [
-        '10.ª A',
-        '10.ª B',
-        '11.ª A',
-        '12.ª A',
-        '13.ª A',
+        'biPath',
+        'certificadoPath',
     ];
 
     public const ROOMS = [

@@ -14,4 +14,9 @@ class Department extends Model
         'department_code',
         'description',
     ];
+    // O departamento tem varios cursos
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
 }

@@ -120,13 +120,13 @@
                             </div>
 
                             <div class="col-md-6">
-                                <label for="course" class="form-label">Curso</label>
-                                <select id="course" name="course" class="form-select">
+                                <label for="course_id" class="form-label">Curso</label>
+                                <select id="course_id" name="course_id" class="form-select">
                                     <option value="">Selecione o curso</option>
-                                    @foreach (\App\Models\Enrollment::COURSES as $value => $name)
-                                    <option value="{{ $value }}" @selected(old('course', $enrollment->course ?? '') ==
-                                        $value)>
-                                        {{ $name }}
+                                    @foreach ($courses as $course)
+                                    <option value="{{ $course->id }}" @selected((string) old('course_id', $enrollment->
+                                        course_id ?? '') === (string) $course->id)>
+                                        {{ $course->courseCode }} - {{ $course->courseName }}
                                     </option>
                                     @endforeach
                                 </select>

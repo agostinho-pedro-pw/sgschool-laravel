@@ -69,18 +69,15 @@
                         </div>
 
                         <div class="col-md-6 col-xl-4">
-                            <span class="small text-muted d-block">Ano Letivo</span>
-                            <span class="fw-semibold">{{ $schoolClass->anoLetivo }}</span>
-                        </div>
-
-                        <div class="col-md-6 col-xl-4">
                             <span class="small text-muted d-block">Classe</span>
                             <span class="fw-semibold">{{ $schoolClass->classe }}</span>
                         </div>
 
                         <div class="col-md-6 col-xl-4">
                             <span class="small text-muted d-block">Curso</span>
-                            <span class="fw-semibold">{{ $schoolClass->curso }}</span>
+                            <span class="fw-semibold">
+                                {{ $schoolClass->course?->courseName ?? 'Sem curso associado' }}
+                            </span>
                         </div>
 
                         <div class="col-md-6 col-xl-4">
@@ -90,7 +87,9 @@
 
                         <div class="col-md-6 col-xl-4">
                             <span class="small text-muted d-block">Sala</span>
-                            <span class="fw-semibold">{{ $schoolClass->sala }}</span>
+                            <span class="fw-semibold">
+                                {{ $schoolClass->room?->designacao ?? 'Sem sala associada' }}
+                            </span>
                         </div>
                     </div>
                 </div>

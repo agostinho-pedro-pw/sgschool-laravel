@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
+use App\Models\Room;
 use App\Models\SchoolClass;
 use Illuminate\Http\Request;
-use App\Models\Course;
 
 class SchoolClassController extends Controller
 {
-    // Lista todas as turma por ordem alfabética
+    // Lista todas as turmas por ordem alfabética
     public function index()
     {
-        $schoolClasses = SchoolClass::orderBy('nomeTurma')->get();
+        $schoolClasses = SchoolClass::with(['course', 'room'])
+            ->orderBy('nomeTurma')
+            ->get();
 
         return view('admin.school-classes.all-school-classes.index', compact('schoolClasses'));
     }
@@ -19,9 +22,10 @@ class SchoolClassController extends Controller
     // Mostra o formulário para criar uma Turma
     public function create()
     {
-        $courses = Course::orderBy('courseName')->get();
-
-        return view('admin.school-classes.add-school-class.index', compact('courses'));
+        return view('admin.school-classes.add-school-class.index', [
+            'courses' => Course::orderBy('courseName')->get(),
+            'rooms'   => Room::orderBy('designacao')->get(),
+        ]);
     }
 
     // Guarda uma nova Turma
@@ -29,11 +33,10 @@ class SchoolClassController extends Controller
     {
         SchoolClass::create($request->only([
             'nomeTurma',
-            'anoLetivo',
             'classe',
             'course_id',
             'periodo',
-            'sala',
+            'room_id', // FK com a tabela rooms
         ]));
 
         return redirect()
@@ -44,15 +47,19 @@ class SchoolClassController extends Controller
     // Mostra os detalhes de uma Turma
     public function show(SchoolClass $schoolClass)
     {
+        $schoolClass->load(['course', 'room']);
+
         return view('admin.school-classes.school-class-info.index', compact('schoolClass'));
     }
 
     // Mostra o formulário para editar uma Turma
     public function edit(SchoolClass $schoolClass)
     {
-        //$courses = $this->courses();
-
-        return view('admin.school-classes.edit-school-class.index', compact('schoolClass', 'courses'));
+        return view('admin.school-classes.edit-school-class.index', [
+            'schoolClass' => $schoolClass,
+            'courses'     => Course::orderBy('courseName')->get(),
+            'rooms'       => Room::orderBy('designacao')->get(),
+        ]);
     }
 
     // Atualiza uma Turma
@@ -60,11 +67,10 @@ class SchoolClassController extends Controller
     {
         $schoolClass->update($request->only([
             'nomeTurma',
-            'anoLetivo',
             'classe',
             'course_id',
             'periodo',
-            'sala',
+            'room_id', // FK com a tabela rooms
         ]));
 
         return redirect()

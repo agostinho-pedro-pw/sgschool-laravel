@@ -12,7 +12,10 @@ return new class extends Migration
             $table->id();
             $table->string('courseCode', 50);
             $table->string('courseName');
-            $table->string('department');
+            $table->foreignId('department_id')
+                ->nullable()
+                ->constrained('departments', 'department_id')
+                ->nullOnDelete();
             $table->text('courseDescription')->nullable();
             $table->timestamps();
         });

@@ -108,7 +108,7 @@
 
                             <div class="col-md-6">
                                 <fieldset class="mb-2 border-0 p-0">
-                                    <legend class="form-label">Género <span class="text-danger">*</span></span></legend>
+                                    <legend class="form-label">Género <span class="text-danger">*</span></legend>
                                     @foreach (['Masculino', 'Feminino'] as $gender)
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" id="gender-{{ $loop->index }}"
@@ -123,21 +123,20 @@
                             </div>
 
                             <div class="col-md-6">
-                                <label for="course" class="form-label">Curso <span
-                                        class="text-danger">*</span></span></label>
-                                <select id="course" name="course" class="form-select">
+                                <label for="course_id" class="form-label">Curso
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {{--Os cursos são obtidos apartir da entidade curso--}}
+                                <select id="course_id" name="course_id" class="form-select">
                                     <option value="">Selecione o curso</option>
-
-                                    @foreach (\App\Models\Enrollment::COURSES as $value => $name)
-                                    <option value="{{ $value }}" @selected(old('course', $enrollment->course ?? '') ==
-                                        $value)>
-                                        {{ $name }}
+                                    @foreach ($courses as $course)
+                                    <option value="{{ $course->id }}">
+                                        {{ $course->courseCode }} - {{ $course->courseName }}
                                     </option>
-
                                     @endforeach
                                 </select>
                             </div>
-
+                            {{--Envio de documentos--}}
                             <div class="col-md-6">
                                 <label for="bi" class="form-label">Bilhete de Identidade <span
                                         class="text-danger">*</span></span></label>
@@ -158,9 +157,10 @@
                             <button type="submit" class="btn btn-primary">
                                 <i class="bi bi-check-circle me-2" aria-hidden="true"></i>Submeter a inscrição
                             </button>
+                            {{--
                             <a href="{{ route('enrollments.index') }}" class="btn btn-outline-secondary">
                                 <i class="bi bi-arrow-left me-1" aria-hidden="true"></i>Voltar à lista
-                            </a>
+                            </a>--}}
                         </div>
                     </form>
                 </div>

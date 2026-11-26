@@ -51,22 +51,15 @@
 
 @section('content')
 @php
-$anosLetivos = [
-'2026/2027', '2027/2028', '2028/2029', '2029/2030', '2030/2031',
-'2031/2032', '2032/2033', '2033/2034', '2034/2035', '2035/2036',
-];
-$classes = ['10.ª', '11.ª', '12.ª', '13.ª classe'];
+// Declaração de variáveis constantes no projeto
+$classes = ['10.ª', '11.ª', '12.ª', '13.ª'];
 $periodos = ['manhã', 'tarde', 'noite'];
-$salas = [
-'Sala-01', 'Sala-02', 'Sala-03', 'Sala-04', 'Sala-05', 'Sala-06',
-'Sala-07', 'Sala-08', 'Sala-09', 'Sala-10', 'Sala-11', 'Sala-12',
-];
 @endphp
 
 <a href="#main-content" class="visually-hidden-focusable">Saltar para o conteúdo principal</a>
 <div class="search-backdrop" id="searchBackdrop"></div>
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
+{{--SideBar--}}
 @include('layouts._include.dashboard.sidebar')
 
 <div class="main-wrapper" id="mainWrapper">
@@ -111,20 +104,6 @@ $salas = [
                                 <input type="text" class="form-control" id="nomeTurma" name="nomeTurma"
                                     value="{{ old('nomeTurma') }}" placeholder="Ex.: 10.ª A" required>
                             </div>
-
-                            <div class="col-md-6">
-                                <label for="anoLetivo" class="form-label">Ano Letivo <span
-                                        class="text-danger">*</span></label>
-                                <select class="form-select" id="anoLetivo" name="anoLetivo" required>
-                                    <option value="">Selecione o ano letivo</option>
-                                    @foreach ($anosLetivos as $anoLetivo)
-                                    <option value="{{ $anoLetivo }}" @selected(old('anoLetivo')===$anoLetivo)>
-                                        {{ $anoLetivo }}
-                                    </option>
-                                    @endforeach
-                                </select>
-                            </div>
-
                             <div class="col-md-6">
                                 <label for="classe" class="form-label">Classe <span class="text-danger">*</span></label>
                                 <select class="form-select" id="classe" name="classe" required>
@@ -138,19 +117,32 @@ $salas = [
                             </div>
 
                             <div class="col-md-6">
-                                <label for="course_id" class="form-label">Curso <span
-                                        class="text-danger">*</span></label>
-                                <select class="form-select" id="course_id" name="course_id" required>
-                                    <option value="">Selecione um curso</option>
+                                <label for="course_id" class="form-label">Curso
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {{-- Os cursos são obtidos a partir da entidade curso --}}
+                                <select name="course_id" id="course_id" class="form-select" required>
+                                    <option value="" disabled @selected(!old('course_id'))>Selecione o curso</option>
                                     @foreach ($courses as $course)
-                                    <option value="{{ $course->id }}" @selected((string) old('course_id')===(string)
-                                        $course->id)>
-                                        {{ $course->courseCode }} - {{ $course->courseName }}
+                                    <option value="{{ $course->id }}" @selected(old('course_id')==$course->id)>
+                                        {{ $course->courseName }}
                                     </option>
                                     @endforeach
                                 </select>
                             </div>
 
+                            <div class="col-md-6">
+                                <label for="room_id" class="form-label">Sala</label>
+                                <select class="form-select" id="room_id" name="room_id">
+                                    <option value="">Selecione uma sala</option>
+                                    {{-- As salas são obtidas a partir da entidade Sala --}}
+                                    @foreach ($rooms as $room)
+                                    <option value="{{ $room->id_sala }}" @selected(old('room_id')==$room->id_sala)>
+                                        {{ $room->designacao }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="col-md-6">
                                 <span class="form-label d-block">Período <span class="text-danger">*</span></span>
                                 @foreach ($periodos as $periodo)
@@ -163,18 +155,6 @@ $salas = [
                                     </label>
                                 </div>
                                 @endforeach
-                            </div>
-
-                            <div class="col-md-6">
-                                <label for="sala" class="form-label">Sala <span class="text-danger">*</span></label>
-                                <select class="form-select" id="sala" name="sala" required>
-                                    <option value="">Selecione a sala</option>
-                                    @foreach ($salas as $sala)
-                                    <option value="{{ $sala }}" @selected(old('sala')===$sala)>
-                                        {{ $sala }}
-                                    </option>
-                                    @endforeach
-                                </select>
                             </div>
 
                             <div class="col-12 mt-4">

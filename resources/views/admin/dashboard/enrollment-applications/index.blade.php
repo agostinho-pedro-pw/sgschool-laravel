@@ -227,17 +227,12 @@
                                             {{ $enrollment->phone ?? '—' }}
                                         </td>
 
-                                        {{-- Curso: converte o código guardado no nome legível (Enrollment::COURSES)
-                                        --}}
+                                        {{-- Curso obtido pela relação com Course --}}
                                         <td>
-                                            @php
-                                            $course = $enrollment->course ?? '-';
-                                            $courses = \App\Models\Enrollment::COURSES ?? [];
-                                            @endphp
-
-                                            {{ $courses[$course] ?? $course }}
+                                            {{ $enrollment->course
+                                            ? $enrollment->course->courseCode . ' - ' . $enrollment->course->courseName
+                                            : '—' }}
                                         </td>
-
                                         {{-- Data: aceita objeto de data ou texto e formata como dd/mm/aaaa --}}
                                         <td class="text-nowrap">
                                             @php

@@ -95,11 +95,13 @@
                             </span>
                         </div>
 
-                        {{-- Curso: converte o código guardado no nome legível (Enrollment::COURSES) --}}
+                        {{-- Curso obtido pela relação com Course --}}
                         <div class="col-md-6 col-xl-4">
                             <span class="small text-muted d-block">Curso pretendido</span>
                             <span class="fw-semibold">
-                                {{ \App\Models\Enrollment::COURSES[$enrollment->course] ?? $enrollment->course }}
+                                {{--Apresenta o nome do curso da entidade curso--}}
+                                {{ $enrollment->course ? .
+                                $enrollment->course->courseName : '—' }}
                             </span>
                         </div>
 
@@ -116,6 +118,29 @@
                         <div class="col-md-6 col-xl-4">
                             <span class="small text-muted d-block">Email</span>
                             <span class="fw-semibold">{{ $enrollment->email }}</span>
+                        </div>
+                        <div class="mt-4">
+                            <label class="form-label fw-semibold">Ficheiros enviados</label>
+
+                            <div class="d-flex flex-column gap-2">
+                                <div class="d-flex align-items-center gap-2 p-2 bg-light rounded">
+                                    <i class="bi bi-file-earmark-pdf text-danger"></i>
+                                    <span class="flex-grow-1">Bilhete de Identidade.pdf</span>
+                                    <small class="text-muted">2,4 MB</small>
+                                    <button type="button" class="btn btn-sm btn-outline-danger" aria-label="Eliminar">
+                                        <i class="bi bi-trash" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+
+                                <div class="d-flex align-items-center gap-2 p-2 bg-light rounded">
+                                    <i class="bi bi-file-earmark-pdf text-danger"></i>
+                                    <span class="flex-grow-1">Certificado de habilitações.pdf</span>
+                                    <small class="text-muted">1,8 MB</small>
+                                    <button type="button" class="btn btn-sm btn-outline-danger" aria-label="Eliminar">
+                                        <i class="bi bi-trash" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
