@@ -100,7 +100,7 @@
                             <span class="small text-muted d-block">Curso pretendido</span>
                             <span class="fw-semibold">
                                 {{--Apresenta o nome do curso da entidade curso--}}
-                                {{ $enrollment->course ? .
+                                {{ $enrollment->course ?
                                 $enrollment->course->courseName : '—' }}
                             </span>
                         </div>

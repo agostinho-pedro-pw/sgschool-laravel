@@ -86,8 +86,8 @@
                         <span>Turmas</span>
                     </a>
                     <ul id="schoolClassesSubmenu" class="submenu collapse list-unstyled">
-                        <li><a class="nav-link " href="{{ route('school-classes.create') }}">Adicionar Turma</a></li>
-                        <li><a class="nav-link " href="{{ route('school-classes.index') }}">Listar Turmas</a></li>
+                        <li><a class="nav-link " href="{{ route('schoolClasses.create') }}">Adicionar Turma</a></li>
+                        <li><a class="nav-link " href="{{ route('schoolClasses.index') }}">Listar Turmas</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -97,9 +97,9 @@
                         <span>Anos Letivos</span>
                     </a>
                     <ul id="academicYearsSubmenu" class="submenu collapse list-unstyled">
-                        <li><a class="nav-link " href="{{ route('academic-years.create') }}">Adicionar Ano Letivo</a>
+                        <li><a class="nav-link " href="{{ route('academicYears.create') }}">Adicionar Ano Letivo</a>
                         </li>
-                        <li><a class="nav-link " href="{{ route('academic-years.index') }}">Listar Anos Letivos</a></li>
+                        <li><a class="nav-link " href="{{ route('academicYears.index') }}">Listar Anos Letivos</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">

@@ -14,12 +14,7 @@ use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/* Rota inicial: redireciona para o dashboard.
-Route::get('/', function () {
-    return redirect()->route('dashboard_sec');
-});*/
-//Usado para aceder a rota principal
-
+// rediciona a dashboard principal
 Route::get('/', function () {
     return redirect()->route('dashboard');
 })->name('dashboard_sec');
@@ -39,30 +34,13 @@ Route::redirect('/register', '/enrollments/create')->name('register');
 */
 
 Route::get('/dashboard', function () {
-    /*Foi usado para ter um total 
-    das entidade inscrição, cursos e departamento no BD*/
-    $totalInscritos = Enrollment::count();
-    $totalDepartamentos = Department::count();
-    $totalCursos = Course::count();
+    /* Usado para obter o total das entidades*/
+    $totalEnrollments = Enrollment::count();
+    $totalDepartments = Department::count();
+    $totalCourses = Course::count();
 
-    return view('admin.dashboard.index.index', compact('totalInscritos', 'totalDepartamentos', 'totalCursos'));
+    return view('admin.dashboard.index.index', compact('totalEnrollments', 'totalDepartments', 'totalCourses'));
 })->name('dashboard');
-
-Route::get('/dashboard-1', function () {
-    return view('admin.dashboard.index-1.index');
-})->name('dashboard-1');
-
-Route::get('/dashboard-2', function () {
-    return view('admin.dashboard.index-2.index');
-})->name('dashboard-2');
-
-Route::get('/widgets', function () {
-    return view('admin.dashboard.widgets.index');
-})->name('widgets');
-
-Route::get('/analytics', function () {
-    return view('admin.dashboard.analytics.index');
-})->name('analytics');
 
 /*
 |--------------------------------------------------------------------------
@@ -85,35 +63,45 @@ Route::resource('registrations', RegistrationController::class);
 
 /*
 |--------------------------------------------------------------------------
-| Eventos
+| Turmas
 |--------------------------------------------------------------------------
 */
 
-Route::get('/events', function () {
-    return view('admin.auth.events.index');
-})->name('eventos');
+Route::resource('schoolClasses', SchoolClassController::class);
 
 /*
 |--------------------------------------------------------------------------
-| Professores
+| Anos letivos
 |--------------------------------------------------------------------------
 */
 
-Route::get('/all-professors', function () {
-    return view('admin.professors.all-professors.index');
-})->name('all-professors');
+Route::resource('academicYears', AcademicYearController::class);
 
-Route::get('/add-professors', function () {
-    return view('admin.professors.add-professor.index');
-})->name('add-professors');
+/*
+|--------------------------------------------------------------------------
+| Salas (entidade independente, sem relações com outras tabelas)
+|--------------------------------------------------------------------------
+*/
 
-Route::get('/edit-professors', function () {
-    return view('admin.professors.edit-professor.index');
-})->name('edit-professors');
+Route::resource('rooms', RoomController::class);
 
-Route::get('/profile-professors', function () {
-    return view('admin.professors.professor-profile.index');
-})->name('profile-professors');
+/*
+|--------------------------------------------------------------------------
+| Classes escolares
+|--------------------------------------------------------------------------
+*/
+
+Route::resource('classes', ClassLevelController::class)
+    ->parameters(['classes' => 'classLevel']);
+
+/*
+|--------------------------------------------------------------------------
+| Departamentos (entidade independente, sem relações com outras tabelas)
+|--------------------------------------------------------------------------
+*/
+
+Route::resource('departments', DepartmentController::class)->except('show');
+Route::get('/departments/{department}', [DepartmentController::class, 'show'])->name('departments.show');
 
 /*
 |--------------------------------------------------------------------------
@@ -149,63 +137,3 @@ Route::redirect('/course-info', '/courses')->name('course-info');
 Route::get('/course-payment', function () {
     return view('admin.courses.course-payment.index');
 })->name('course-payment');
-
-/*
-|--------------------------------------------------------------------------
-| Turmas
-|--------------------------------------------------------------------------
-*/
-
-Route::resource('school-classes', SchoolClassController::class);
-
-/*
-|--------------------------------------------------------------------------
-| Anos letivos
-|--------------------------------------------------------------------------
-*/
-
-Route::resource('academic-years', AcademicYearController::class);
-
-/*
-|--------------------------------------------------------------------------
-| Salas (entidade independente, sem relações com outras tabelas)
-|--------------------------------------------------------------------------
-*/
-
-Route::resource('rooms', RoomController::class);
-
-/*
-|--------------------------------------------------------------------------
-| Classes escolares
-|--------------------------------------------------------------------------
-*/
-
-Route::resource('classes', ClassLevelController::class)
-    ->parameters(['classes' => 'classLevel']);
-
-/*
-|--------------------------------------------------------------------------
-| Correio
-|--------------------------------------------------------------------------
-*/
-
-Route::get('/mailbox-compose', function () {
-    return view('admin.mailbox.mailbox-compose.index');
-})->name('mailbox-compose');
-
-Route::get('/mailbox-view', function () {
-    return view('admin.mailbox.mailbox-view.index');
-})->name('mailbox-view');
-
-Route::get('/mailbox', function () {
-    return view('admin.mailbox.mailbox.index');
-})->name('mailbox');
-
-/*
-|--------------------------------------------------------------------------
-| Departamentos (entidade independente, sem relações com outras tabelas)
-|--------------------------------------------------------------------------
-*/
-
-Route::resource('departments', DepartmentController::class)->except('show');
-Route::get('/departments/{department}', [DepartmentController::class, 'show'])->name('departments.show');

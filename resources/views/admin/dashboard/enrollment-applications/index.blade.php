@@ -1,11 +1,8 @@
-{{-- Página: Lista de candidaturas de matrícula (herda o layout do painel admin) --}}
 @extends('layouts.admin')
 
 @section('title', 'Candidaturas de Matrícula')
 
 @section('language', 'pt-PT')
-
-{{-- Cabeçalho do HTML: meta tags, favicon, assets compilados e estilos da página --}}
 @section('head')
 <meta name="description" content="sgSchool - Candidaturas de matrícula">
 <meta name="keywords" content="educação, candidatura, matrícula, estudante">
@@ -15,8 +12,6 @@
 <script type="module" crossorigin src="{{ asset('dashboard/assets/dist/assets/main-ZZRh_wak.js') }}"></script>
 <link rel="stylesheet" crossorigin href="{{ asset('dashboard/assets/dist/assets/main-BV-wpnXD.css') }}">
 <link rel="stylesheet" crossorigin href="{{ asset('dashboard/assets/dist/assets/main-DVYj-QCH.css') }}">
-
-{{-- Datatable (Bootstrap Table): pesquisa, paginação e escolha de colunas --}}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.6/dist/bootstrap-table.min.css">
 
 <style>
@@ -30,7 +25,6 @@
         }
     }
 
-    /* Hover das linhas da tabela */
     .enrollment-page .table-hover tbody tr {
         transition: background-color .15s ease;
     }
@@ -39,7 +33,6 @@
         background-color: rgba(13, 110, 253, 0.05);
     }
 
-    /* Botões de ação (ver, aceitar, eliminar) */
     .enrollment-page .btn-action {
         width: 34px;
         height: 34px;
@@ -85,7 +78,6 @@
         color: #fff;
     }
 
-    /* Datatable: espaçamento da barra de pesquisa e da paginação dentro do cartão */
     .enrollment-page .fixed-table-toolbar {
         padding: 0 1.5rem;
     }
@@ -94,12 +86,10 @@
         padding: 0 1.5rem 1rem;
     }
 
-    /* Esconde o texto "A mostrar X até Y de Z linhas" */
     .enrollment-page .fixed-table-pagination .pagination-info {
         display: none;
     }
 
-    /* Barra de pesquisa maior */
     .enrollment-page .fixed-table-toolbar .search {
         min-width: 380px;
         max-width: 100%;
@@ -111,17 +101,6 @@
         padding: 0 1rem;
     }
 
-    /*
-    .btn-accept {
-        color: #2563eb;
-        background-color: #eff6ff;
-    }
-
-    .btn-accept:hover {
-        color: #ffffff;
-        background-color: #2563eb;
-    }
-*/
     @media (max-width: 575.98px) {
         .enrollment-page .fixed-table-toolbar .search {
             min-width: 0;
@@ -133,20 +112,14 @@
 
 @section('content')
 <div class="enrollment-page">
-    {{-- Acessibilidade: saltar para o conteúdo principal --}}
     <a href="#main-content" class="visually-hidden-focusable">
         Saltar para o conteúdo principal
     </a>
-
-    {{-- Elementos exigidos pelo script do painel (pesquisa e sidebar) --}}
     <div class="search-backdrop" id="searchBackdrop"></div>
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-    {{-- Barra lateral --}}
     @include('layouts._include.dashboard.sidebar')
 
     <div class="main-wrapper" id="mainWrapper">
-        {{-- Cabeçalho superior: menu hambúrguer + breadcrumb --}}
         <header class="navbar top-navbar">
             <div class="container-fluid d-flex align-items-center h-100">
                 <button type="button" class="hamburger-menu" id="sidebarToggle" aria-label="Alternar barra lateral"
@@ -158,11 +131,8 @@
                 </nav>
             </div>
         </header>
-
-        {{-- Conteúdo principal --}}
         <main class="dashboard-content" id="main-content">
             <div class="container-fluid">
-                {{-- Mensagem de sucesso vinda do controller (ex.: candidatura aceite/eliminada) --}}
                 @if (session('success'))
                 <div class="alert alert-success" role="alert">
                     {{ session('success') }}
@@ -170,34 +140,45 @@
                 @endif
 
                 <div class="dashboard-row">
-                    {{-- Título da secção e botão para criar nova candidatura --}}
-                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+                    <div class="mb-4">
                         <h2 class="h5 fw-semibold text-gray-800 mb-0">Candidaturas</h2>
-
-                        <a href="{{ route('enrollments.create') }}" class="btn btn-primary">
-                            Nova Candidatura
-                        </a>
                     </div>
-
-                    {{-- Garante que $enrollments existe, mesmo que o controller não o envie --}}
                     @php
                     $enrollments = $enrollments ?? collect();
+
+                    // Linhas usadas pelo botão "Exportar" (CSV)
+                    $exportRows = $enrollments->map(function ($e) {
+                    $date = $e->applicationDate ?? null;
+                    });
                     @endphp
 
                     <div class="dashboard-card">
-                        {{-- Cabeçalho do cartão com o total de candidaturas --}}
                         <div class="dashboard-card-header py-4 px-4">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h6 class="mb-0">Candidaturas submetidas</h6>
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                                <div class="d-flex align-items-center gap-2">
+                                    <h5 class="mb-0">Candidaturas submetidas</h5>
 
-                                <span class="badge bg-primary-subtle text-primary">
-                                    {{ $enrollments->count() }}
-                                </span>
+                                    <span class="badge bg-primary-subtle text-primary">
+                                        {{ $enrollments->count() }}
+                                    </span>
+                                </div>
+
+                                <div class="d-flex flex-wrap gap-2">
+                                    <input type="search" id="enrollmentSearch" class="form-control"
+                                        placeholder="Pesquisar candidaturas..." aria-label="Pesquisar candidaturas"
+                                        style="width: 260px" @disabled($enrollments->isEmpty())>
+                                    <button type="button" id="exportEnrollments" class="btn btn-outline-primary"
+                                        @disabled($enrollments->isEmpty())>
+                                        <i class="bi bi-download me-1" aria-hidden="true"></i>Exportar
+                                    </button>
+                                    <a href="{{ route('enrollments.create') }}" class="btn btn-primary">
+                                        <i class="bi bi-plus me-1" aria-hidden="true"></i>Nova Candidatura
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
                         <div class="dashboard-card-body p-0">
-                            {{-- Estado vazio: quando não há candidaturas --}}
                             @if ($enrollments->isEmpty())
                             <div class="px-4 py-5 text-center">
                                 <div class="text-muted">
@@ -209,14 +190,14 @@
                                 </div>
                             </div>
                             @else
-                            {{-- Datatable de candidaturas (pesquisa, paginação e colunas) --}}
-                            <table id="enrollmentsTable" class="table table-hover align-middle mb-0" data-toggle="table"
-                                data-theme="bootstrap5" data-locale="pt-PT"
-                                data-classes="table table-hover align-middle mb-0" data-pagination="true"
-                                data-page-size="10" data-page-list="[10, 25, 50]" data-search="true">
+                            <table id="enrollmentsTable" class="table table-custom table-hover align-middle mb-0"
+                                data-toggle="table" data-theme="bootstrap5" data-locale="pt-PT"
+                                data-classes="table table-custom table-hover align-middle mb-0" data-pagination="true"
+                                data-page-size="10" data-page-list="[10, 25, 50]" data-search="true"
+                                data-search-selector="#enrollmentSearch">
                                 <thead>
                                     <tr>
-                                        <th scope="col" data-field="fullName">Nome completo</th>
+                                        <th scope="col" data-field="fullName">Candidato</th>
                                         <th scope="col" data-field="phone">Telefone</th>
                                         <th scope="col" data-field="course">Curso pretendido</th>
                                         <th scope="col" data-field="applicationDate">Data da candidatura</th>
@@ -228,24 +209,26 @@
                                 <tbody>
                                     @foreach ($enrollments as $enrollment)
                                     <tr>
-                                        <td>
-                                            <div class="fw-semibold">
-                                                {{ $enrollment->fullName ?? '—' }}
+                                        <td class="py-2">
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://ui-avatars.com/api/?name={{ urlencode($enrollment->fullName ?? 'Candidato') }}&background=6366f1&color=fff"
+                                                    alt="{{ $enrollment->fullName ?? 'Candidato' }}"
+                                                    class="student-avatar rounded-circle me-2"
+                                                    style="width: 32px; height: 32px; object-fit: cover;" loading="lazy"
+                                                    decoding="async">
+
+                                                <span class="student-name">{{ $enrollment->fullName ?? '—' }}</span>
                                             </div>
                                         </td>
-
-                                        <td class="text-nowrap">
+                                        <td class="text-nowrap py-2">
                                             {{ $enrollment->phone ?? '—' }}
                                         </td>
-
-                                        {{-- Curso obtido pela relação com Course --}}
-                                        <td>
+                                        <td class="py-2">
                                             {{ $enrollment->course
-                                            ? $enrollment->course->courseCode . ' - ' . $enrollment->course->courseName
-                                            : '—' }}
+                                            ? $enrollment->course->courseName
+                                            : ' — ' }}
                                         </td>
-                                        {{-- Data: aceita objeto de data ou texto e formata como dd/mm/aaaa --}}
-                                        <td class="text-nowrap">
+                                        <td class="text-nowrap py-2">
                                             @php
                                             $applicationDate = $enrollment->applicationDate ?? null;
                                             @endphp
@@ -258,18 +241,12 @@
                                             —
                                             @endif
                                         </td>
-
-                                        {{-- Ações: Detalhes, Aceitar e Eliminar --}}
-                                        <td class="text-center text-nowrap">
-                                            {{-- Ver detalhes da candidatura --}}
+                                        <td class="text-center text-nowrap py-2">
                                             <a class="btn-action btn-view"
                                                 href="{{ route('enrollments.show', $enrollment) }}" title="Detalhes"
                                                 aria-label="Detalhes">
                                                 <i aria-hidden="true" class="bi bi-eye"></i>
                                             </a>
-
-                                            {{-- Aceitar candidatura (POST protegido com CSRF) --}}
-                                            {{-- Aceitar candidatura --}}
                                             <form class="d-inline"
                                                 action="{{ route('enrollments.accept', $enrollment) }}" method="POST">
                                                 @csrf
@@ -278,8 +255,6 @@
                                                     <i aria-hidden="true" class="bi bi-check-circle"></i>
                                                 </button>
                                             </form>
-
-                                            {{-- Eliminar candidatura (DELETE com confirmação) --}}
                                             <form class="d-inline"
                                                 action="{{ route('enrollments.destroy', $enrollment) }}" method="POST"
                                                 onsubmit="return confirm('Tem a certeza de que pretende eliminar esta candidatura?');">
@@ -301,15 +276,41 @@
                 </div>
             </div>
         </main>
-
-        {{-- Rodapé --}}
-        {{--Rodapé--}}
         @include('layouts._include.dashboard.footer')
     </div>
 </div>
-
-{{-- Scripts da datatable (jQuery + Bootstrap Table + tradução pt-PT) --}}
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.6/dist/bootstrap-table.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.6/dist/locale/bootstrap-table-pt-PT.min.js"></script>
+<script>
+    const exportButton = document.getElementById('exportEnrollments');
+
+    if (exportButton) {
+        // Dados vindos do PHP (variável $exportRows)
+        const rows = @json($exportRows);
+
+        exportButton.addEventListener('click', function () {
+            if (rows.length === 0) return;
+
+            // Primeira linha do CSV: nomes das colunas (Nome, Email, ...)
+            const headers = Object.keys(rows[0]);
+            const lines = [headers.join(';')];
+
+            // Uma linha por candidatura, com os valores entre aspas
+            rows.forEach(function (row) {
+                const values = headers.map(function (h) {
+                    return '"' + String(row[h]).replace(/"/g, '""') + '"';
+                });
+                lines.push(values.join(';'));
+            });
+
+            // Cria o ficheiro e inicia o download (﻿ mantém os acentos no Excel)
+            const file = new Blob(['﻿' + lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(file);
+            link.download = 'candidaturas.csv';
+            link.click();
+        });
+    }
+</script>
 @endsection

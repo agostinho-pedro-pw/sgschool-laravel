@@ -8,16 +8,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('classes', function (Blueprint $table) {
-            $table->id('id_classe');
-            $table->string('nome_classe');
-            $table->text('descricao')->nullable();
+        Schema::create('class_levels', function (Blueprint $table) {
+            $table->id('classLevelId');
+            $table->string('classLevelName');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('classes');
+        Schema::dropIfExists('class_levels');
     }
 };

@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('enrollments', function (Blueprint $table) {
-            $table->string('biPath')->nullable();
-            $table->string('certificadoPath')->nullable();
+            $table->string('idPath')->nullable();
+            $table->string('certificatePath')->nullable();
         });
     }
 

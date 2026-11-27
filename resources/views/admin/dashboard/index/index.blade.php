@@ -145,7 +145,7 @@
                                 </div>
                             </div>
                             <div class="stat-value text-warning fw-bold mb-1" style="font-size: 2rem;">
-                                {{ $totalInscritos }}</div>
+                                {{ $totalEnrollments }}</div> <!-- Total de inscritos no sistema-->
                             <div class="stat-label text-muted mb-2">Total de inscrições</div>
                             <div class="stat-change text-success small fw-semibold">
                                 <!--<i class="bi bi-arrow-up" style="font-size: 12px;"></i> +3-->
@@ -162,6 +162,7 @@
                                 </div>
                             </div>
                             <div class="stat-value text-primary fw-bold mb-1" style="font-size: 2rem;">9,284</div>
+                            <!-- Total de inscritos no sistema-->
                             <div class="stat-label text-muted mb-2">Matriculados</div>
                             <div class="stat-change text-success small fw-semibold">
                                 <!--<i class="bi bi-arrow-up" style="font-size: 12px;"></i> +412-->
@@ -177,8 +178,8 @@
                                     <i class="bi bi-book-half" style="font-size: 24px; color: #198754;"></i>
                                 </div>
                             </div>
-                            <div class="stat-value text-success fw-bold mb-1" style="font-size: 2rem;">{{ $totalCursos
-                                }}</div>
+                            <div class="stat-value text-success fw-bold mb-1" style="font-size: 2rem;">{{ $totalCourses
+                                }}</div><!-- Total de inscritos no sistema-->
                             <div class="stat-label text-muted mb-2">Total de Cursos</div>
                             <div class="stat-change text-success small fw-semibold">
                                 <!--<i class="bi bi-arrow-up" style="font-size: 12px;"></i> +8-->
@@ -195,7 +196,7 @@
                                 </div>
                             </div>
                             <div class="stat-value text-info fw-bold mb-1" style="font-size: 2rem;">
-                                {{ $totalDepartamentos }}</div>
+                                {{ $totalDepartments }}</div><!-- Total de inscritos no sistema-->
                             <div class="stat-label text-muted mb-2">Total de Departamentos</div>
                             <div class="stat-change text-success small fw-semibold">
                                 <!--<i class="bi bi-arrow-up" style="font-size: 12px;"></i> +0.3-->

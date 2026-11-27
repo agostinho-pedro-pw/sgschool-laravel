@@ -4,26 +4,27 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\SchoolClass;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ClassLevel extends Model
 {
     use HasFactory;
 
-    // Nome da tabela usada por este model.
-    protected $table = 'classes';
+    protected $table = 'class_levels';
 
-    // Chave primária personalizada da tabela.
-    protected $primaryKey = 'id_classe';
+    protected $primaryKey = 'classLevelId';
 
-    // Campos que podem ser guardados pelo controller.
     protected $fillable = [
-        'nome_classe',
-        'descricao',
+        'classLevelName',
+        'description',
     ];
 
-    public function schoolClasses()
+    public function schoolClasses(): HasMany
     {
-        return $this->hasMany(SchoolClass::class, 'class_level_id', 'id_classe');
+        return $this->hasMany(
+            SchoolClass::class,
+            'class_level_id',
+            'classLevelId'
+        );
     }
 }

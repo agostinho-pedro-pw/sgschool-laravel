@@ -22,8 +22,8 @@ class Enrollment extends Model
         'course_id',
         'applicationDate',
         'status',
-        'biPath',
-        'certificadoPath',
+        'idPath',
+        'certificatePath',
     ];
 
     public const PERIODS = [

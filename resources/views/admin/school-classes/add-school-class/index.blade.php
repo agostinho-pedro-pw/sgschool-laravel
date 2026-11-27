@@ -93,7 +93,7 @@ $periodos = ['manhã', 'tarde', 'noite'];
 
             <div class="class-form-card">
                 <div class="class-form-card-body">
-                    <form action="{{ route('school-classes.store') }}" method="POST">
+                    <form action="{{ route('schoolClasses.store') }}" method="POST">
                         @csrf
 
                         <div class="row g-3">

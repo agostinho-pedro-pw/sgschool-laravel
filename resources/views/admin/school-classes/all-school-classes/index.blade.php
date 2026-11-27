@@ -114,7 +114,7 @@
                     <h1 class="h3 fw-bold mb-1">Listar Turmas</h1>
                     <p class="text-muted mb-0">Gerir as turmas da instituição.</p>
                 </div>
-                <a href="{{ route('school-classes.create') }}" class="btn btn-primary">Adicionar Classe</a>
+                <a href="{{ route('schoolClasses.create') }}" class="btn btn-primary">Adicionar Classe</a>
             </div>
 
             <div class="dashboard-card">
@@ -147,13 +147,13 @@
                                     <ul class="dropdown-menu">
                                         <li>
                                             <a class="dropdown-item"
-                                                href="{{ route('school-classes.show', $schoolClass) }}">
+                                                href="{{ route('schoolClasses.show', $schoolClass) }}">
                                                 <i class="bi bi-eye me-2"></i>Detalhes
                                             </a>
                                         </li>
                                         <li>
                                             <a class="dropdown-item"
-                                                href="{{ route('school-classes.edit', $schoolClass) }}">
+                                                href="{{ route('schoolClasses.edit', $schoolClass) }}">
                                                 <i class="bi bi-pencil me-2"></i>Editar
                                             </a>
                                         </li>
@@ -161,7 +161,7 @@
                                             <hr class="dropdown-divider">
                                         </li>
                                         <li>
-                                            <form action="{{ route('school-classes.destroy', $schoolClass) }}"
+                                            <form action="{{ route('schoolClasses.destroy', $schoolClass) }}"
                                                 method="POST"
                                                 onsubmit="return confirm('Eliminar esta classe escolar?');">
                                                 @csrf

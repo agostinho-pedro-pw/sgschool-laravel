@@ -7,65 +7,69 @@ use Illuminate\Http\Request;
 
 class ClassLevelController extends Controller
 {
-    // Lista as classes por ordem alfabética.
+    // Lista os níveis de classe por ordem alfabética.
     public function index()
     {
-        $classLevels = ClassLevel::orderBy('nome_classe')->get();
+        $classLevels = ClassLevel::orderBy('classLevelName')->get();
 
         return view('admin.grade.all-grade.index', compact('classLevels'));
     }
 
-    // Mostra o formulário para criar uma classe.
+    // Mostra o formulário para criar um nível de classe.
     public function create()
     {
         return view('admin.grade.add-grade.index');
     }
 
-    // Guarda uma nova classe.
+    // Guarda um novo nível de classe.
     public function store(Request $request)
     {
-        ClassLevel::create($request->only([
-            'nome_classe',
-            'descricao',
-        ]));
+        $validated = $request->validate([
+            'classLevelName' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+        ]);
+
+        ClassLevel::create($validated);
 
         return redirect()
-            ->route('classes.index')
-            ->with('success', 'Classe criada com sucesso.');
+            ->route('class-levels.index')
+            ->with('success', 'Nível de classe criado com sucesso.');
     }
 
-    // Mostra os detalhes de uma classe.
+    // Mostra os detalhes de um nível de classe.
     public function show(ClassLevel $classLevel)
     {
         return view('admin.classes.class-info.index', compact('classLevel'));
     }
 
-    // Mostra o formulário para editar uma classe.
+    // Mostra o formulário para editar um nível de classe.
     public function edit(ClassLevel $classLevel)
     {
         return view('admin.classes.edit-class.index', compact('classLevel'));
     }
 
-    // Atualiza os dados de uma classe.
+    // Atualiza um nível de classe.
     public function update(Request $request, ClassLevel $classLevel)
     {
-        $classLevel->update($request->only([
-            'nome_classe',
-            'descricao',
-        ]));
+        $validated = $request->validate([
+            'classLevelName' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+        ]);
+
+        $classLevel->update($validated);
 
         return redirect()
-            ->route('classes.index')
-            ->with('success', 'Classe atualizada com sucesso.');
+            ->route('class-levels.index')
+            ->with('success', 'Nível de classe atualizado com sucesso.');
     }
 
-    // Elimina uma classe.
+    // Elimina um nível de classe.
     public function destroy(ClassLevel $classLevel)
     {
         $classLevel->delete();
 
         return redirect()
-            ->route('classes.index')
-            ->with('success', 'Classe eliminada com sucesso.');
+            ->route('class-levels.index')
+            ->with('success', 'Nível de classe eliminado com sucesso.');
     }
 }
