@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\SchoolClass;
 
 class ClassLevel extends Model
 {
@@ -20,4 +21,9 @@ class ClassLevel extends Model
         'nome_classe',
         'descricao',
     ];
+
+    public function schoolClasses()
+    {
+        return $this->hasMany(SchoolClass::class, 'class_level_id', 'id_classe');
+    }
 }

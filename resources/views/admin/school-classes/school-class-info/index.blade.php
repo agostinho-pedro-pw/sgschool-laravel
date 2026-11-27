@@ -70,7 +70,8 @@
 
                         <div class="col-md-6 col-xl-4">
                             <span class="small text-muted d-block">Classe</span>
-                            <span class="fw-semibold">{{ $schoolClass->classe }}</span>
+                            <span class="fw-semibold">{{ $schoolClass->classLevel?->nome_classe ?? 'Sem classe
+                                associada' }}</span>
                         </div>
 
                         <div class="col-md-6 col-xl-4">

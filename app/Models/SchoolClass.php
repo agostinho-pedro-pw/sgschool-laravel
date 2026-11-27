@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\ClassLevel;
 
 class SchoolClass extends Model
 {
@@ -16,6 +17,7 @@ class SchoolClass extends Model
         'course_id',
         'periodo',
         'room_id',
+        'class_level_id',
     ];
 
     // Cada turma pertence a um curso
@@ -28,5 +30,10 @@ class SchoolClass extends Model
     public function room(): BelongsTo
     {
         return $this->belongsTo(Room::class, 'room_id', 'id_sala');
+    }
+    // Cada turma pertence a uma classe
+    public function classLevel()
+    {
+        return $this->belongsTo(ClassLevel::class, 'class_level_id', 'id_classe');
     }
 }

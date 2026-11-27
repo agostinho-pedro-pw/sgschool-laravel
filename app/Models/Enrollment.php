@@ -26,12 +26,6 @@ class Enrollment extends Model
         'certificadoPath',
     ];
 
-    public const ROOMS = [
-        'Sala-01',
-        'Sala-02',
-        'Sala-03',
-    ];
-
     public const PERIODS = [
         'manhã' => 'Manhã',
         'tarde' => 'Tarde',

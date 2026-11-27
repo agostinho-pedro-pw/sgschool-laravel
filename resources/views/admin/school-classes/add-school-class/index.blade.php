@@ -52,7 +52,6 @@
 @section('content')
 @php
 // Declaração de variáveis constantes no projeto
-$classes = ['10.ª', '11.ª', '12.ª', '13.ª'];
 $periodos = ['manhã', 'tarde', 'noite'];
 @endphp
 
@@ -105,12 +104,14 @@ $periodos = ['manhã', 'tarde', 'noite'];
                                     value="{{ old('nomeTurma') }}" placeholder="Ex.: 10.ª A" required>
                             </div>
                             <div class="col-md-6">
-                                <label for="classe" class="form-label">Classe <span class="text-danger">*</span></label>
-                                <select class="form-select" id="classe" name="classe" required>
-                                    <option value="">Selecione a classe</option>
-                                    @foreach ($classes as $classe)
-                                    <option value="{{ $classe }}" @selected(old('classe')===$classe)>
-                                        {{ $classe }}
+                                <label for="class_level_id" class="form-label">Classe</label>
+
+                                <select name="class_level_id" id="class_level_id" class="form-select">
+                                    <option value="">Selecione uma classe</option>
+
+                                    @foreach ($classLevels as $classLevel)
+                                    <option value="{{ $classLevel->id_classe }}">
+                                        {{ $classLevel->nome_classe }}
                                     </option>
                                     @endforeach
                                 </select>

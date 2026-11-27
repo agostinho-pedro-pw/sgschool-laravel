@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('gender', 20);
             $table->string('course_id');
+            $table->string('status')->default('pending');
             $table->date('applicationDate');
             $table->timestamps();
             $table->softDeletes();

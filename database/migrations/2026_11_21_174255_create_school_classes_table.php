@@ -23,7 +23,10 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('rooms', 'id_sala')
                 ->nullOnDelete();
-
+            $table->foreignId('class_level_id')
+                ->nullable()
+                ->constrained('classes', 'id_classe')
+                ->nullOnDelete();
             $table->timestamps();
         });
     }

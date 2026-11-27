@@ -134,7 +134,6 @@
                         @forelse ($schoolClasses as $schoolClass)
                         <tr>
                             <td class="fw-semibold">{{ $schoolClass->nomeTurma }}</td>
-                            <td>{{ $schoolClass->anoLetivo }}</td>
                             <td>{{ $schoolClass->classe }}</td>
                             <td>{{ $schoolClass->curso }}</td>
                             <td>{{ ucfirst($schoolClass->periodo) }}</td>

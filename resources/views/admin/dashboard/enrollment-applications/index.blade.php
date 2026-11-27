@@ -111,6 +111,17 @@
         padding: 0 1rem;
     }
 
+    /*
+    .btn-accept {
+        color: #2563eb;
+        background-color: #eff6ff;
+    }
+
+    .btn-accept:hover {
+        color: #ffffff;
+        background-color: #2563eb;
+    }
+*/
     @media (max-width: 575.98px) {
         .enrollment-page .fixed-table-toolbar .search {
             min-width: 0;
@@ -258,6 +269,7 @@
                                             </a>
 
                                             {{-- Aceitar candidatura (POST protegido com CSRF) --}}
+                                            {{-- Aceitar candidatura --}}
                                             <form class="d-inline"
                                                 action="{{ route('enrollments.accept', $enrollment) }}" method="POST">
                                                 @csrf

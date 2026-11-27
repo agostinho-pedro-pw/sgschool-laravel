@@ -85,7 +85,7 @@
                 <h1 class="h3 fw-bold mb-1">Editar Classe Escolar</h1>
                 <p class="text-muted mb-0">Atualize os dados da classe escolar.</p>
             </div>
-
+            {{-- Alerta com Bootstrap --}}
             @if ($errors->any())
             <div class="alert alert-danger" role="alert">
                 <ul class="mb-0">
@@ -109,23 +109,12 @@
                                     value="{{ old('nomeTurma', $schoolClass->nomeTurma) }}" required>
                             </div>
                             <div class="col-md-6">
-                                <label for="anoLetivo" class="form-label">Ano Letivo <span
-                                        class="text-danger">*</span></label>
-                                <select class="form-select" id="anoLetivo" name="anoLetivo" required>
-                                    @for ($ano = 2026; $ano <= 2035; $ano++) @php $anoLetivo=$ano . '/' . ($ano + 1);
-                                        @endphp <option value="{{ $anoLetivo }}" @selected(old('anoLetivo',
-                                        $schoolClass->anoLetivo) === $anoLetivo)>
-                                        {{ $anoLetivo }}
-                                        </option>
-                                        @endfor
-                                </select>
-                            </div>
-                            <div class="col-md-6">
                                 <label for="classe" class="form-label">Classe <span class="text-danger">*</span></label>
                                 <select class="form-select" id="classe" name="classe" required>
-                                    @foreach (['10.ª', '11.ª', '12.ª', '13.ª classe'] as $classe)
-                                    <option value="{{ $classe }}" @selected(old('classe', $schoolClass->classe) ===
-                                        $classe)>{{ $classe }}</option>
+                                    @foreach ($classLevels as $classLevel)
+                                    <option value="{{ $classLevel->id_classe }}">
+                                        {{ $classLevel->nome_classe }}
+                                    </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -153,12 +142,15 @@
                                 @endforeach
                             </div>
                             <div class="col-md-6">
-                                <label for="sala" class="form-label">Sala <span class="text-danger">*</span></label>
-                                <select class="form-select" id="sala" name="sala" required>
-                                    @for ($numero = 1; $numero <= 12; $numero++) @php $sala='Sala-' . str_pad($numero,
-                                        2, '0' , STR_PAD_LEFT); @endphp <option value="{{ $sala }}"
-                                        @selected(old('sala', $schoolClass->sala) === $sala)>{{ $sala }}</option>
-                                        @endfor
+                                <label for="room_id" class="form-label">Sala</label>
+                                <select class="form-select" id="room_id" name="room_id">
+                                    <option value="">Selecione uma sala</option>
+                                    {{-- As salas são obtidas a partir da entidade Sala --}}
+                                    @foreach ($rooms as $room)
+                                    <option value="{{ $room->id_sala }}" @selected(old('room_id')==$room->id_sala)>
+                                        {{ $room->designacao }}
+                                    </option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-12">

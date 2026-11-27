@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\Room;
 use App\Models\SchoolClass;
 use Illuminate\Http\Request;
+use App\Models\ClassLevel;
 
 class SchoolClassController extends Controller
 {
@@ -24,7 +25,8 @@ class SchoolClassController extends Controller
     {
         return view('admin.school-classes.add-school-class.index', [
             'courses' => Course::orderBy('courseName')->get(),
-            'rooms'   => Room::orderBy('designacao')->get(),
+            'rooms' => Room::orderBy('designacao')->get(),
+            'classLevels' => ClassLevel::orderBy('nome_classe')->get(),
         ]);
     }
 
@@ -36,7 +38,8 @@ class SchoolClassController extends Controller
             'classe',
             'course_id',
             'periodo',
-            'room_id', // FK com a tabela rooms
+            'room_id',
+            'class_level_id', // FK com a tabela rooms
         ]));
 
         return redirect()
@@ -47,7 +50,7 @@ class SchoolClassController extends Controller
     // Mostra os detalhes de uma Turma
     public function show(SchoolClass $schoolClass)
     {
-        $schoolClass->load(['course', 'room']);
+        $schoolClass->load(['course', 'room', 'classLevel']);
 
         return view('admin.school-classes.school-class-info.index', compact('schoolClass'));
     }
@@ -59,6 +62,7 @@ class SchoolClassController extends Controller
             'schoolClass' => $schoolClass,
             'courses'     => Course::orderBy('courseName')->get(),
             'rooms'       => Room::orderBy('designacao')->get(),
+            'classLevels' => ClassLevel::orderBy('nome_classe')->get(),
         ]);
     }
 
@@ -71,6 +75,7 @@ class SchoolClassController extends Controller
             'course_id',
             'periodo',
             'room_id', // FK com a tabela rooms
+            'class_level_id', // FK com a tabela rooms
         ]));
 
         return redirect()
